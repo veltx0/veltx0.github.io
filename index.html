@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#09060e">
-  <meta name="description" content="VELTRONIX - Tecnologia que impulsiona negócios. Desenvolvimento de sites, aplicativos e sistemas.">
+  <meta name="description" content="VELTRONIX - Desenvolvimento de sites profissionais e suporte digital. Tecnologia que impulsiona negócios.">
 
   <title>VELTRONIX | Tecnologia que impulsiona negócios</title>
 
@@ -54,7 +54,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(9,6,14,.92);
+      background: rgba(9,6,14,.94);
       backdrop-filter: blur(15px);
       border-bottom: 1px solid var(--border);
     }
@@ -158,11 +158,13 @@
       font-size: 13px;
       font-weight: 700;
       transition: .25s;
+      cursor: pointer;
     }
 
     .btn-primary {
       background: linear-gradient(100deg, #9333ea, #c026d3);
       box-shadow: 0 0 25px rgba(168,85,247,.25);
+      color: white;
     }
 
     .btn-primary:hover {
@@ -205,14 +207,17 @@
       font-size: 14px;
     }
 
-    .services {
+    .services,
+    .portfolio {
       background: #0e0915;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
+      max-width: 850px;
+      margin: auto;
     }
 
     .card {
@@ -288,15 +293,17 @@
       text-shadow: 0 0 45px var(--purple);
     }
 
-    .portfolio {
-      background: #0e0915;
-    }
-
     .project {
       background: #160e20;
       border: 1px solid var(--border);
       border-radius: 15px;
       overflow: hidden;
+      transition: .3s;
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+      border-color: var(--purple);
     }
 
     .project-visual {
@@ -318,6 +325,13 @@
     .project-info p {
       color: var(--muted);
       font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .project-link {
+      color: var(--neon);
+      font-size: 12px;
+      font-weight: 700;
     }
 
     .contact {
@@ -352,6 +366,45 @@
 
     footer strong {
       color: var(--neon);
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 999;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: #25D366;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 25px rgba(37,211,102,.35);
+      transition: .3s;
+    }
+
+    .whatsapp-float svg {
+      width: 32px;
+      height: 32px;
+      fill: currentColor;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 35px rgba(37,211,102,.55);
+    }
+
+    .whatsapp-float span {
+      font-size: 11px;
+      position: absolute;
+      right: 72px;
+      background: #21102f;
+      color: white;
+      padding: 7px 11px;
+      border-radius: 7px;
+      white-space: nowrap;
     }
 
     @media (max-width: 760px) {
@@ -395,6 +448,17 @@
       section {
         padding: 70px 0;
       }
+
+      .whatsapp-float {
+        width: 56px;
+        height: 56px;
+        right: 16px;
+        bottom: 16px;
+      }
+
+      .whatsapp-float span {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -406,7 +470,8 @@
     <nav>
       <a href="#inicio" class="logo">VELTRONI<span>X</span></a>
 
-      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <button class="menu-btn" id="menuBtn"
+        aria-label="Abrir menu" aria-expanded="false">☰</button>
 
       <ul class="nav-links" id="navLinks">
         <li><a href="#inicio">Início</a></li>
@@ -421,9 +486,11 @@
 
 <main>
 
+  <!-- INÍCIO -->
   <section class="hero" id="inicio">
     <div class="container">
       <div class="hero-content">
+
         <span class="tag">TECNOLOGIA E INOVAÇÃO</span>
 
         <h1>
@@ -432,24 +499,38 @@
         </h1>
 
         <p>
-          Desenvolvemos sites, aplicativos e sistemas digitais
-          para transformar ideias em soluções modernas e eficientes.
+          Desenvolvemos sites profissionais e soluções digitais
+          para transformar ideias em experiências modernas,
+          funcionais e eficientes.
         </p>
 
         <div class="buttons">
-          <a href="#contato" class="btn btn-primary">Solicitar orçamento ↗</a>
-          <a href="#servicos" class="btn btn-outline">Conhecer serviços</a>
+          <a href="https://wa.me/5521974994201?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20VELTRONIX%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento."
+            class="btn btn-primary"
+            target="_blank"
+            rel="noopener noreferrer">
+            Solicitar orçamento ↗
+          </a>
+
+          <a href="#servicos" class="btn btn-outline">
+            Conhecer serviços
+          </a>
         </div>
+
       </div>
     </div>
   </section>
 
+  <!-- SERVIÇOS -->
   <section class="services" id="servicos">
     <div class="container">
+
       <div class="section-title">
         <small>O QUE FAZEMOS</small>
         <h2>Nossas soluções</h2>
-        <p>Tecnologia pensada para as necessidades do seu negócio.</p>
+        <p>
+          Tecnologia pensada para as necessidades do seu negócio.
+        </p>
       </div>
 
       <div class="grid">
@@ -457,53 +538,38 @@
         <article class="card">
           <div class="card-icon">⌘</div>
           <h3>Sites profissionais</h3>
-          <p>Sites modernos, institucionais e páginas de vendas para apresentar sua empresa na internet.</p>
-        </article>
-
-        <article class="card">
-          <div class="card-icon">▣</div>
-          <h3>Aplicativos</h3>
-          <p>Experiências digitais para aproximar empresas de seus clientes.</p>
-        </article>
-
-        <article class="card">
-          <div class="card-icon">⌗</div>
-          <h3>Sistemas personalizados</h3>
-          <p>Soluções para organizar pedidos, clientes, estoque e operações empresariais.</p>
-        </article>
-
-        <article class="card">
-          <div class="card-icon">✧</div>
-          <h3>Inteligência artificial</h3>
-          <p>Automação e recursos inteligentes para simplificar tarefas do dia a dia.</p>
-        </article>
-
-        <article class="card">
-          <div class="card-icon">◈</div>
-          <h3>Lojas virtuais</h3>
-          <p>Estruturas digitais para apresentar produtos e receber pedidos online.</p>
+          <p>
+            Sites modernos, institucionais e páginas de apresentação
+            para destacar sua empresa na internet.
+          </p>
         </article>
 
         <article class="card">
           <div class="card-icon">⚙</div>
           <h3>Suporte e manutenção</h3>
-          <p>Atualizações, melhorias e manutenção de projetos digitais.</p>
+          <p>
+            Atualizações, correções e melhorias para manter
+            seu site funcionando corretamente.
+          </p>
         </article>
 
       </div>
     </div>
   </section>
 
+  <!-- SOBRE -->
   <section id="sobre">
     <div class="container about">
+
       <div>
         <span class="tag">QUEM SOMOS</span>
+
         <h2>Ideias conectadas ao futuro.</h2>
 
         <p>
-          A VELTRONIX é uma marca de tecnologia focada no
-          desenvolvimento de soluções digitais para empresas
-          e empreendedores.
+          A VELTRONIX é uma empresa de tecnologia focada no
+          desenvolvimento de sites profissionais e soluções
+          digitais para empresas e empreendedores.
         </p>
 
         <p>
@@ -511,7 +577,12 @@
           digitais funcionais, modernos e acessíveis.
         </p>
 
-        <a href="#contato" class="btn btn-primary">Fale conosco ↗</a>
+        <a href="https://wa.me/5521974994201?text=Ol%C3%A1%21%20Gostaria%20de%20conhecer%20os%20servi%C3%A7os%20da%20VELTRONIX."
+          class="btn btn-primary"
+          target="_blank"
+          rel="noopener noreferrer">
+          Fale conosco ↗
+        </a>
       </div>
 
       <div class="about-box">
@@ -521,68 +592,121 @@
           <p>Tecnologia que impulsiona negócios.</p>
         </div>
       </div>
+
     </div>
   </section>
 
+  <!-- PORTFÓLIO -->
   <section class="portfolio" id="portfolio">
     <div class="container">
+
       <div class="section-title">
         <small>NOSSOS TRABALHOS</small>
         <h2>Portfólio</h2>
-        <p>Conheça alguns projetos da nossa trajetória.</p>
+        <p>
+          Conheça projetos e acompanhe nossa evolução.
+        </p>
       </div>
 
       <div class="grid">
+
         <article class="project">
           <div class="project-visual">🍔</div>
+
           <div class="project-info">
             <h3>VF Filhos Lanches</h3>
-            <p>Projeto de site para apresentação de produtos e serviços de uma lanchonete.</p>
+
+            <p>
+              Projeto de desenvolvimento de site para apresentação
+              de produtos e serviços de uma lanchonete.
+            </p>
+
+            <span class="project-link">
+              Projeto desenvolvido
+            </span>
           </div>
         </article>
 
         <article class="project">
           <div class="project-visual">✦</div>
+
           <div class="project-info">
-            <h3>Novos projetos</h3>
-            <p>Estamos preparando novas soluções digitais.</p>
+            <h3>Seu próximo projeto</h3>
+
+            <p>
+              Podemos desenvolver um site profissional
+              para apresentar sua empresa.
+            </p>
+
+            <a href="https://wa.me/5521974994201?text=Ol%C3%A1%21%20Tenho%20interesse%20em%20desenvolver%20um%20site%20com%20a%20VELTRONIX."
+              class="project-link"
+              target="_blank"
+              rel="noopener noreferrer">
+              Vamos conversar ↗
+            </a>
           </div>
         </article>
 
-        <article class="project">
-          <div class="project-visual">⌘</div>
-          <div class="project-info">
-            <h3>Seu próximo projeto</h3>
-            <p>Podemos desenvolver uma solução para sua empresa.</p>
-          </div>
-        </article>
       </div>
     </div>
   </section>
 
+  <!-- CONTATO -->
   <section class="contact" id="contato">
     <div class="container">
-      <div class="contact-box">
-        <span class="tag">VAMOS CONVERSAR?</span>
-        <h2>Seu próximo projeto começa aqui.</h2>
-        <p>Entre em contato e conte sua ideia para a VELTRONIX.</p>
 
-        <a href="mailto:contato@veltronix.com.br"
-           class="btn btn-primary">
-          Enviar um e-mail ↗
+      <div class="contact-box">
+
+        <span class="tag">VAMOS CONVERSAR?</span>
+
+        <h2>Seu próximo projeto começa aqui.</h2>
+
+        <p>
+          Entre em contato e conte sua ideia para a VELTRONIX.
+          Estamos prontos para conhecer seu projeto.
+        </p>
+
+        <a href="https://wa.me/5521974994201?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20VELTRONIX%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento."
+          class="btn btn-primary"
+          target="_blank"
+          rel="noopener noreferrer">
+          Solicitar orçamento pelo WhatsApp ↗
         </a>
+
       </div>
     </div>
   </section>
 
 </main>
 
+<!-- RODAPÉ -->
 <footer>
   <div class="container">
-    <p><strong>VELTRONIX</strong> © <span id="year"></span> — Todos os direitos reservados.</p>
+    <p>
+      <strong>VELTRONIX</strong> ©
+      <span id="year"></span> — Todos os direitos reservados.
+    </p>
+
     <p>Tecnologia que impulsiona negócios.</p>
   </div>
 </footer>
+
+<!-- BOTÃO FLUTUANTE WHATSAPP -->
+<a
+  href="https://wa.me/5521974994201?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20VELTRONIX%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento."
+  class="whatsapp-float"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Fale com a VELTRONIX pelo WhatsApp"
+  title="Fale conosco pelo WhatsApp">
+
+  <span>Fale conosco!</span>
+
+  <svg viewBox="0 0 32 32" aria-hidden="true">
+    <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.73 6.47L3 29l6.79-1.77a13.1 13.1 0 0 0 6.23 1.57h.01c7.17 0 13-5.8 13-12.92 0-3.46-1.35-6.7-3.81-9.14A12.94 12.94 0 0 0 16.02 3zm.01 23.6h-.01a10.8 10.8 0 0 1-5.5-1.5l-.4-.24-4.03 1.05 1.08-3.92-.26-.41a10.64 10.64 0 0 1-1.65-5.66c0-5.88 4.84-10.66 10.78-10.66 2.88 0 5.59 1.12 7.62 3.14a10.55 10.55 0 0 1 3.16 7.52c0 5.88-4.84 10.68-10.79 10.68zm5.91-7.98c-.32-.16-1.91-.94-2.21-1.05-.3-.1-.52-.16-.74.16-.22.32-.84 1.05-1.03 1.26-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.57-.95-.83-1.59-1.85-1.78-2.17-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.11-.21.05-.4-.03-.56-.08-.16-.74-1.76-1.01-2.41-.26-.63-.53-.54-.74-.55h-.63c-.22 0-.57.08-.87.4-.3.32-1.14 1.1-1.14 2.69 0 1.59 1.17 3.13 1.33 3.35.16.21 2.3 3.49 5.57 4.89.78.33 1.39.53 1.86.68.78.25 1.49.22 2.05.13.63-.09 1.91-.78 2.18-1.54.27-.75.27-1.4.19-1.54-.08-.14-.3-.22-.62-.38z"/>
+  </svg>
+
+</a>
 
 <script>
   const menuBtn = document.getElementById('menuBtn');
@@ -590,6 +714,7 @@
 
   menuBtn.addEventListener('click', () => {
     const opened = navLinks.classList.toggle('active');
+
     menuBtn.setAttribute('aria-expanded', opened);
     menuBtn.textContent = opened ? '✕' : '☰';
   });
