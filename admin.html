@@ -1,291 +1,360 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#08060d">
-  <title>Painel Administrativo | VELTRONIX</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: #08060d;
-      color: #fff;
-      font-family: Arial, sans-serif;
-    }
-    button, input { font: inherit; }
-    .container {
-      width: min(100% - 32px, 1050px);
-      margin: 0 auto;
-    }
-    header {
-      border-bottom: 1px solid #282033;
-      padding: 22px 0;
-    }
-    .brand { font-size: 25px; font-weight: 900; }
-    .brand span { color: #a855f7; }
-    .login-area {
-      min-height: 80vh;
-      display: grid;
-      place-items: center;
-    }
-    .card {
-      width: 100%;
-      max-width: 420px;
-      padding: 32px;
-      background: #130f1c;
-      border: 1px solid #342345;
-      border-radius: 18px;
-    }
-    h1 { margin-top: 0; }
-    p { color: #aaa3b5; line-height: 1.6; }
-    label {
-      display: block;
-      margin: 18px 0 8px;
-      color: #ddd;
-    }
-    input {
-      width: 100%;
-      padding: 14px;
-      color: white;
-      background: #09070e;
-      border: 1px solid #49345d;
-      border-radius: 9px;
-      outline: none;
-    }
-    input:focus { border-color: #a855f7; }
-    button {
-      cursor: pointer;
-      border: 0;
-      border-radius: 9px;
-      padding: 14px 20px;
-      color: white;
-      background: #7000d9;
-      font-weight: bold;
-    }
-    button:hover { background: #8b20f5; }
-    .primary { width: 100%; margin-top: 22px; }
-    #message { min-height: 24px; color: #f0a3a3; }
-    #dashboard { display: none; padding: 35px 0; }
-    .top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-      margin: 25px 0;
-    }
-    .stat, .panel {
-      background: #130f1c;
-      border: 1px solid #342345;
-      border-radius: 14px;
-      padding: 22px;
-    }
-    .number { font-size: 30px; font-weight: bold; color: #c084fc; }
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; min-width: 600px; }
-    th, td {
-      padding: 14px;
-      border-bottom: 1px solid #342345;
-      text-align: left;
-    }
-    th { color: #c084fc; }
-    .muted { color: #aaa3b5; }
-    .logout { background: #30243c; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08060d">
+<title>Painel Administrativo | VELTRONIX</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#08060d;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+header{
+  padding:22px 5%;
+  border-bottom:1px solid #282033;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.brand{font-size:25px;font-weight:900}
+.brand span{color:#b65cff}
+.container{
+  width:min(1100px,92%);
+  margin:40px auto;
+}
+h1{font-size:30px;margin-bottom:12px}
+.muted{color:#9993a5}
+.card{
+  background:#110d19;
+  border:1px solid #30213e;
+  border-radius:15px;
+  padding:25px;
+  margin:22px 0;
+}
+input{
+  width:100%;
+  padding:14px;
+  margin:10px 0 18px;
+  border:1px solid #42304f;
+  border-radius:9px;
+  background:#09070e;
+  color:#fff;
+  outline:none;
+}
+input:focus{border-color:#b65cff}
+button{
+  border:0;
+  padding:13px 20px;
+  border-radius:9px;
+  color:white;
+  font-weight:bold;
+  background:linear-gradient(100deg,#7624bd,#b65cff);
+}
+button:disabled{opacity:.5}
+.logout{background:#35253f}
+.login{
+  width:min(430px,92%);
+  margin:90px auto;
+}
+label{display:block;color:#d6c8e2}
+#loginStatus,#status{
+  margin-top:15px;
+  color:#c084fc;
+  line-height:1.5;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+.stat strong{
+  display:block;
+  color:#bd73ff;
+  font-size:38px;
+  margin-top:15px;
+}
+.quote{
+  border:1px solid #352443;
+  background:#0c0911;
+  border-radius:12px;
+  padding:20px;
+  margin:15px 0;
+}
+.quote h3{color:#c084fc;margin-bottom:12px}
+.quote p{color:#d5d0dc;line-height:1.7;overflow-wrap:anywhere}
+.quote button{margin-top:15px}
+.empty{padding:25px;text-align:center;color:#aaa}
+.hidden{display:none!important}
+@media(max-width:650px){
+  .stats{grid-template-columns:1fr}
+  header{padding:18px 4%}
+  h1{font-size:25px}
+  .container{margin:25px auto}
+  .card{padding:18px}
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <div class="container brand">VELTRON<span>IX</span></div>
+  <div class="brand">VELTRONI<span>X</span></div>
+  <span class="muted">ADMINISTRAÇÃO</span>
 </header>
 
-<main class="container">
+<section id="loginArea" class="login">
+  <div class="card">
+    <h1>Acessar painel</h1>
+    <p class="muted">Entre com sua conta administrativa.</p>
 
-  <section class="login-area" id="loginArea">
-    <div class="card">
-      <h1>Área administrativa</h1>
-      <p>Entre com sua conta de administrador da VELTRONIX.</p>
+    <form id="loginForm">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" placeholder="Seu e-mail" required>
 
-      <form id="loginForm">
-        <label for="email">E-mail</label>
-        <input id="email" type="email" required autocomplete="username"
-          placeholder="Seu e-mail">
+      <label for="password">Senha</label>
+      <input id="password" type="password" placeholder="Sua senha" required>
 
-        <label for="password">Senha</label>
-        <input id="password" type="password" required
-          autocomplete="current-password" placeholder="Sua senha">
+      <button id="loginButton" type="submit" style="width:100%">
+        Entrar no painel
+      </button>
+    </form>
 
-        <button class="primary" type="submit" id="loginButton">
-          Entrar no painel
-        </button>
-      </form>
-      <p id="message" role="status"></p>
+    <p id="loginStatus"></p>
+  </div>
+</section>
+
+<main id="dashboard" class="container hidden">
+  <h1>Painel VELTRONIX</h1>
+  <p class="muted">Conectado como <span id="userEmail"></span></p>
+
+  <div style="margin-top:22px">
+    <button class="logout" id="logoutButton">Sair da conta</button>
+    <button id="refreshButton" style="margin-left:8px">Atualizar</button>
+  </div>
+
+  <section class="stats">
+    <div class="card stat">
+      <p class="muted">Total de orçamentos</p>
+      <strong id="totalQuotes">0</strong>
+    </div>
+    <div class="card stat">
+      <p class="muted">Clientes cadastrados</p>
+      <strong id="totalClients">0</strong>
+    </div>
+    <div class="card stat">
+      <p class="muted">Serviços solicitados</p>
+      <strong id="totalServices">0</strong>
     </div>
   </section>
 
-  <section id="dashboard">
-    <div class="top">
-      <div>
-        <h1>Painel VELTRONIX</h1>
-        <p id="welcome">Bem-vindo!</p>
-      </div>
-      <button class="logout" id="logoutButton">Sair da conta</button>
-    </div>
-
-    <div class="stats">
-      <div class="stat">
-        <p>Total de orçamentos</p>
-        <div class="number" id="totalQuotes">0</div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="top">
-        <h2>Orçamentos recebidos</h2>
-        <button id="refreshButton">Atualizar</button>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Cliente</th>
-              <th>Contato</th>
-              <th>Serviço</th>
-              <th>Descrição</th>
-              <th>Prazo</th>
-            </tr>
-          </thead>
-          <tbody id="quotesList">
-            <tr><td colspan="5" class="muted">Carregando...</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p id="quotesMessage"></p>
-    </div>
+  <section class="card">
+    <h2>Orçamentos recebidos</h2>
+    <p id="status" class="muted">Carregando informações...</p>
+    <div id="quotesList"></div>
   </section>
-
 </main>
 
 <script>
-  const SUPABASE_URL = "https://swgrurgztdcyhtrjpotc.supabase.co";
-  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
+const SUPABASE_URL =
+  "https://swgrurgztdcyhtrjpotc.supabase.co";
 
-  const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
 
-  const loginArea = document.getElementById("loginArea");
-  const dashboard = document.getElementById("dashboard");
-  const message = document.getElementById("message");
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 
-  function showDashboard(user) {
-    loginArea.style.display = "none";
-    dashboard.style.display = "block";
-    document.getElementById("welcome").textContent =
-      "Conectado como " + user.email;
-    loadQuotes();
+const loginArea = document.getElementById("loginArea");
+const dashboard = document.getElementById("dashboard");
+const loginStatus = document.getElementById("loginStatus");
+const statusText = document.getElementById("status");
+
+function showLogin(){
+  loginArea.classList.remove("hidden");
+  dashboard.classList.add("hidden");
+}
+
+function showDashboard(user){
+  loginArea.classList.add("hidden");
+  dashboard.classList.remove("hidden");
+  document.getElementById("userEmail").textContent =
+    user.email || "";
+  loadQuotes();
+}
+
+async function checkSession(){
+  const {data,error} = await supabaseClient.auth.getSession();
+
+  if(error){
+    loginStatus.textContent = error.message;
+    return;
   }
 
-  function showLogin() {
-    dashboard.style.display = "none";
-    loginArea.style.display = "grid";
+  if(data.session){
+    showDashboard(data.session.user);
+  }else{
+    showLogin();
   }
+}
 
-  async function loadQuotes() {
-    const list = document.getElementById("quotesList");
-    const info = document.getElementById("quotesMessage");
+document.getElementById("loginForm")
+.addEventListener("submit",async function(event){
+  event.preventDefault();
 
-    list.innerHTML = '<tr><td colspan="5">Carregando...</td></tr>';
-    info.textContent = "";
+  const button = document.getElementById("loginButton");
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
 
-    const { data, error } = await supabaseClient
-      .from("orcamentos")
-      .select("*")
-      .order("created_at", { ascending: false });
+  button.disabled = true;
+  button.textContent = "Entrando...";
+  loginStatus.textContent = "";
 
-    if (error) {
-      list.innerHTML = '<tr><td colspan="5">Não foi possível carregar os orçamentos.</td></tr>';
-      info.textContent = error.message;
-      return;
-    }
-
-    document.getElementById("totalQuotes").textContent = data.length;
-
-    if (!data.length) {
-      list.innerHTML = '<tr><td colspan="5">Nenhum orçamento recebido ainda.</td></tr>';
-      return;
-    }
-
-    list.innerHTML = "";
-
-    data.forEach(item => {
-      const tr = document.createElement("tr");
-
-      [item.nome, item.contato, item.servico, item.descricao, item.prazo]
-        .forEach(value => {
-          const td = document.createElement("td");
-          td.textContent = value || "-";
-          tr.appendChild(td);
-        });
-
-      list.appendChild(tr);
-    });
-  }
-
-  document.getElementById("loginForm").addEventListener("submit", async event => {
-    event.preventDefault();
-
-    const button = document.getElementById("loginButton");
-    button.disabled = true;
-    button.textContent = "Entrando...";
-    message.textContent = "";
-
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
+  const {data,error} =
+    await supabaseClient.auth.signInWithPassword({
       email,
       password
     });
 
-    button.disabled = false;
-    button.textContent = "Entrar no painel";
+  button.disabled = false;
+  button.textContent = "Entrar no painel";
 
-    if (error) {
-      message.textContent = "Não foi possível entrar: " + error.message;
-      return;
+  if(error){
+    loginStatus.textContent =
+      "Não foi possível entrar: " + error.message;
+    return;
+  }
+
+  showDashboard(data.user);
+});
+
+async function loadQuotes(){
+  statusText.textContent = "Buscando orçamentos...";
+  const list = document.getElementById("quotesList");
+  list.innerHTML = "";
+
+  const {data,error} = await supabaseClient
+    .from("orcamentos")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+    statusText.textContent =
+      "Erro ao carregar: " + error.message;
+    return;
+  }
+
+  const quotes = data || [];
+  const clients = new Set(
+    quotes.map(q => q.contato).filter(Boolean)
+  );
+  const services = new Set(
+    quotes.map(q => q.servico).filter(Boolean)
+  );
+
+  document.getElementById("totalQuotes").textContent =
+    quotes.length;
+
+  document.getElementById("totalClients").textContent =
+    clients.size;
+
+  document.getElementById("totalServices").textContent =
+    services.size;
+
+  if(quotes.length === 0){
+    statusText.textContent = "Nenhum orçamento recebido ainda.";
+    list.innerHTML =
+      '<div class="empty">Os novos pedidos aparecerão aqui.</div>';
+    return;
+  }
+
+  statusText.textContent =
+    quotes.length + " orçamento(s) encontrado(s).";
+
+  quotes.forEach(quote => {
+    const article = document.createElement("article");
+    article.className = "quote";
+
+    const title = document.createElement("h3");
+    title.textContent = quote.nome || "Cliente sem nome";
+
+    const details = document.createElement("p");
+
+    const fields = [
+      ["WhatsApp",quote.contato],
+      ["Serviço",quote.servico],
+      ["Descrição",quote.descricao],
+      ["Prazo",quote.prazo],
+      ["Orçamento previsto",quote.valor]
+    ];
+
+    fields.forEach(([label,value]) => {
+      const line = document.createElement("div");
+      const strong = document.createElement("strong");
+      strong.textContent = label + ": ";
+      line.appendChild(strong);
+      line.appendChild(
+        document.createTextNode(value || "Não informado")
+      );
+      details.appendChild(line);
+    });
+
+    article.appendChild(title);
+    article.appendChild(details);
+
+    if(quote.contato){
+      const whatsapp = document.createElement("button");
+      whatsapp.textContent = "Conversar pelo WhatsApp";
+      whatsapp.addEventListener("click",() => {
+        const number = quote.contato.replace(/\D/g,"");
+        window.open(
+          "https://wa.me/" + number,
+          "_blank",
+          "noopener,noreferrer"
+        );
+      });
+      article.appendChild(whatsapp);
     }
 
-    showDashboard(data.user);
+    list.appendChild(article);
   });
+}
 
-  document.getElementById("logoutButton").addEventListener("click", async () => {
-    await supabaseClient.auth.signOut();
-    showLogin();
-  });
+document.getElementById("refreshButton")
+.addEventListener("click",loadQuotes);
 
-  document.getElementById("refreshButton").addEventListener("click", loadQuotes);
+document.getElementById("logoutButton")
+.addEventListener("click",async function(){
+  const {error} = await supabaseClient.auth.signOut();
 
-  async function checkSession() {
-    const { data } = await supabaseClient.auth.getSession();
+  if(error){
+    statusText.textContent = error.message;
+    return;
+  }
 
-    if (data.session) {
-      showDashboard(data.session.user);
-    } else {
+  showLogin();
+});
+
+supabaseClient.auth.onAuthStateChange(
+  (_event,session) => {
+    if(session){
+      showDashboard(session.user);
+    }else{
       showLogin();
     }
   }
+);
 
-  checkSession();
+checkSession();
 </script>
 
 </body>
