@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08060d">
+  <title>Painel Administrativo | VELTRONIX</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #08060d;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    button, input { font: inherit; }
+    .container {
+      width: min(100% - 32px, 1050px);
+      margin: 0 auto;
+    }
+    header {
+      border-bottom: 1px solid #282033;
+      padding: 22px 0;
+    }
+    .brand { font-size: 25px; font-weight: 900; }
+    .brand span { color: #a855f7; }
+    .login-area {
+      min-height: 80vh;
+      display: grid;
+      place-items: center;
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      padding: 32px;
+      background: #130f1c;
+      border: 1px solid #342345;
+      border-radius: 18px;
+    }
+    h1 { margin-top: 0; }
+    p { color: #aaa3b5; line-height: 1.6; }
+    label {
+      display: block;
+      margin: 18px 0 8px;
+      color: #ddd;
+    }
+    input {
+      width: 100%;
+      padding: 14px;
+      color: white;
+      background: #09070e;
+      border: 1px solid #49345d;
+      border-radius: 9px;
+      outline: none;
+    }
+    input:focus { border-color: #a855f7; }
+    button {
+      cursor: pointer;
+      border: 0;
+      border-radius: 9px;
+      padding: 14px 20px;
+      color: white;
+      background: #7000d9;
+      font-weight: bold;
+    }
+    button:hover { background: #8b20f5; }
+    .primary { width: 100%; margin-top: 22px; }
+    #message { min-height: 24px; color: #f0a3a3; }
+    #dashboard { display: none; padding: 35px 0; }
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin: 25px 0;
+    }
+    .stat, .panel {
+      background: #130f1c;
+      border: 1px solid #342345;
+      border-radius: 14px;
+      padding: 22px;
+    }
+    .number { font-size: 30px; font-weight: bold; color: #c084fc; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 600px; }
+    th, td {
+      padding: 14px;
+      border-bottom: 1px solid #342345;
+      text-align: left;
+    }
+    th { color: #c084fc; }
+    .muted { color: #aaa3b5; }
+    .logout { background: #30243c; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container brand">VELTRON<span>IX</span></div>
+</header>
+
+<main class="container">
+
+  <section class="login-area" id="loginArea">
+    <div class="card">
+      <h1>Área administrativa</h1>
+      <p>Entre com sua conta de administrador da VELTRONIX.</p>
+
+      <form id="loginForm">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" required autocomplete="username"
+          placeholder="Seu e-mail">
+
+        <label for="password">Senha</label>
+        <input id="password" type="password" required
+          autocomplete="current-password" placeholder="Sua senha">
+
+        <button class="primary" type="submit" id="loginButton">
+          Entrar no painel
+        </button>
+      </form>
+      <p id="message" role="status"></p>
+    </div>
+  </section>
+
+  <section id="dashboard">
+    <div class="top">
+      <div>
+        <h1>Painel VELTRONIX</h1>
+        <p id="welcome">Bem-vindo!</p>
+      </div>
+      <button class="logout" id="logoutButton">Sair da conta</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <p>Total de orçamentos</p>
+        <div class="number" id="totalQuotes">0</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="top">
+        <h2>Orçamentos recebidos</h2>
+        <button id="refreshButton">Atualizar</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Contato</th>
+              <th>Serviço</th>
+              <th>Descrição</th>
+              <th>Prazo</th>
+            </tr>
+          </thead>
+          <tbody id="quotesList">
+            <tr><td colspan="5" class="muted">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="quotesMessage"></p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  const SUPABASE_URL = "https://swgrurgztdcyhtrjpotc.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  const loginArea = document.getElementById("loginArea");
+  const dashboard = document.getElementById("dashboard");
+  const message = document.getElementById("message");
+
+  function showDashboard(user) {
+    loginArea.style.display = "none";
+    dashboard.style.display = "block";
+    document.getElementById("welcome").textContent =
+      "Conectado como " + user.email;
+    loadQuotes();
+  }
+
+  function showLogin() {
+    dashboard.style.display = "none";
+    loginArea.style.display = "grid";
+  }
+
+  async function loadQuotes() {
+    const list = document.getElementById("quotesList");
+    const info = document.getElementById("quotesMessage");
+
+    list.innerHTML = '<tr><td colspan="5">Carregando...</td></tr>';
+    info.textContent = "";
+
+    const { data, error } = await supabaseClient
+      .from("orcamentos")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      list.innerHTML = '<tr><td colspan="5">Não foi possível carregar os orçamentos.</td></tr>';
+      info.textContent = error.message;
+      return;
+    }
+
+    document.getElementById("totalQuotes").textContent = data.length;
+
+    if (!data.length) {
+      list.innerHTML = '<tr><td colspan="5">Nenhum orçamento recebido ainda.</td></tr>';
+      return;
+    }
+
+    list.innerHTML = "";
+
+    data.forEach(item => {
+      const tr = document.createElement("tr");
+
+      [item.nome, item.contato, item.servico, item.descricao, item.prazo]
+        .forEach(value => {
+          const td = document.createElement("td");
+          td.textContent = value || "-";
+          tr.appendChild(td);
+        });
+
+      list.appendChild(tr);
+    });
+  }
+
+  document.getElementById("loginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const button = document.getElementById("loginButton");
+    button.disabled = true;
+    button.textContent = "Entrando...";
+    message.textContent = "";
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    button.disabled = false;
+    button.textContent = "Entrar no painel";
+
+    if (error) {
+      message.textContent = "Não foi possível entrar: " + error.message;
+      return;
+    }
+
+    showDashboard(data.user);
+  });
+
+  document.getElementById("logoutButton").addEventListener("click", async () => {
+    await supabaseClient.auth.signOut();
+    showLogin();
+  });
+
+  document.getElementById("refreshButton").addEventListener("click", loadQuotes);
+
+  async function checkSession() {
+    const { data } = await supabaseClient.auth.getSession();
+
+    if (data.session) {
+      showDashboard(data.session.user);
+    } else {
+      showLogin();
+    }
+  }
+
+  checkSession();
+</script>
+
+</body>
+</html>
