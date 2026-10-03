@@ -142,8 +142,6 @@
       border-color: var(--purple);
     }
 
-    /* BOTÃO WHATSAPP ROXO */
-
     .btn-whatsapp {
       background: linear-gradient(120deg, #7928ca, #a855f7, #c084fc);
       color: #fff;
@@ -155,8 +153,6 @@
       transform: translateY(-4px);
       box-shadow: 0 0 32px rgba(168,85,247,.6);
     }
-
-    /* BOTÃO INSTAGRAM */
 
     .btn-instagram {
       background: linear-gradient(120deg, #833ab4, #c13584, #e1306c, #f77737);
@@ -642,6 +638,7 @@
     .faq-question span:last-child {
       color: var(--light);
       font-size: 1.2rem;
+      flex-shrink: 0;
     }
 
     .faq-answer {
@@ -851,7 +848,7 @@
       line-height: 1.7;
     }
 
-    /* BOTÃO FLUTUANTE WHATSAPP ROXO */
+    /* BOTÃO FLUTUANTE WHATSAPP */
 
     .whatsapp-float {
       position: fixed;
@@ -881,7 +878,7 @@
       box-shadow: 0 0 35px rgba(168,85,247,.75);
     }
 
-    /* ANIMAÇÕES EXISTENTES */
+    /* ANIMAÇÕES */
 
     .reveal {
       opacity: 0;
@@ -939,11 +936,7 @@
       }
     }
 
-    /* =========================================
-       EFEITOS VISUAIS AVANÇADOS
-    ========================================= */
-
-    /* PARTÍCULAS NEON */
+    /* EFEITOS VISUAIS AVANÇADOS */
 
     #particlesCanvas {
       position: fixed;
@@ -955,16 +948,12 @@
       opacity: .65;
     }
 
-    /* CAMADAS DO CONTEÚDO */
-
     body > header,
     body > main,
     body > footer {
       position: relative;
       z-index: 1;
     }
-
-    /* LUZ QUE ACOMPANHA O CURSOR */
 
     .cursor-glow {
       position: fixed;
@@ -993,8 +982,6 @@
       }
     }
 
-    /* BARRA DE PROGRESSO */
-
     .scroll-progress {
       position: fixed;
       top: 0;
@@ -1008,8 +995,6 @@
         0 0 22px rgba(168,85,247,.55);
       pointer-events: none;
     }
-
-    /* REFLEXO DINÂMICO NOS CARDS */
 
     .service-card,
     .project-card,
@@ -1056,8 +1041,6 @@
         0 0 22px rgba(168,85,247,.12);
     }
 
-    /* BRILHO NOS BOTÕES */
-
     .btn,
     .orcamento-btn {
       position: relative;
@@ -1088,16 +1071,16 @@
       left: 140%;
     }
 
-    /* RESPONSIVIDADE */
+    /* TABLETS */
 
-    @media(max-width: 900px) {
+    @media (max-width: 900px) {
       .services-grid,
       .differential-grid {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .process-grid {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .about-grid,
@@ -1107,61 +1090,340 @@
       }
     }
 
-    @media(max-width: 700px) {
-      .menu-toggle {
-        display: block;
+    /* MOBILE APRIMORADO */
+
+    @media (max-width: 700px) {
+      html {
+        scroll-padding-top: 80px;
       }
 
+      body {
+        overflow-x: hidden;
+      }
+
+      .container {
+        width: calc(100% - 32px);
+      }
+
+      /* CABEÇALHO */
+
+      .navbar {
+        min-height: 72px;
+        position: relative;
+      }
+
+      .brand {
+        gap: 9px;
+        font-size: 1.12rem;
+        letter-spacing: 1.5px;
+      }
+
+      .brand img {
+        width: 42px;
+        height: 42px;
+      }
+
+      .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 48px;
+        min-height: 48px;
+        padding: 8px 12px;
+        z-index: 1002;
+      }
+
+      /* MENU MOBILE */
+
       .nav-links {
-        display: none;
         position: absolute;
-        top: 82px;
+        top: 100%;
         left: 0;
+        right: 0;
         width: 100%;
-        padding: 25px 5%;
-        background: rgba(11,8,19,.98);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border);
+
+        display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 22px;
+        align-items: stretch;
+        gap: 6px;
+
+        padding: 14px 16px;
+        padding-bottom: calc(14px + env(safe-area-inset-bottom));
+
+        background: rgba(10, 7, 18, .98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        border-top: 1px solid rgba(255,255,255,.08);
+        border-bottom: 1px solid rgba(157,78,221,.3);
+
+        max-height: calc(100dvh - 72px);
+        overflow-y: auto;
+
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px);
+
+        transition:
+          opacity .25s ease,
+          transform .25s ease,
+          visibility .25s ease;
+
+        z-index: 1001;
       }
 
       .nav-links.active {
-        display: flex;
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
       }
 
+      .nav-links li {
+        width: 100%;
+      }
+
+      .nav-links a {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        min-height: 48px;
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: .95rem;
+      }
+
+      .nav-links a:active,
+      .nav-links a:hover {
+        background: rgba(157,78,221,.16);
+      }
+
+      /* HERO */
+
       .hero {
-        min-height: 620px;
+        min-height: auto;
+      }
+
+      .hero-content {
+        padding: 76px 0 68px;
+      }
+
+      .hero-label {
+        font-size: .72rem;
+        letter-spacing: 2px;
+        line-height: 1.7;
+        margin-bottom: 20px;
       }
 
       .hero h1 {
-        letter-spacing: -1.5px;
+        font-size: clamp(2.25rem, 10.5vw, 3.5rem);
+        line-height: 1.08;
+        letter-spacing: -1.3px;
+        overflow-wrap: break-word;
+        margin-bottom: 22px;
       }
+
+      .hero p {
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 28px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+        min-height: 50px;
+        justify-content: center;
+      }
+
+      .hero-note {
+        font-size: .7rem;
+        line-height: 1.8;
+        letter-spacing: 1px;
+        margin-top: 28px;
+      }
+
+      /* SEÇÕES */
+
+      .section,
+      .orcamento {
+        padding: 64px 0;
+      }
+
+      .section-heading {
+        margin-bottom: 32px;
+      }
+
+      .section-tag {
+        font-size: .7rem;
+        letter-spacing: 2px;
+        line-height: 1.7;
+      }
+
+      .section-title {
+        font-size: clamp(1.8rem, 8vw, 2.5rem);
+        line-height: 1.15;
+        letter-spacing: -1px;
+      }
+
+      .section-description {
+        font-size: .95rem;
+        line-height: 1.8;
+      }
+
+      /* GRIDS */
 
       .services-grid,
       .portfolio-grid,
       .differential-grid,
       .process-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
       }
 
-      .section,
-      .orcamento {
-        padding: 78px 0;
+      .service-card,
+      .process-item,
+      .differential {
+        padding: 24px;
+      }
+
+      .service-icon {
+        margin-bottom: 18px;
+      }
+
+      .project-visual {
+        height: 190px;
+      }
+
+      .project-info {
+        padding: 23px;
+      }
+
+      .project-info h3 {
+        font-size: 1.15rem;
+      }
+
+      /* SOBRE */
+
+      .about-grid,
+      .orcamento-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .about-art {
+        min-height: 250px;
+        padding: 24px;
+      }
+
+      .about-art img {
+        max-height: 230px;
+      }
+
+      /* PROCESSO */
+
+      .process-grid {
+        margin-top: 28px;
+      }
+
+      .process-number {
+        margin-bottom: 12px;
+      }
+
+      /* FAQ */
+
+      .faq-list {
+        margin-top: 25px;
+      }
+
+      .faq-question {
+        padding: 18px;
+        font-size: .94rem;
+      }
+
+      .faq-answer {
+        padding: 0 18px 18px;
+      }
+
+      /* ORÇAMENTO */
+
+      .orcamento-info h2 {
+        font-size: clamp(2.2rem, 10vw, 3.2rem);
       }
 
       .orcamento-form {
-        padding: 23px;
+        padding: 20px;
+        border-radius: 18px;
       }
+
+      .orcamento-form input,
+      .orcamento-form select,
+      .orcamento-form textarea {
+        width: 100%;
+        min-height: 48px;
+        font-size: 16px;
+      }
+
+      .orcamento-form textarea {
+        min-height: 130px;
+      }
+
+      .orcamento-btn {
+        width: 100%;
+        min-height: 52px;
+        line-height: 1.4;
+        padding: 15px;
+      }
+
+      /* CONTATO */
+
+      .contact-buttons {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .contact-buttons .btn {
+        width: 100%;
+        min-height: 50px;
+        justify-content: center;
+      }
+
+      /* RODAPÉ */
 
       .footer-content {
         flex-direction: column;
         align-items: flex-start;
+        gap: 14px;
       }
 
-      .about-art {
-        min-height: 290px;
+      /* WHATSAPP FLUTUANTE */
+
+      .whatsapp-float {
+        width: 54px;
+        height: 54px;
+        right: 16px;
+        bottom: calc(16px + env(safe-area-inset-bottom));
+      }
+
+      .whatsapp-float svg {
+        width: 26px;
+        height: 26px;
+      }
+
+      /* EFEITOS */
+
+      #particlesCanvas {
+        opacity: .35;
+      }
+
+      .cursor-glow {
+        display: none;
       }
 
       .hero:before {
@@ -1174,14 +1436,6 @@
         display: none;
       }
 
-      #particlesCanvas {
-        opacity: .35;
-      }
-
-      .cursor-glow {
-        display: none;
-      }
-
       .service-card:hover,
       .project-card:hover,
       .process-item:hover,
@@ -1190,7 +1444,60 @@
       }
     }
 
-    @media(prefers-reduced-motion: reduce) {
+    /* CELULARES MENORES */
+
+    @media (max-width: 380px) {
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      .brand {
+        font-size: 1rem;
+      }
+
+      .brand img {
+        width: 38px;
+        height: 38px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 10vw, 2.7rem);
+      }
+
+      .service-card,
+      .process-item,
+      .differential,
+      .orcamento-form {
+        padding: 18px;
+      }
+
+      .section-tag {
+        letter-spacing: 1.5px;
+      }
+    }
+
+    /* ACESSIBILIDADE E TOQUE */
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid #b76cff;
+      outline-offset: 3px;
+    }
+
+    @media (hover: none) {
+      .service-card:hover,
+      .project-card:hover,
+      .process-item:hover,
+      .differential:hover,
+      .btn:hover {
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
       *,
       *:before,
       *:after {
@@ -1212,6 +1519,11 @@
       .orcamento-btn::after {
         display: none;
       }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
@@ -1229,7 +1541,14 @@
       <div>VELTRONI<span>X</span></div>
     </a>
 
-    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      type="button"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+      aria-controls="navLinks"
+    >☰</button>
 
     <ul class="nav-links" id="navLinks">
       <li><a href="#inicio">Início</a></li>
@@ -1440,22 +1759,22 @@
 
       <div class="faq-list">
         <div class="faq-item reveal">
-          <button class="faq-question" type="button">Como posso solicitar um orçamento?<span>+</span></button>
+          <button class="faq-question" type="button" aria-expanded="false">Como posso solicitar um orçamento?<span>+</span></button>
           <div class="faq-answer">Você pode preencher o formulário nesta página. As informações serão salvas no sistema e organizadas em uma mensagem para você enviar pelo WhatsApp.</div>
         </div>
 
         <div class="faq-item reveal">
-          <button class="faq-question" type="button">A VELTRONIX desenvolve projetos personalizados?<span>+</span></button>
+          <button class="faq-question" type="button" aria-expanded="false">A VELTRONIX desenvolve projetos personalizados?<span>+</span></button>
           <div class="faq-answer">Sim. As necessidades e características de cada projeto são avaliadas durante o primeiro contato.</div>
         </div>
 
         <div class="faq-item reveal">
-          <button class="faq-question" type="button">Quanto custa desenvolver um site?<span>+</span></button>
+          <button class="faq-question" type="button" aria-expanded="false">Quanto custa desenvolver um site?<span>+</span></button>
           <div class="faq-answer">O valor depende das funcionalidades, do conteúdo, do prazo e da complexidade do projeto. Solicite um orçamento para conversar sobre sua necessidade.</div>
         </div>
 
         <div class="faq-item reveal">
-          <button class="faq-question" type="button">Posso solicitar manutenção de um site existente?<span>+</span></button>
+          <button class="faq-question" type="button" aria-expanded="false">Posso solicitar manutenção de um site existente?<span>+</span></button>
           <div class="faq-answer">Sim. Informe o endereço do site e os ajustes desejados na descrição do projeto.</div>
         </div>
       </div>
@@ -1601,24 +1920,69 @@
   // CONEXAO COM SUPABASE - chave publica (Publishable)
   const SUPABASE_URL = "https://swgrurgztdcyhtrjpotc.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
-  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
-  // MENU MOBILE
+  // MENU MOBILE APRIMORADO
   const menuToggle = document.getElementById("menuToggle");
   const navLinks = document.getElementById("navLinks");
 
+  function abrirMenu() {
+    navLinks.classList.add("active");
+    menuToggle.setAttribute("aria-expanded", "true");
+    menuToggle.setAttribute("aria-label", "Fechar menu");
+    menuToggle.textContent = "✕";
+  }
+
+  function fecharMenu() {
+    navLinks.classList.remove("active");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Abrir menu");
+    menuToggle.textContent = "☰";
+  }
+
+  function menuEstaAberto() {
+    return navLinks.classList.contains("active");
+  }
+
   menuToggle.addEventListener("click", function () {
-    const aberto = navLinks.classList.toggle("active");
-    menuToggle.setAttribute("aria-expanded", String(aberto));
-    menuToggle.textContent = aberto ? "✕" : "☰";
+    if (menuEstaAberto()) {
+      fecharMenu();
+    } else {
+      abrirMenu();
+    }
   });
 
+  // Fecha o menu ao selecionar qualquer link
   navLinks.querySelectorAll("a").forEach(function (link) {
-    link.addEventListener("click", function () {
-      navLinks.classList.remove("active");
-      menuToggle.setAttribute("aria-expanded", "false");
-      menuToggle.textContent = "☰";
-    });
+    link.addEventListener("click", fecharMenu);
+  });
+
+  // Fecha o menu ao tocar fora do cabeçalho
+  document.addEventListener("click", function (event) {
+    if (
+      menuEstaAberto() &&
+      !event.target.closest("header")
+    ) {
+      fecharMenu();
+    }
+  });
+
+  // Fecha o menu com ESC
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && menuEstaAberto()) {
+      fecharMenu();
+      menuToggle.focus();
+    }
+  });
+
+  // Fecha o menu se a tela voltar ao tamanho desktop
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 700 && menuEstaAberto()) {
+      fecharMenu();
+    }
   });
 
   // FAQ
@@ -1630,11 +1994,13 @@
       document.querySelectorAll(".faq-item").forEach(function (faq) {
         faq.classList.remove("active");
         faq.querySelector(".faq-question span:last-child").textContent = "+";
+        faq.querySelector(".faq-question").setAttribute("aria-expanded", "false");
       });
 
       if (!estavaAberto) {
         item.classList.add("active");
         botao.querySelector("span:last-child").textContent = "−";
+        botao.setAttribute("aria-expanded", "true");
       }
     });
   });
@@ -1736,10 +2102,7 @@ Tecnologia que impulsiona negócios.`;
     }
   });
 
-  /* =========================================
-     VELTRONIX NEON EXPERIENCE
-     EFEITOS VISUAIS AVANÇADOS
-  ========================================= */
+  /* VELTRONIX NEON EXPERIENCE */
 
   (function () {
     const reduzirMovimento = window.matchMedia(
@@ -1750,17 +2113,18 @@ Tecnologia que impulsiona negócios.`;
       "(hover: hover) and (pointer: fine)"
     ).matches;
 
-    /* PARTÍCULAS NEON */
-
     const canvas = document.getElementById("particlesCanvas");
     const ctx = canvas.getContext("2d");
 
     let particulas = [];
     let largura = 0;
     let altura = 0;
+    let animacaoParticulas = null;
+    let paginaVisivel = !document.hidden;
 
+    // Quantidade reduzida no celular
     function criarParticulas() {
-      const quantidade = window.innerWidth < 700 ? 18 : 48;
+      const quantidade = window.innerWidth < 700 ? 12 : 48;
 
       particulas = Array.from({ length: quantidade }, () => ({
         x: Math.random() * largura,
@@ -1788,6 +2152,11 @@ Tecnologia que impulsiona negócios.`;
     }
 
     function desenharParticulas() {
+      if (reduzirMovimento || !paginaVisivel) {
+        animacaoParticulas = null;
+        return;
+      }
+
       ctx.clearRect(0, 0, largura, altura);
 
       particulas.forEach((p) => {
@@ -1814,14 +2183,43 @@ Tecnologia que impulsiona negócios.`;
 
       ctx.shadowBlur = 0;
 
-      requestAnimationFrame(desenharParticulas);
+      animacaoParticulas = requestAnimationFrame(desenharParticulas);
+    }
+
+    function iniciarParticulas() {
+      if (reduzirMovimento || !paginaVisivel || animacaoParticulas !== null) {
+        return;
+      }
+
+      animacaoParticulas = requestAnimationFrame(desenharParticulas);
+    }
+
+    function pararParticulas() {
+      if (animacaoParticulas !== null) {
+        cancelAnimationFrame(animacaoParticulas);
+        animacaoParticulas = null;
+      }
+    }
+
+    function atualizarVisibilidade() {
+      paginaVisivel = !document.hidden;
+
+      if (paginaVisivel) {
+        iniciarParticulas();
+      } else {
+        pararParticulas();
+      }
     }
 
     if (!reduzirMovimento) {
       ajustarCanvas();
-      desenharParticulas();
+      iniciarParticulas();
 
-      window.addEventListener("resize", ajustarCanvas);
+      window.addEventListener("resize", function () {
+        ajustarCanvas();
+      });
+
+      document.addEventListener("visibilitychange", atualizarVisibilidade);
     } else {
       canvas.style.display = "none";
     }
