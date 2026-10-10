@@ -5,8 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#08080c">
-<meta name="description" content="VELTRONIX — Tecnologia que impulsiona negócios. Desenvolvimento de sites, automações, identidade digital e soluções tecnológicas para empresas.">
-<meta name="robots" content="index,follow">
+<meta name="description" content="VELTRONIX — Tecnologia que impulsiona negócios. Criação de sites, automação, identidade digital e soluções digitais.">
+<meta name="color-scheme" content="dark">
 
 <title>VELTRONIX | Tecnologia que impulsiona negócios</title>
 
@@ -17,19 +17,25 @@
 <style>
 :root {
   --bg: #08080c;
-  --surface: #101016;
-  --surface2: #15131e;
+  --bg-soft: #0e0b15;
+  --surface: #100d19;
+  --surface-2: #171123;
   --purple: #a855f7;
-  --purple2: #7928ca;
-  --light: #c084fc;
-  --text: #f7f4fc;
-  --muted: #aaa5b7;
+  --purple-2: #7928ca;
+  --purple-light: #d8b4fe;
+  --text: #f7f3ff;
+  --muted: #a8a0b8;
   --border: rgba(192,132,252,.17);
+  --glow: rgba(168,85,247,.24);
+  --radius: 22px;
   --max: 1160px;
-  --radius: 20px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 html {
   scroll-behavior: smooth;
@@ -37,103 +43,80 @@ html {
 }
 
 body {
+  font-family: 'Inter', sans-serif;
   background: var(--bg);
   color: var(--text);
-  font-family: Inter, Arial, sans-serif;
   line-height: 1.65;
   overflow-x: hidden;
 }
 
-body.menu-open { overflow: hidden; }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(121,40,202,.13), transparent 35%),
+    radial-gradient(ellipse at 90% 35%, rgba(168,85,247,.09), transparent 32%),
+    radial-gradient(ellipse at 50% 90%, rgba(121,40,202,.08), transparent 35%);
+}
 
-a { color: inherit; text-decoration: none; }
-button, input, select, textarea { font: inherit; }
-button, a { -webkit-tap-highlight-color: transparent; }
-button { cursor: pointer; }
-img { max-width: 100%; display: block; }
-::selection { background: var(--purple); color: white; }
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .12;
+  background-image:
+    linear-gradient(rgba(192,132,252,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(192,132,252,.08) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: linear-gradient(to bottom, black, transparent 75%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+section {
+  padding: 100px 0;
+  position: relative;
+}
 
 .container {
   width: min(var(--max), calc(100% - 40px));
   margin-inline: auto;
 }
 
-section { padding: 100px 0; }
-
-.section-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  color: var(--light);
-  font-size: .78rem;
-  font-weight: 800;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-
-.section-label::before {
-  content: "";
-  width: 22px;
-  height: 2px;
-  background: var(--purple);
-}
-
-.section-title {
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  line-height: 1.12;
-  letter-spacing: -1.8px;
-  font-weight: 800;
-  max-width: 750px;
-}
-
-.section-description {
+.muted {
   color: var(--muted);
-  max-width: 650px;
-  margin-top: 18px;
 }
 
 .gradient-text {
-  background: linear-gradient(100deg, #fff 0%, #c084fc 48%, #a855f7 100%);
+  background: linear-gradient(100deg, #fff 0%, #d8b4fe 40%, #a855f7 75%, #c084fc 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 14px 21px;
-  border-radius: 12px;
-  border: 1px solid transparent;
-  font-size: .93rem;
-  font-weight: 750;
-  transition: transform .2s, background .2s, border-color .2s;
-}
-
-.btn:hover { transform: translateY(-2px); }
-
-.btn-primary {
-  background: linear-gradient(120deg, var(--purple2), var(--purple));
-  color: #fff;
-  box-shadow: 0 8px 28px rgba(168,85,247,.18);
-}
-
-.btn-primary:hover {
-  box-shadow: 0 10px 36px rgba(168,85,247,.3);
-}
-
-.btn-secondary {
-  border-color: var(--border);
-  background: rgba(255,255,255,.025);
-  color: white;
-}
-
-.btn-secondary:hover {
-  border-color: var(--purple);
-  background: rgba(168,85,247,.08);
 }
 
 .eyebrow {
@@ -141,45 +124,121 @@ section { padding: 100px 0; }
   align-items: center;
   gap: 9px;
   border: 1px solid var(--border);
-  border-radius: 100px;
-  background: rgba(168,85,247,.06);
+  background: rgba(168,85,247,.08);
+  border-radius: 999px;
   padding: 8px 13px;
-  color: #e1c4ff;
   font-size: .78rem;
-  font-weight: 650;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--purple-light);
 }
 
-.status-dot {
-  width: 8px;
-  height: 8px;
+.eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #a855f7;
-  box-shadow: 0 0 12px rgba(168,85,247,.8);
+  background: #c084fc;
+  box-shadow: 0 0 12px #a855f7;
 }
 
-/* HEADER */
-header {
+.section-heading {
+  max-width: 730px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.section-heading h2 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.12;
+  letter-spacing: -.055em;
+  margin: 18px 0;
+}
+
+.section-heading p {
+  color: var(--muted);
+  max-width: 590px;
+  margin: auto;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-height: 49px;
+  padding: 13px 20px;
+  border-radius: 13px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 750;
+  font-size: .92rem;
+  transition: transform .25s, box-shadow .25s, background .25s, border-color .25s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn-primary {
+  background: linear-gradient(115deg, #a855f7, #7928ca);
+  color: white;
+  box-shadow: 0 8px 28px rgba(168,85,247,.24);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 12px 38px rgba(168,85,247,.4);
+}
+
+.btn-secondary {
+  border-color: var(--border);
+  background: rgba(255,255,255,.025);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background: rgba(168,85,247,.1);
+  border-color: rgba(192,132,252,.45);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(8,8,12,.88);
+  background: rgba(8,8,12,.78);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255,255,255,.06);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(192,132,252,.12);
 }
 
-.nav-wrap {
+.scroll-progress {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #7928ca, #d8b4fe);
+  box-shadow: 0 0 12px #a855f7;
+}
+
+.nav {
   min-height: 76px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 25px;
+  gap: 20px;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  min-width: 0;
+  gap: 11px;
+  flex-shrink: 0;
 }
 
 .brand img {
@@ -187,1148 +246,1788 @@ header {
   height: 43px;
   border-radius: 12px;
   object-fit: cover;
-  background: #17121f;
   border: 1px solid var(--border);
 }
 
 .brand-name {
-  font-size: 1.12rem;
+  display: block;
+  font-size: 1.08rem;
   font-weight: 900;
-  letter-spacing: 1.5px;
+  letter-spacing: .12em;
   line-height: 1.2;
 }
 
-.brand-tagline {
+.brand-tag {
+  display: block;
   color: var(--muted);
-  font-size: .66rem;
-  letter-spacing: .2px;
-  margin-top: 3px;
+  font-size: .64rem;
+  letter-spacing: .02em;
+  margin-top: 4px;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 23px;
 }
 
 .nav-links a:not(.btn) {
-  font-size: .86rem;
-  color: #d2cddd;
+  color: #c7bfd5;
+  font-size: .84rem;
   transition: color .2s;
 }
 
-.nav-links a:not(.btn):hover { color: var(--light); }
+.nav-links a:not(.btn):hover {
+  color: var(--purple-light);
+}
 
 .menu-toggle {
   display: none;
   width: 44px;
   height: 44px;
   border: 1px solid var(--border);
-  border-radius: 12px;
   background: var(--surface);
-  color: white;
-  font-size: 1.35rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.3rem;
 }
 
-/* HERO */
 .hero {
-  min-height: 680px;
+  min-height: 690px;
   display: flex;
   align-items: center;
-  position: relative;
-  isolation: isolate;
+  padding: 100px 0 90px;
   overflow: hidden;
-  padding: 90px 0 85px;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  z-index: -2;
-  width: 650px;
-  height: 650px;
-  right: -150px;
-  top: -80px;
-  background: radial-gradient(circle, rgba(121,40,202,.2), rgba(121,40,202,0) 70%);
-  pointer-events: none;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  z-index: -2;
-  inset: 0;
-  opacity: .17;
-  background-image: linear-gradient(rgba(168,85,247,.15) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(168,85,247,.15) 1px, transparent 1px);
-  background-size: 58px 58px;
-  mask-image: linear-gradient(to bottom, black, transparent 90%);
-  pointer-events: none;
 }
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.15fr .85fr;
-  gap: 60px;
+  grid-template-columns: 1.08fr .92fr;
   align-items: center;
+  gap: 50px;
 }
 
 .hero h1 {
-  font-size: clamp(2.8rem, 6vw, 5.1rem);
-  line-height: 1.02;
-  letter-spacing: -3px;
-  font-weight: 900;
-  margin: 23px 0;
+  font-size: clamp(2.9rem, 6.3vw, 5.4rem);
+  letter-spacing: -.075em;
+  line-height: .99;
+  margin: 25px 0;
+  max-width: 720px;
 }
 
 .hero-copy {
   color: var(--muted);
-  font-size: 1.04rem;
-  max-width: 580px;
+  font-size: 1.05rem;
+  max-width: 560px;
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 13px;
   margin-top: 30px;
 }
 
 .hero-note {
-  color: #928ba0;
-  font-size: .78rem;
-  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: .82rem;
+  margin-top: 24px;
 }
 
-.hero-visual {
-  min-height: 390px;
+.hero-note span {
+  color: #c084fc;
+  font-size: 1.1rem;
+}
+
+.hero-art {
+  min-height: 430px;
   position: relative;
   display: grid;
   place-items: center;
+  isolation: isolate;
 }
 
-.orbit {
+.orb-glow {
   position: absolute;
-  border: 1px solid rgba(192,132,252,.2);
+  width: 330px;
+  height: 330px;
   border-radius: 50%;
-  transform: rotate(-24deg);
+  background: #7928ca;
+  filter: blur(100px);
+  opacity: .28;
+  z-index: -1;
 }
 
-.orbit.one { width: 310px; height: 190px; }
-.orbit.two { width: 390px; height: 250px; transform: rotate(36deg); }
-.orbit.three { width: 450px; height: 320px; transform: rotate(-48deg); opacity: .55; }
-
-.visual-core {
-  width: 180px;
-  height: 180px;
-  border-radius: 40px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(145deg, #20132f, #0e0b15 70%);
-  border: 1px solid rgba(192,132,252,.42);
-  box-shadow: 0 0 90px rgba(168,85,247,.2), inset 0 0 35px rgba(168,85,247,.1);
-  transform: rotate(-7deg);
+.orb {
+  position: relative;
+  width: min(320px, 75vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255,255,255,.26), transparent 16%),
+    radial-gradient(circle at 36% 30%, #b66cff 0%, #6b21a8 23%, #1a102b 53%, #08080c 72%);
+  box-shadow:
+    inset -20px -25px 55px rgba(0,0,0,.7),
+    inset 12px 12px 35px rgba(216,180,254,.2),
+    0 0 60px rgba(168,85,247,.22);
+  animation: float 7s ease-in-out infinite;
 }
 
-.visual-core img {
-  width: 120px;
-  height: 120px;
-  border-radius: 25px;
-  object-fit: cover;
-}
-
-.floating-chip {
+.orb::before,
+.orb::after {
+  content: "";
   position: absolute;
-  padding: 12px 15px;
-  background: rgba(18,15,26,.94);
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  color: #e9d5ff;
-  font-size: .8rem;
-  font-weight: 700;
-  box-shadow: 0 12px 35px rgba(0,0,0,.25);
+  inset: -22px;
+  border: 1px solid rgba(192,132,252,.38);
+  border-radius: 50%;
+  transform: rotate(-28deg) scaleY(.35);
 }
 
-.chip-one { top: 42px; right: 0; }
-.chip-two { bottom: 48px; left: -5px; }
-.chip-three { bottom: 10px; right: 15px; }
+.orb::after {
+  inset: -45px;
+  border-color: rgba(168,85,247,.22);
+  transform: rotate(42deg) scaleY(.47);
+}
+
+.orb-core {
+  position: absolute;
+  inset: 30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f3e8ff, #c084fc 25%, #7928ca 60%, transparent 72%);
+  filter: blur(3px);
+  box-shadow: 0 0 65px rgba(168,85,247,.7);
+}
+
+.float-card {
+  position: absolute;
+  padding: 14px 17px;
+  border: 1px solid rgba(192,132,252,.25);
+  border-radius: 15px;
+  background: rgba(17,12,28,.8);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 12px 45px rgba(0,0,0,.24);
+  font-size: .8rem;
+  animation: float 6s ease-in-out infinite;
+}
+
+.float-card strong {
+  display: block;
+  font-size: .92rem;
+}
+
+.float-card small {
+  color: var(--muted);
+}
+
+.float-card.one {
+  top: 55px;
+  left: 0;
+}
+
+.float-card.two {
+  right: -5px;
+  bottom: 65px;
+  animation-delay: -2s;
+}
+
+.float-symbol {
+  color: #d8b4fe;
+  font-size: 1.2rem;
+  margin-right: 5px;
+}
 
 .trust-strip {
-  border-block: 1px solid rgba(255,255,255,.06);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   background: rgba(255,255,255,.015);
 }
 
 .trust-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 24px 0;
 }
 
 .trust-item {
-  text-align: center;
-  padding: 24px 15px;
-  color: #c8c0d4;
-  font-size: .9rem;
-  border-right: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: left;
 }
 
-.trust-item:last-child { border-right: 0; }
-.trust-item strong { color: white; }
-
-/* SERVICES */
-.services-grid {
+.trust-icon {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 17px;
-  margin-top: 42px;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  background: rgba(168,85,247,.1);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  color: var(--purple-light);
 }
 
-.card {
-  background: linear-gradient(145deg, rgba(22,19,31,.92), rgba(13,13,19,.96));
+.trust-item strong {
+  display: block;
+  font-size: .88rem;
+}
+
+.trust-item small {
+  display: block;
+  color: var(--muted);
+  font-size: .74rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.glass-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(23,17,35,.9), rgba(12,10,18,.85));
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 25px;
-  transition: transform .25s, border-color .25s, box-shadow .25s;
+  padding: 27px;
+  overflow: hidden;
+  transition: transform .3s, border-color .3s, box-shadow .3s;
 }
 
-.card:hover {
-  transform: translateY(-5px);
+.glass-card::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: -100px;
+  top: -110px;
+  background: var(--purple);
+  filter: blur(85px);
+  opacity: .08;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+
+.glass-card:hover {
+  transform: translateY(-7px);
   border-color: rgba(192,132,252,.5);
-  box-shadow: 0 15px 40px rgba(0,0,0,.22);
+  box-shadow: 0 18px 50px rgba(0,0,0,.28), 0 0 25px rgba(168,85,247,.07);
+}
+
+.glass-card:hover::before {
+  opacity: .24;
 }
 
 .card-icon {
+  width: 53px;
+  height: 53px;
   display: grid;
   place-items: center;
-  width: 49px;
-  height: 49px;
-  border-radius: 14px;
-  color: #e9d5ff;
-  font-size: 1.4rem;
-  background: rgba(168,85,247,.12);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(168,85,247,.22), rgba(121,40,202,.08));
   border: 1px solid var(--border);
-  margin-bottom: 20px;
+  color: var(--purple-light);
+  font-size: 1.4rem;
+  margin-bottom: 22px;
 }
 
-.card h3 { font-size: 1.05rem; margin-bottom: 10px; }
-.card p { color: var(--muted); font-size: .87rem; }
+.glass-card h3 {
+  font-size: 1.16rem;
+  margin-bottom: 10px;
+  letter-spacing: -.025em;
+}
 
-/* PORTFOLIO */
-.portfolio-section { background: linear-gradient(180deg, transparent, rgba(168,85,247,.035), transparent); }
+.glass-card p {
+  color: var(--muted);
+  font-size: .91rem;
+}
+
+.card-link {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--purple-light);
+  font-size: .87rem;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.card-link:hover {
+  color: white;
+}
 
 .portfolio-card {
-  display: grid;
-  grid-template-columns: .8fr 1.2fr;
-  gap: 35px;
-  align-items: center;
-  margin-top: 42px;
-  padding: 32px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 24px;
+  padding: 0;
 }
 
 .project-preview {
-  min-height: 280px;
-  border-radius: 17px;
-  border: 1px solid rgba(212,175,55,.22);
-  background:
-    radial-gradient(circle at 80% 20%, rgba(212,175,55,.13), transparent 40%),
-    linear-gradient(145deg, #17130b, #090909 75%);
+  min-height: 210px;
+  padding: 24px;
   display: grid;
   place-items: center;
-  padding: 25px;
+  position: relative;
   overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(212,175,55,.12), transparent 45%),
+    linear-gradient(135deg, #19151b, #09090c);
+  border-bottom: 1px solid var(--border);
+}
+
+.project-preview::before {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border: 1px solid rgba(212,175,55,.13);
+  border-radius: 50%;
+}
+
+.project-preview::after {
+  content: "";
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  border: 1px solid rgba(212,175,55,.13);
+  border-radius: 50%;
+}
+
+.project-logo {
+  position: relative;
+  z-index: 1;
+  font-size: 2.7rem;
+  font-weight: 900;
+  letter-spacing: -.1em;
+  color: #d4af37;
+  text-shadow: 0 0 35px rgba(212,175,55,.3);
+}
+
+.project-caption {
+  position: absolute;
+  bottom: 13px;
+  right: 15px;
+  z-index: 1;
+  color: #d4af37;
+  font-size: .64rem;
+  letter-spacing: .16em;
+}
+
+.project-body {
+  padding: 24px;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 15px;
+}
+
+.tag {
+  border: 1px solid var(--border);
+  background: rgba(168,85,247,.06);
+  color: #cdb7e6;
+  padding: 5px 9px;
+  border-radius: 7px;
+  font-size: .72rem;
+}
+
+.project-cta {
+  margin-top: 25px;
   text-align: center;
 }
 
-.project-preview .vf-mark {
-  font-size: clamp(2rem, 5vw, 3.6rem);
-  color: #d4af37;
-  font-weight: 900;
-  letter-spacing: 2px;
-}
-
-.project-preview span {
-  display: block;
-  color: #f1d36b;
-  letter-spacing: 3px;
-  font-size: .75rem;
-  margin-top: 6px;
-}
-
-.project-tag {
-  color: var(--light);
-  font-size: .75rem;
-  text-transform: uppercase;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-}
-
-.project-info h3 {
-  font-size: clamp(1.6rem, 4vw, 2.3rem);
-  line-height: 1.2;
-  margin: 12px 0;
-}
-
-.project-info p { color: var(--muted); }
-.project-info .btn { margin-top: 22px; }
-
-/* PROCESS */
 .process-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  margin-top: 42px;
+  gap: 17px;
+  counter-reset: step;
 }
 
-.process-step {
-  padding: 23px;
-  border-left: 2px solid var(--purple2);
-  background: rgba(255,255,255,.02);
+.process-card {
+  counter-increment: step;
 }
 
 .step-number {
-  color: var(--light);
+  font-size: 2rem;
   font-weight: 900;
-  font-size: .78rem;
-  letter-spacing: 1px;
+  letter-spacing: -.08em;
+  color: rgba(192,132,252,.72);
+  margin-bottom: 18px;
 }
 
-.process-step h3 { font-size: 1rem; margin: 10px 0; }
-.process-step p { font-size: .86rem; color: var(--muted); }
+.step-number::before {
+  content: "0" counter(step);
+}
 
-/* PRICING */
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   align-items: stretch;
-  margin-top: 42px;
 }
 
 .price-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 29px;
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 
 .price-card.featured {
-  border-color: var(--purple);
-  box-shadow: 0 0 40px rgba(168,85,247,.1);
-  background: linear-gradient(160deg, rgba(168,85,247,.1), var(--surface) 55%);
+  border-color: rgba(192,132,252,.62);
+  box-shadow: 0 0 35px rgba(168,85,247,.11);
+  background: linear-gradient(160deg, rgba(63,29,91,.45), rgba(12,10,18,.96) 60%);
 }
 
-.price-badge {
-  display: inline-block;
+.popular-label {
   align-self: flex-start;
-  background: rgba(168,85,247,.13);
-  color: #e9d5ff;
-  padding: 5px 10px;
-  border-radius: 50px;
   font-size: .7rem;
   font-weight: 800;
-  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #f3e8ff;
+  background: rgba(168,85,247,.2);
+  border: 1px solid rgba(192,132,252,.25);
+  border-radius: 999px;
+  padding: 6px 10px;
+  margin-bottom: 17px;
 }
 
-.price-card h3 { font-size: 1.2rem; }
-.price-desc { color: var(--muted); font-size: .85rem; margin: 8px 0 18px; min-height: 46px; }
-
 .price {
-  font-size: 2.5rem;
-  letter-spacing: -1.5px;
+  font-size: 2.7rem;
   font-weight: 900;
+  letter-spacing: -.075em;
   line-height: 1.2;
+  margin: 18px 0 7px;
 }
 
 .price small {
-  font-size: .83rem;
+  font-size: .85rem;
   letter-spacing: 0;
-  color: var(--muted);
   font-weight: 500;
+  color: var(--muted);
 }
 
-.price-card ul {
+.price-note {
+  font-size: .82rem;
+  color: var(--muted);
+}
+
+.feature-list {
   list-style: none;
   display: grid;
   gap: 12px;
-  margin: 25px 0;
+  margin: 24px 0;
   flex: 1;
 }
 
-.price-card li {
-  color: #d7d0e1;
-  font-size: .86rem;
+.feature-list li {
   display: flex;
   gap: 9px;
+  color: #d1c9de;
+  font-size: .87rem;
 }
 
-.price-card li::before { content: "✓"; color: var(--light); font-weight: 900; }
-.price-card .btn { width: 100%; }
+.feature-list li::before {
+  content: "✓";
+  color: #c084fc;
+  font-weight: 900;
+}
 
-.pricing-note {
+.pricing-disclaimer {
+  max-width: 760px;
+  margin: 28px auto 0;
+  text-align: center;
   color: var(--muted);
-  font-size: .82rem;
-  margin-top: 20px;
-  max-width: 850px;
+  font-size: .83rem;
 }
 
-/* ABOUT */
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
+  grid-template-columns: .9fr 1.1fr;
   align-items: center;
+  gap: 55px;
 }
 
-.about-panel {
-  padding: 30px;
+.about-visual {
+  min-height: 340px;
+  display: grid;
+  place-items: center;
+  position: relative;
   border: 1px solid var(--border);
-  border-radius: 22px;
-  background: radial-gradient(circle at top right, rgba(168,85,247,.13), transparent 45%), var(--surface);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(168,85,247,.17), transparent 50%),
+    linear-gradient(145deg, rgba(23,17,35,.8), rgba(8,8,12,.7));
+  overflow: hidden;
 }
 
-.about-panel h3 { font-size: 1.3rem; margin-bottom: 12px; }
-.about-panel p { color: var(--muted); font-size: .92rem; }
+.about-monogram {
+  font-size: clamp(5rem, 12vw, 8rem);
+  font-weight: 900;
+  letter-spacing: -.13em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(216,180,254,.85);
+  text-shadow: 0 0 45px rgba(168,85,247,.23);
+}
+
+.about-content h2 {
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  letter-spacing: -.06em;
+  line-height: 1.12;
+  margin: 19px 0;
+}
+
+.about-content p {
+  color: var(--muted);
+  margin-bottom: 17px;
+}
 
 .about-points {
   display: grid;
-  gap: 14px;
-  margin-top: 25px;
+  gap: 13px;
+  margin-top: 24px;
 }
 
 .about-point {
   display: flex;
-  gap: 13px;
   align-items: flex-start;
+  gap: 12px;
 }
 
-.about-point .card-icon {
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  font-size: 1rem;
-  margin: 0;
+.about-point span {
+  color: var(--purple-light);
+  font-size: 1.15rem;
 }
 
-.about-point h4 { font-size: .94rem; }
-.about-point p { color: var(--muted); font-size: .84rem; }
+.about-point strong {
+  display: block;
+  font-size: .92rem;
+}
 
-/* FAQ */
+.about-point small {
+  display: block;
+  color: var(--muted);
+  font-size: .83rem;
+}
+
 .faq-list {
-  max-width: 850px;
-  margin-top: 38px;
+  max-width: 800px;
+  margin: auto;
   display: grid;
   gap: 12px;
 }
 
-.faq-item {
-  background: var(--surface);
+details {
   border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
+  border-radius: 15px;
+  background: rgba(18,14,26,.72);
+  padding: 19px 21px;
+  transition: border-color .2s;
 }
 
-.faq-question {
-  width: 100%;
-  padding: 20px;
-  background: transparent;
-  border: 0;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  text-align: left;
-  font-weight: 750;
+details[open] {
+  border-color: rgba(192,132,252,.43);
 }
 
-.faq-question span:last-child { color: var(--light); font-size: 1.2rem; }
+summary {
+  cursor: pointer;
+  list-style: none;
+  font-weight: 700;
+  padding-right: 25px;
+  position: relative;
+}
 
-.faq-answer {
+summary::-webkit-details-marker {
   display: none;
-  padding: 0 20px 20px;
+}
+
+summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: -3px;
+  font-size: 1.35rem;
+  color: var(--purple-light);
+}
+
+details[open] summary::after {
+  content: "−";
+}
+
+details p {
   color: var(--muted);
+  margin-top: 13px;
   font-size: .9rem;
 }
 
-.faq-item.open .faq-answer { display: block; }
-
-/* CONTACT */
-.contact-section {
-  background: radial-gradient(ellipse at 50% 100%, rgba(121,40,202,.13), transparent 65%);
+.budget-section {
+  background: linear-gradient(180deg, transparent, rgba(121,40,202,.06), transparent);
 }
 
-.contact-grid {
+.budget-grid {
   display: grid;
   grid-template-columns: .8fr 1.2fr;
-  gap: 42px;
+  gap: 45px;
   align-items: start;
-  margin-top: 38px;
 }
 
-.contact-list {
+.budget-copy h2 {
+  font-size: clamp(2.2rem, 5vw, 3.7rem);
+  letter-spacing: -.065em;
+  line-height: 1.08;
+  margin: 20px 0;
+}
+
+.budget-copy p {
+  color: var(--muted);
+}
+
+.budget-contact {
   display: grid;
-  gap: 13px;
-  margin-top: 26px;
+  gap: 14px;
+  margin-top: 28px;
 }
 
-.contact-item {
-  display: flex;
-  gap: 13px;
-  align-items: center;
-  padding: 15px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: rgba(255,255,255,.02);
+.budget-contact a {
+  color: #d8b4fe;
+  font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
-.contact-item .card-icon { margin: 0; width: 43px; height: 43px; font-size: 1.1rem; }
-.contact-item small { display: block; color: var(--muted); font-size: .75rem; }
-.contact-item strong { font-size: .9rem; overflow-wrap: anywhere; }
-
-.budget-form {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 28px;
+.form-card {
+  background: linear-gradient(145deg, rgba(23,17,35,.96), rgba(12,10,18,.96));
+  border: 1px solid rgba(192,132,252,.22);
+  border-radius: 25px;
+  padding: clamp(22px, 4vw, 35px);
+  box-shadow: 0 20px 70px rgba(0,0,0,.25);
 }
 
-.budget-form h3 { font-size: 1.35rem; margin-bottom: 7px; }
-.form-intro { color: var(--muted); font-size: .86rem; margin-bottom: 23px; }
+.form-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+
+.form-intro {
+  color: var(--muted);
+  font-size: .88rem;
+  margin-bottom: 25px;
+}
 
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 17px;
 }
 
-.field { display: grid; gap: 7px; }
-.field.full { grid-column: 1 / -1; }
+.field {
+  display: grid;
+  gap: 7px;
+}
 
-.field label { color: #e4dcec; font-size: .8rem; font-weight: 700; }
+.field.full {
+  grid-column: 1 / -1;
+}
 
-.field input, .field select, .field textarea {
+.field label {
+  color: #ddd4e9;
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+.field input,
+.field select,
+.field textarea {
   width: 100%;
-  background: #0b0a10;
+  min-height: 49px;
+  background: #0b0911;
+  color: var(--text);
   border: 1px solid rgba(192,132,252,.2);
-  border-radius: 10px;
-  padding: 13px 14px;
-  color: white;
+  border-radius: 11px;
+  padding: 12px 13px;
   outline: none;
+  transition: border-color .2s, box-shadow .2s;
 }
 
-.field input:focus, .field select:focus, .field textarea:focus {
-  border-color: var(--purple);
-  box-shadow: 0 0 0 3px rgba(168,85,247,.1);
+.field textarea {
+  min-height: 120px;
+  resize: vertical;
 }
 
-.field select option { background: #111; }
-.field textarea { min-height: 115px; resize: vertical; }
-.field input::placeholder, .field textarea::placeholder { color: #6e6879; }
-
-.form-footnote { color: var(--muted); font-size: .75rem; margin-top: 13px; }
-.form-message { display: none; padding: 12px; margin-top: 14px; border-radius: 10px; font-size: .85rem; }
-.form-message.show { display: block; }
-.form-message.success { background: rgba(34,197,94,.1); color: #86efac; }
-.form-message.error { background: rgba(248,113,113,.1); color: #fca5a5; }
-
-/* FOOTER */
-footer {
-  border-top: 1px solid rgba(255,255,255,.07);
-  padding: 35px 0 25px;
-  background: #060609;
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 3px rgba(168,85,247,.13);
 }
 
-.footer-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #766c86;
+}
+
+.form-privacy {
+  color: var(--muted);
+  font-size: .76rem;
+  margin: 14px 0 18px;
+}
+
+.form-status {
+  display: none;
+  border: 1px solid var(--border);
+  background: rgba(168,85,247,.08);
+  color: #e9d5ff;
+  border-radius: 11px;
+  padding: 13px;
+  font-size: .86rem;
+  margin-top: 14px;
+  overflow-wrap: anywhere;
+}
+
+.form-status.show {
+  display: block;
+}
+
+.form-status a {
+  text-decoration: underline;
+  font-weight: 800;
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  background: rgba(5,5,8,.55);
+  padding: 48px 0 25px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.3fr .7fr .7fr;
   gap: 35px;
-  padding-bottom: 28px;
+  padding-bottom: 35px;
 }
 
-.footer-copy { max-width: 380px; color: var(--muted); font-size: .84rem; margin-top: 13px; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 18px; color: #c7bfd2; font-size: .83rem; }
-.footer-links a:hover { color: var(--light); }
+.footer-description {
+  color: var(--muted);
+  max-width: 370px;
+  font-size: .88rem;
+  margin-top: 17px;
+}
+
+.footer h4 {
+  margin-bottom: 15px;
+}
+
+.footer-links {
+  display: grid;
+  gap: 10px;
+  color: var(--muted);
+  font-size: .87rem;
+}
+
+.footer-links a:hover {
+  color: var(--purple-light);
+}
 
 .footer-bottom {
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
-  gap: 15px;
-  border-top: 1px solid rgba(255,255,255,.06);
-  padding-top: 20px;
-  color: #827b8e;
-  font-size: .75rem;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: var(--muted);
+  font-size: .77rem;
 }
 
-/* WHATSAPP FLOAT */
 .whatsapp-float {
   position: fixed;
   z-index: 900;
-  right: max(20px, env(safe-area-inset-right));
-  bottom: max(20px, env(safe-area-inset-bottom));
-  width: 58px;
-  height: 58px;
+  right: max(22px, env(safe-area-inset-right));
+  bottom: max(22px, env(safe-area-inset-bottom));
+  width: 57px;
+  height: 57px;
   display: grid;
   place-items: center;
   border-radius: 50%;
   background: #25d366;
-  color: white;
+  color: #06160b;
   font-size: 1.55rem;
   font-weight: 900;
-  box-shadow: 0 10px 30px rgba(37,211,102,.23);
-  transition: transform .2s;
+  box-shadow: 0 8px 30px rgba(37,211,102,.24);
+  transition: transform .2s, box-shadow .2s;
 }
 
-.whatsapp-float:hover { transform: translateY(-4px) scale(1.03); }
-
-/* REVEAL AND PROGRESS */
-.scroll-progress {
-  position: fixed;
-  z-index: 1200;
-  top: 0;
-  left: 0;
-  height: 3px;
-  width: 0;
-  background: linear-gradient(90deg, var(--purple2), var(--light));
+.whatsapp-float:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 12px 35px rgba(37,211,102,.35);
 }
 
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .7s ease, transform .7s ease;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
 }
 
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    scroll-behavior: auto !important;
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-13px) rotate(1.5deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: .5; transform: scale(.96); }
+  50% { opacity: .9; transform: scale(1.04); }
+}
+
+@media (min-width: 1100px) {
+  .hero-art {
+    transform: scale(1.04);
   }
-  .reveal { opacity: 1; transform: none; }
 }
 
-@media (max-width: 1000px) {
-  .nav-links { gap: 15px; }
-  .nav-links a:not(.btn) { font-size: .8rem; }
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .hero-grid { gap: 25px; }
-  .process-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 980px) {
+  section {
+    padding: 78px 0;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr  .8fr;
+    gap: 22px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 6.4vw, 4.5rem);
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-grid {
+    gap: 30px;
+  }
+
+  .nav-links {
+    gap: 14px;
+  }
+
+  .nav-links a:not(.btn) {
+    font-size: .78rem;
+  }
+
+  .nav-cta {
+    padding: 11px 13px;
+    font-size: .8rem;
+  }
 }
 
 @media (max-width: 760px) {
-  section { padding: 74px 0; }
-  .container { width: min(var(--max), calc(100% - 32px)); }
-  .nav-wrap { min-height: 68px; }
-  .brand img { width: 39px; height: 39px; }
-  .brand-name { font-size: 1rem; }
-  .brand-tagline { font-size: .6rem; }
-  .menu-toggle { display: block; }
+  html {
+    scroll-padding-top: 75px;
+  }
+
+  .container {
+    width: min(100% - 30px, var(--max));
+  }
+
+  section {
+    padding: 68px 0;
+  }
+
+  .nav {
+    min-height: 68px;
+  }
+
+  .brand img {
+    width: 39px;
+    height: 39px;
+  }
+
+  .brand-name {
+    font-size: .96rem;
+  }
+
+  .brand-tag {
+    font-size: .59rem;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
 
   .nav-links {
-    position: fixed;
-    inset: 68px 0 0;
-    padding: 25px 24px calc(30px + env(safe-area-inset-bottom));
-    background: rgba(8,8,12,.98);
-    backdrop-filter: blur(20px);
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    right: 0;
+    padding: 16px 20px 22px;
     display: flex;
-    flex-direction: column;
     align-items: stretch;
-    gap: 7px;
-    overflow-y: auto;
-    visibility: hidden;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(10,8,15,.98);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 20px 40px rgba(0,0,0,.4);
     opacity: 0;
+    visibility: hidden;
     transform: translateY(-8px);
-    transition: opacity .2s, transform .2s, visibility .2s;
+    transition: opacity .2s, visibility .2s, transform .2s;
   }
 
   .nav-links.open {
-    visibility: visible;
     opacity: 1;
+    visibility: visible;
     transform: translateY(0);
   }
 
   .nav-links a:not(.btn) {
-    font-size: 1rem;
-    padding: 13px 12px;
-    border-bottom: 1px solid rgba(255,255,255,.06);
+    padding: 12px 3px;
+    font-size: .94rem;
+    border-bottom: 1px solid rgba(192,132,252,.08);
   }
 
-  .nav-links .btn { margin-top: 12px; }
+  .nav-links .nav-cta {
+    margin-top: 14px;
+  }
 
-  .hero { min-height: auto; padding: 72px 0 55px; }
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero h1 { letter-spacing: -2px; font-size: clamp(2.65rem, 12vw, 4.3rem); }
-  .hero-copy { font-size: .96rem; }
-  .hero-visual { min-height: 300px; margin-top: 5px; }
-  .orbit.one { width: 250px; height: 155px; }
-  .orbit.two { width: 305px; height: 195px; }
-  .orbit.three { width: 340px; height: 240px; }
-  .visual-core { width: 145px; height: 145px; border-radius: 32px; }
-  .visual-core img { width: 100px; height: 100px; border-radius: 20px; }
-  .chip-one { right: 0; top: 24px; }
-  .chip-two { left: 0; bottom: 35px; }
-  .chip-three { right: 0; bottom: 0; }
+  .hero {
+    min-height: auto;
+    padding: 67px 0 48px;
+  }
 
-  .trust-grid { grid-template-columns: 1fr; }
-  .trust-item { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.06); padding: 15px; }
-  .trust-item:last-child { border-bottom: 0; }
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
 
-  .services-grid { grid-template-columns: 1fr; }
-  .card { padding: 22px; }
-  .portfolio-card { grid-template-columns: 1fr; padding: 19px; gap: 24px; }
-  .project-preview { min-height: 210px; }
-  .process-grid { grid-template-columns: 1fr; }
-  .pricing-grid { grid-template-columns: 1fr; }
-  .price-desc { min-height: auto; }
-  .about-grid { grid-template-columns: 1fr; gap: 30px; }
-  .contact-grid { grid-template-columns: 1fr; gap: 28px; }
-  .budget-form { padding: 21px; }
-  .form-grid { grid-template-columns: 1fr; }
-  .field.full { grid-column: auto; }
-  .footer-top { flex-direction: column; }
-  .footer-bottom { flex-direction: column; }
+  .hero h1 {
+    font-size: clamp(3rem, 12vw, 4.7rem);
+    max-width: 620px;
+    margin: 23px 0 19px;
+  }
+
+  .hero-copy {
+    font-size: .98rem;
+  }
+
+  .hero-art {
+    min-height: 350px;
+    margin-top: -5px;
+  }
+
+  .orb {
+    width: min(255px, 65vw);
+  }
+
+  .orb-glow {
+    width: 230px;
+    height: 230px;
+  }
+
+  .float-card.one {
+    top: 45px;
+    left: 2px;
+  }
+
+  .float-card.two {
+    right: 0;
+    bottom: 35px;
+  }
+
+  .trust-grid {
+    grid-template-columns: 1fr;
+    gap: 17px;
+    padding: 23px 0;
+  }
+
+  .trust-item {
+    justify-content: flex-start;
+  }
+
+  .section-heading {
+    margin-bottom: 32px;
+    text-align: left;
+  }
+
+  .section-heading p {
+    margin: 0;
+  }
+
+  .cards-grid,
+  .pricing-grid,
+  .about-grid,
+  .budget-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cards-grid {
+    gap: 14px;
+  }
+
+  .glass-card {
+    padding: 23px;
+    border-radius: 19px;
+  }
+
+  .process-grid {
+    gap: 13px;
+  }
+
+  .process-grid .glass-card {
+    padding: 19px;
+  }
+
+  .step-number {
+    font-size: 1.6rem;
+  }
+
+  .pricing-grid {
+    gap: 15px;
+  }
+
+  .about-grid {
+    gap: 28px;
+  }
+
+  .about-visual {
+    min-height: 245px;
+  }
+
+  .budget-grid {
+    gap: 30px;
+  }
+
+  .form-card {
+    padding: 21px 17px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 20px;
+  }
+
+  .footer-grid > div:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .whatsapp-float {
+    width: 53px;
+    height: 53px;
+    right: 16px;
+    bottom: 17px;
+  }
 }
 
-@media (max-width: 380px) {
-  .hero-actions { flex-direction: column; }
-  .hero-actions .btn { width: 100%; }
-  .hero-visual { transform: scale(.9); margin-inline: -15px; }
+@media (max-width: 430px) {
+  .container {
+    width: calc(100% - 26px);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.7rem, 13vw, 3.7rem);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .hero-art {
+    min-height: 310px;
+  }
+
+  .float-card {
+    padding: 11px 12px;
+    font-size: .72rem;
+  }
+
+  .float-card strong {
+    font-size: .8rem;
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field.full {
+    grid-column: auto;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid > div:first-child {
+    grid-column: auto;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }
 </style>
 </head>
 
 <body>
-<div class="scroll-progress" id="scrollProgress"></div>
 
-<header>
-  <div class="container nav-wrap">
-    <a href="#inicio" class="brand" aria-label="VELTRONIX - Início">
-      <img src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg" alt="Logo VELTRONIX">
+<header class="header">
+  <div class="container nav">
+    <a class="brand" href="#inicio" aria-label="VELTRONIX — início">
+      <img
+        src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg"
+        alt="Logo VELTRONIX"
+        onerror="this.style.display='none'">
       <span>
         <span class="brand-name">VELTRONIX</span>
-        <span class="brand-tagline">Tecnologia que impulsiona negócios.</span>
+        <span class="brand-tag">Tecnologia que impulsiona negócios.</span>
       </span>
     </a>
 
-    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+    <button class="menu-toggle" id="menuToggle"
+      aria-label="Abrir menu" aria-expanded="false"
+      aria-controls="navLinks" type="button">☰</button>
 
-    <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
+    <nav class="nav-links" id="navLinks" aria-label="Menu principal">
       <a href="#inicio">Início</a>
       <a href="#servicos">Serviços</a>
       <a href="#portfolio">Portfólio</a>
-      <a href="#planos">Planos</a>
+      <a href="#processo">Processo</a>
+      <a href="#precos">Preços</a>
       <a href="#sobre">Sobre</a>
-      <a href="#contato">Contato</a>
-      <a class="btn btn-primary" href="#orcamento">Solicitar orçamento ↗</a>
+      <a href="#contato" class="btn btn-primary nav-cta">Solicitar orçamento ↗</a>
     </nav>
   </div>
+  <div class="scroll-progress" id="scrollProgress"></div>
 </header>
 
 <main>
-  <!-- HERO -->
   <section class="hero" id="inicio">
     <div class="container hero-grid">
       <div class="reveal">
-        <span class="eyebrow"><span class="status-dot"></span> Tecnologia para o seu negócio</span>
-        <h1>Sua empresa merece uma presença <span class="gradient-text">digital de verdade.</span></h1>
+        <span class="eyebrow">Soluções digitais para negócios</span>
+
+        <h1>
+          Sua presença digital.
+          <span class="gradient-text">Em outro nível.</span>
+        </h1>
+
         <p class="hero-copy">
-          Desenvolvemos sites modernos e soluções digitais para ajudar empresas a apresentar seus serviços, fortalecer sua marca e facilitar o contato com seus clientes.
+          Criamos experiências digitais modernas para ajudar negócios
+          a se apresentarem melhor, conquistarem espaço e crescerem na internet.
         </p>
+
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#orcamento">Vamos conversar ↗</a>
-          <a class="btn btn-secondary" href="#portfolio">Conheça nosso trabalho</a>
+          <a class="btn btn-primary" href="#contato">Vamos tirar sua ideia do papel ↗</a>
+          <a class="btn btn-secondary" href="#portfolio">Explorar projetos ↓</a>
         </div>
-        <p class="hero-note">Atendimento personalizado • Projetos sob medida • Comunicação direta</p>
+
+        <div class="hero-note">
+          <span>✦</span>
+          Design moderno, atenção aos detalhes e soluções pensadas para você.
+        </div>
       </div>
 
-      <div class="hero-visual reveal" aria-label="Identidade visual tecnológica da VELTRONIX">
-        <div class="orbit one"></div>
-        <div class="orbit two"></div>
-        <div class="orbit three"></div>
-        <div class="visual-core">
-          <img src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg" alt="" aria-hidden="true">
+      <div class="hero-art reveal" aria-label="Arte abstrata tecnológica em roxo neon">
+        <div class="orb-glow"></div>
+        <div class="orb">
+          <div class="orb-core"></div>
         </div>
-        <div class="floating-chip chip-one">✦ Design moderno</div>
-        <div class="floating-chip chip-two">⌘ Soluções digitais</div>
-        <div class="floating-chip chip-three">↗ Feito para crescer</div>
+
+        <div class="float-card one">
+          <span class="float-symbol">✳</span><strong>Design digital</strong>
+          <small>Identidade que se destaca</small>
+        </div>
+
+        <div class="float-card two">
+          <span class="float-symbol">⌘</span><strong>Tecnologia</strong>
+          <small>Ideias em movimento</small>
+        </div>
       </div>
     </div>
   </section>
 
   <div class="trust-strip">
     <div class="container trust-grid">
-      <div class="trust-item"><strong>Design personalizado</strong><br>Visual alinhado à sua marca</div>
-      <div class="trust-item"><strong>Experiência responsiva</strong><br>Adaptado para celular e computador</div>
-      <div class="trust-item"><strong>Contato facilitado</strong><br>Mais caminhos para seu cliente falar com você</div>
+      <div class="trust-item">
+        <div class="trust-icon">✧</div>
+        <div>
+          <strong>Design personalizado</strong>
+          <small>Visual alinhado à sua marca</small>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">⌘</div>
+        <div>
+          <strong>Foco em experiência</strong>
+          <small>Navegação clara e intuitiva</small>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">↗</div>
+        <div>
+          <strong>Adaptado para telas</strong>
+          <small>Computador, tablet e celular</small>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- SERVIÇOS -->
   <section id="servicos">
     <div class="container">
-      <div class="reveal">
-        <span class="section-label">O que fazemos</span>
-        <h2 class="section-title">Tecnologia aplicada às <span class="gradient-text">necessidades do seu negócio.</span></h2>
-        <p class="section-description">Soluções pensadas para sua realidade, com escopo definido antes do desenvolvimento.</p>
+      <div class="section-heading reveal">
+        <span class="eyebrow">O que fazemos</span>
+        <h2>Tecnologia com <span class="gradient-text">propósito.</span></h2>
+        <p>
+          Soluções digitais para apresentar melhor sua marca, facilitar tarefas
+          e construir uma presença profissional na internet.
+        </p>
       </div>
 
-      <div class="services-grid">
-        <article class="card reveal">
+      <div class="cards-grid">
+        <article class="glass-card reveal">
           <div class="card-icon">⌘</div>
-          <h3>Desenvolvimento de sites</h3>
-          <p>Sites profissionais para apresentar sua empresa, seus serviços e seus canais de contato em um só lugar.</p>
+          <h3>Criação de sites</h3>
+          <p>
+            Sites modernos, responsivos e organizados para apresentar seus
+            serviços, sua marca e seus canais de contato.
+          </p>
+          <a class="card-link" href="#contato" data-service="Site Profissional">Quero um site ↗</a>
         </article>
-        <article class="card reveal">
-          <div class="card-icon">⚙</div>
-          <h3>Automações</h3>
-          <p>Integrações e pequenos fluxos digitais para reduzir tarefas repetitivas, conforme a necessidade do projeto.</p>
+
+        <article class="glass-card reveal">
+          <div class="card-icon">⟳</div>
+          <h3>Automação de processos</h3>
+          <p>
+            Simplificação de tarefas repetitivas com fluxos digitais planejados
+            de acordo com as necessidades do negócio.
+          </p>
+          <a class="card-link" href="#contato" data-service="Automação de processos">Conhecer soluções ↗</a>
         </article>
-        <article class="card reveal">
-          <div class="card-icon">✦</div>
+
+        <article class="glass-card reveal">
+          <div class="card-icon">✳</div>
           <h3>Identidade digital</h3>
-          <p>Organização da apresentação online da sua marca para transmitir uma imagem mais consistente e profissional.</p>
+          <p>
+            Uma apresentação digital coerente, com atenção à identidade visual,
+            à comunicação e à imagem da sua marca.
+          </p>
+          <a class="card-link" href="#contato" data-service="Identidade digital">Fortalecer minha marca ↗</a>
         </article>
-        <article class="card reveal">
-          <div class="card-icon">↗</div>
-          <h3>Manutenção e otimização</h3>
-          <p>Correções, atualizações e melhorias em sites existentes, de acordo com o serviço contratado.</p>
+
+        <article class="glass-card reveal">
+          <div class="card-icon">⌁</div>
+          <h3>Manutenção de sites</h3>
+          <p>
+            Ajustes, atualizações e melhorias para manter seu site organizado
+            e adequado às necessidades atuais.
+          </p>
+          <a class="card-link" href="#contato" data-service="Manutenção de sites">Melhorar meu site ↗</a>
+        </article>
+
+        <article class="glass-card reveal">
+          <div class="card-icon">◈</div>
+          <h3>Otimização de experiência</h3>
+          <p>
+            Melhorias na navegação, organização de conteúdo e adaptação
+            para diferentes tamanhos de tela.
+          </p>
+          <a class="card-link" href="#contato" data-service="Otimização de site">Quero melhorar ↗</a>
+        </article>
+
+        <article class="glass-card reveal">
+          <div class="card-icon">✧</div>
+          <h3>Soluções sob medida</h3>
+          <p>
+            Conversamos sobre o seu objetivo para identificar uma solução
+            digital adequada ao projeto e ao seu orçamento.
+          </p>
+          <a class="card-link" href="#contato" data-service="Outro projeto digital">Conversar sobre uma ideia ↗</a>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- PORTFÓLIO -->
-  <section class="portfolio-section" id="portfolio">
+  <section id="portfolio">
     <div class="container">
-      <div class="reveal">
-        <span class="section-label">Portfólio</span>
-        <h2 class="section-title">Projetos que transformam ideias em <span class="gradient-text">experiências digitais.</span></h2>
-        <p class="section-description">Conheça um projeto publicado que demonstra como uma empresa pode apresentar seu negócio pela internet.</p>
+      <div class="section-heading reveal">
+        <span class="eyebrow">Portfólio</span>
+        <h2>Ideias que ganham <span class="gradient-text">forma digital.</span></h2>
+        <p>
+          Conheça um projeto de demonstração desenvolvido para uma marca
+          de negócio local.
+        </p>
       </div>
 
-      <article class="portfolio-card reveal">
-        <div class="project-preview" aria-label="Identidade visual ilustrativa do projeto VF FILHOS LANCHES">
-          <div>
-            <div class="vf-mark">VF</div>
-            <span>FILHOS LANCHES</span>
+      <div class="cards-grid">
+        <article class="glass-card portfolio-card reveal">
+          <div class="project-preview">
+            <div class="project-logo">VF</div>
+            <div class="project-caption">PROJETO WEB</div>
           </div>
-        </div>
-        <div class="project-info">
-          <span class="project-tag">Projeto de portfólio</span>
-          <h3>VF FILHOS LANCHES</h3>
-          <p>Projeto digital para uma lanchonete, com cardápio online e recursos voltados à experiência de pedidos. Explore o site para conhecer o trabalho publicado.</p>
-          <a class="btn btn-primary" href="https://vffilhoslanches.github.io/vf-filho-lanche/" target="_blank" rel="noopener noreferrer">Visitar projeto ↗</a>
-        </div>
-      </article>
+
+          <div class="project-body">
+            <span class="tag">Projeto de portfólio</span>
+            <h3 style="margin-top:14px">VF FILHOS LANCHES</h3>
+            <p>
+              Projeto de site para uma lanchonete, com foco na apresentação
+              do cardápio e na experiência do cliente.
+            </p>
+
+            <div class="project-tags">
+              <span class="tag">Design responsivo</span>
+              <span class="tag">Negócio local</span>
+              <span class="tag">Web</span>
+            </div>
+
+            <a class="btn btn-secondary btn-full" style="margin-top:22px"
+              href="https://vffilhoslanches.github.io/vf-filho-lanche/"
+              target="_blank" rel="noopener noreferrer">
+              Visitar projeto ↗
+            </a>
+          </div>
+        </article>
+
+        <article class="glass-card portfolio-card reveal">
+          <div class="project-preview"
+            style="background:radial-gradient(circle at 50% 40%,rgba(168,85,247,.2),transparent 50%),linear-gradient(135deg,#171020,#09090c)">
+            <div class="project-logo" style="color:#c084fc;text-shadow:0 0 35px rgba(168,85,247,.4)">VX</div>
+            <div class="project-caption" style="color:#c084fc">NOVAS IDEIAS</div>
+          </div>
+
+          <div class="project-body">
+            <span class="tag">Conceito visual</span>
+            <h3 style="margin-top:14px">Sua marca pode estar aqui</h3>
+            <p>
+              Este espaço pode receber um próximo projeto, uma nova identidade
+              ou uma experiência digital criada para um cliente.
+            </p>
+
+            <div class="project-tags">
+              <span class="tag">Personalizado</span>
+              <span class="tag">Criatividade</span>
+            </div>
+
+            <a class="btn btn-primary btn-full" style="margin-top:22px"
+              href="#contato" data-service="Site Profissional">
+              Criar meu projeto ↗
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="project-cta reveal">
+        <p class="muted">Tem um projeto em mente?</p>
+        <a class="btn btn-primary" style="margin-top:14px" href="#contato">Vamos conversar ↗</a>
+      </div>
     </div>
   </section>
 
-  <!-- PROCESSO -->
   <section id="processo">
     <div class="container">
-      <div class="reveal">
-        <span class="section-label">Como funciona</span>
-        <h2 class="section-title">Do primeiro contato à <span class="gradient-text">publicação.</span></h2>
-        <p class="section-description">Um processo simples, com alinhamento de expectativas em cada etapa.</p>
+      <div class="section-heading reveal">
+        <span class="eyebrow">Como funciona</span>
+        <h2>Do primeiro contato à <span class="gradient-text">entrega.</span></h2>
+        <p>
+          Um processo organizado ajuda você a entender as etapas do projeto
+          antes de começar.
+        </p>
       </div>
 
       <div class="process-grid">
-        <article class="process-step reveal">
-          <span class="step-number">ETAPA 01</span>
-          <h3>Entendimento</h3>
-          <p>Conversamos para compreender sua empresa, seu público e o objetivo do projeto.</p>
+        <article class="glass-card process-card reveal">
+          <div class="step-number"></div>
+          <h3>Entendemos sua ideia</h3>
+          <p>Conversamos sobre seus objetivos, necessidades e público.</p>
         </article>
-        <article class="process-step reveal">
-          <span class="step-number">ETAPA 02</span>
-          <h3>Planejamento</h3>
-          <p>Definimos as páginas, os recursos, o prazo e o investimento antes de começar.</p>
+
+        <article class="glass-card process-card reveal">
+          <div class="step-number"></div>
+          <h3>Planejamos a solução</h3>
+          <p>Definimos escopo, funcionalidades, prazo e orçamento.</p>
         </article>
-        <article class="process-step reveal">
-          <span class="step-number">ETAPA 03</span>
-          <h3>Desenvolvimento</h3>
-          <p>Construímos o projeto conforme o escopo aprovado e alinhamos os ajustes previstos.</p>
+
+        <article class="glass-card process-card reveal">
+          <div class="step-number"></div>
+          <h3>Desenvolvemos</h3>
+          <p>Construímos a solução e ajustamos os detalhes necessários.</p>
         </article>
-        <article class="process-step reveal">
-          <span class="step-number">ETAPA 04</span>
-          <h3>Entrega</h3>
-          <p>Após a revisão e a conclusão das condições combinadas, publicamos ou entregamos o projeto.</p>
+
+        <article class="glass-card process-card reveal">
+          <div class="step-number"></div>
+          <h3>Revisamos e entregamos</h3>
+          <p>Conferimos o resultado e alinhamos a entrega com você.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- PLANOS -->
-  <section id="planos">
+  <section id="precos">
     <div class="container">
-      <div class="reveal">
-        <span class="section-label">Investimento</span>
-        <h2 class="section-title">Uma solução para cada <span class="gradient-text">etapa do negócio.</span></h2>
-        <p class="section-description">Valores iniciais de referência. O preço final depende do escopo, dos recursos e das integrações solicitadas.</p>
+      <div class="section-heading reveal">
+        <span class="eyebrow">Investimento</span>
+        <h2>Escolha o seu <span class="gradient-text">próximo passo.</span></h2>
+        <p>
+          Valores iniciais de referência para projetos de sites.
+          O orçamento final depende do escopo e das funcionalidades.
+        </p>
       </div>
 
       <div class="pricing-grid">
-        <article class="price-card reveal">
+        <article class="glass-card price-card reveal">
           <h3>Site Básico</h3>
-          <p class="price-desc">Para apresentar sua empresa e facilitar o contato online.</p>
-          <div class="price">R$ 150<small> / a partir de</small></div>
-          <ul>
-            <li>Página com informações principais</li>
-            <li>Apresentação de serviços</li>
-            <li>Botão de WhatsApp</li>
+          <p class="muted">Para começar sua presença online.</p>
+          <div class="price">R$ 150<small> a partir de</small></div>
+          <p class="price-note">Escopo simples e objetivo.</p>
+
+          <ul class="feature-list">
+            <li>Apresentação do negócio</li>
             <li>Layout adaptado para celular</li>
-            <li>Publicação conforme condições combinadas</li>
+            <li>Informações e contatos</li>
+            <li>Botões de contato</li>
           </ul>
-          <a class="btn btn-secondary" href="#orcamento" data-service="Site Básico">Escolher Básico</a>
+
+          <a class="btn btn-secondary btn-full" href="#contato"
+            data-service="Site Básico">Solicitar orçamento</a>
         </article>
 
-        <article class="price-card featured reveal">
-          <span class="price-badge">OPÇÃO INTERMEDIÁRIA</span>
+        <article class="glass-card price-card featured reveal">
+          <span class="popular-label">Mais completo</span>
           <h3>Site Profissional</h3>
-          <p class="price-desc">Para empresas que precisam de uma apresentação mais completa.</p>
-          <div class="price">R$ 320<small> / a partir de</small></div>
-          <ul>
-            <li>Estrutura mais completa</li>
+          <p class="muted">Para apresentar melhor sua empresa.</p>
+          <div class="price">R$ 320<small> a partir de</small></div>
+          <p class="price-note">Mais seções e personalização.</p>
+
+          <ul class="feature-list">
             <li>Design personalizado</li>
-            <li>Seções organizadas</li>
-            <li>Formulário ou integração simples, se acordado</li>
-            <li>Adaptação para dispositivos móveis</li>
-            <li>SEO básico conforme o projeto</li>
+            <li>Seções para serviços e projetos</li>
+            <li>Layout responsivo</li>
+            <li>Integração com canais de contato</li>
+            <li>Animações e detalhes visuais</li>
           </ul>
-          <a class="btn btn-primary" href="#orcamento" data-service="Site Profissional">Escolher Profissional</a>
+
+          <a class="btn btn-primary btn-full" href="#contato"
+            data-service="Site Profissional">Solicitar orçamento ↗</a>
         </article>
 
-        <article class="price-card reveal">
+        <article class="glass-card price-card reveal">
           <h3>Site Avançado</h3>
-          <p class="price-desc">Para projetos com necessidades adicionais e funcionalidades específicas.</p>
-          <div class="price">R$ 500<small> / a partir de</small></div>
-          <ul>
-            <li>Estrutura personalizada</li>
-            <li>Funcionalidades definidas com o cliente</li>
-            <li>Possíveis integrações adicionais</li>
-            <li>Planejamento de recursos específicos</li>
-            <li>Estimativa conforme a complexidade</li>
+          <p class="muted">Para projetos com mais necessidades.</p>
+          <div class="price">R$ 500<small> a partir de</small></div>
+          <p class="price-note">Escopo avaliado individualmente.</p>
+
+          <ul class="feature-list">
+            <li>Estrutura mais completa</li>
+            <li>Seções e interações adicionais</li>
+            <li>Personalização ampliada</li>
+            <li>Integrações conforme viabilidade</li>
           </ul>
-          <a class="btn btn-secondary" href="#orcamento" data-service="Site Avançado">Conversar sobre o projeto</a>
+
+          <a class="btn btn-secondary btn-full" href="#contato"
+            data-service="Site Avançado">Solicitar orçamento</a>
         </article>
       </div>
 
-      <p class="pricing-note reveal">
-        Importante: os valores são iniciais e não garantem que qualquer sistema complexo esteja incluído. Domínio, hospedagem, serviços de terceiros, taxas e funcionalidades extras podem ter custos separados. Tudo será informado antes da aprovação. A contratação de manutenção é opcional.
+      <p class="pricing-disclaimer">
+        Os valores são iniciais e não representam preço fechado para qualquer projeto.
+        Domínio, hospedagem, serviços externos, manutenção contínua e funcionalidades
+        extras podem ter custos adicionais. O escopo será confirmado antes do início.
       </p>
     </div>
   </section>
 
-  <!-- SOBRE -->
   <section id="sobre">
     <div class="container about-grid">
-      <div class="reveal">
-        <span class="section-label">Sobre a VELTRONIX</span>
-        <h2 class="section-title">Tecnologia com propósito. <span class="gradient-text">Soluções com direção.</span></h2>
-        <p class="section-description">
-          A VELTRONIX é uma marca focada no desenvolvimento de sites e soluções digitais para negócios. Nosso objetivo é entender o que cada empresa precisa e transformar essa necessidade em um projeto claro, funcional e bem apresentado.
-        </p>
-        <div style="margin-top:26px">
-          <a class="btn btn-primary" href="#orcamento">Conte sua ideia ↗</a>
-        </div>
+      <div class="about-visual reveal" aria-hidden="true">
+        <div class="about-monogram">VX</div>
       </div>
 
-      <div class="about-panel reveal">
-        <h3>O que orienta nosso trabalho</h3>
-        <p>Um bom projeto começa com uma conversa honesta sobre objetivos, prazo, investimento e funcionalidades.</p>
+      <div class="about-content reveal">
+        <span class="eyebrow">Sobre a VELTRONIX</span>
+        <h2>Tecnologia que impulsiona <span class="gradient-text">negócios.</span></h2>
+
+        <p>
+          A VELTRONIX nasceu com o propósito de transformar ideias em experiências
+          digitais, aproximando negócios das oportunidades que a internet oferece.
+        </p>
+
+        <p>
+          Cada projeto começa com uma conversa para compreender o que você precisa
+          e buscar uma solução coerente com seus objetivos.
+        </p>
+
         <div class="about-points">
           <div class="about-point">
-            <div class="card-icon">◎</div>
-            <div><h4>Foco no cliente</h4><p>Entender a necessidade antes de propor uma solução.</p></div>
+            <span>✦</span>
+            <div>
+              <strong>Atenção aos detalhes</strong>
+              <small>Organização visual e navegação cuidadosa.</small>
+            </div>
           </div>
+
           <div class="about-point">
-            <div class="card-icon">✦</div>
-            <div><h4>Design e usabilidade</h4><p>Priorizar clareza, navegação e adaptação para telas diferentes.</p></div>
+            <span>✦</span>
+            <div>
+              <strong>Comunicação clara</strong>
+              <small>Alinhamento de expectativas e escopo.</small>
+            </div>
           </div>
+
           <div class="about-point">
-            <div class="card-icon">↗</div>
-            <div><h4>Escopo transparente</h4><p>Alinhar o que está incluído e o que pode gerar custo adicional.</p></div>
+            <span>✦</span>
+            <div>
+              <strong>Foco no seu objetivo</strong>
+              <small>Uma solução pensada para a necessidade do projeto.</small>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="faq">
+  <section id="perguntas">
     <div class="container">
-      <div class="reveal">
-        <span class="section-label">Dúvidas frequentes</span>
-        <h2 class="section-title">Antes de <span class="gradient-text">começar.</span></h2>
+      <div class="section-heading reveal">
+        <span class="eyebrow">Dúvidas frequentes</span>
+        <h2>Antes de <span class="gradient-text">começar.</span></h2>
+        <p>Algumas respostas para ajudar você a dar o primeiro passo.</p>
       </div>
 
       <div class="faq-list">
-        <article class="faq-item reveal">
-          <button class="faq-question" aria-expanded="false"><span>Quanto custa desenvolver um site?</span><span>+</span></button>
-          <div class="faq-answer">Os valores iniciais são R$ 150 para o Básico, R$ 320 para o Profissional e R$ 500 para o Avançado. O preço final depende do escopo e das funcionalidades combinadas.</div>
-        </article>
-        <article class="faq-item reveal">
-          <button class="faq-question" aria-expanded="false"><span>Quanto tempo leva para ficar pronto?</span><span>+</span></button>
-          <div class="faq-answer">O prazo depende do tamanho do projeto, dos recursos solicitados e do envio dos materiais pelo cliente. O prazo estimado será informado na proposta antes do início.</div>
-        </article>
-        <article class="faq-item reveal">
-          <button class="faq-question" aria-expanded="false"><span>O site funciona no celular?</span><span>+</span></button>
-          <div class="faq-answer">A adaptação para celular faz parte do planejamento dos sites. O comportamento final será revisado de acordo com o escopo contratado.</div>
-        </article>
-        <article class="faq-item reveal">
-          <button class="faq-question" aria-expanded="false"><span>Preciso pagar manutenção todo mês?</span><span>+</span></button>
-          <div class="faq-answer">Não. A manutenção é opcional e pode ser contratada separadamente. Custos de domínio, hospedagem ou serviços externos, quando houver, serão explicados na proposta.</div>
-        </article>
-        <article class="faq-item reveal">
-          <button class="faq-question" aria-expanded="false"><span>Posso pedir novas funções depois da entrega?</span><span>+</span></button>
-          <div class="faq-answer">Sim. Novas funcionalidades podem ser avaliadas e orçadas separadamente. Elas não são automaticamente incluídas no preço original ou na manutenção básica.</div>
-        </article>
-        <article class="faq-item reveal">
-          <button class="faq-question" aria-expanded="false"><span>Como solicito um orçamento?</span><span>+</span></button>
-          <div class="faq-answer">Você pode preencher o formulário nesta página ou entrar em contato pelo WhatsApp. Vamos entender a necessidade e preparar uma proposta adequada.</div>
-        </article>
+        <details class="reveal">
+          <summary>Como faço para solicitar um orçamento?</summary>
+          <p>Preencha o formulário nesta página ou entre em contato pelo WhatsApp. Vamos entender sua ideia e conversar sobre as opções.</p>
+        </details>
+
+        <details class="reveal">
+          <summary>Quanto custa criar um site?</summary>
+          <p>Os valores iniciais estão apresentados na seção de preços. O custo final depende do conteúdo, das funcionalidades e do escopo combinado.</p>
+        </details>
+
+        <details class="reveal">
+          <summary>O site funciona no celular?</summary>
+          <p>Os projetos são planejados para se adaptar a diferentes tamanhos de tela, com ajustes conforme as necessidades do projeto.</p>
+        </details>
+
+        <details class="reveal">
+          <summary>Quanto tempo leva para ficar pronto?</summary>
+          <p>O prazo depende da complexidade do projeto, do conteúdo necessário e do alinhamento entre as partes. Ele será combinado durante o orçamento.</p>
+        </details>
+
+        <details class="reveal">
+          <summary>O domínio e a hospedagem estão incluídos?</summary>
+          <p>Isso depende da proposta. Eventuais custos de domínio, hospedagem e serviços de terceiros serão esclarecidos antes da contratação.</p>
+        </details>
       </div>
     </div>
   </section>
 
-  <!-- CONTATO / ORÇAMENTO -->
-  <section class="contact-section" id="contato">
-    <div class="container">
-      <div class="reveal">
-        <span class="section-label">Vamos conversar</span>
-        <h2 class="section-title">Sua próxima ideia começa <span class="gradient-text">aqui.</span></h2>
-        <p class="section-description">Conte um pouco sobre sua empresa ou projeto. Vamos avaliar suas necessidades e conversar sobre os próximos passos.</p>
-      </div>
+  <section class="budget-section" id="contato">
+    <div class="container budget-grid">
+      <div class="budget-copy reveal">
+        <span class="eyebrow">Vamos conversar</span>
+        <h2>Sua próxima ideia começa <span class="gradient-text">aqui.</span></h2>
 
-      <div class="contact-grid">
-        <div class="reveal">
-          <div class="contact-list">
-            <a class="contact-item" href="https://wa.me/5521974994201" target="_blank" rel="noopener noreferrer">
-              <div class="card-icon">☏</div>
-              <div><small>WhatsApp</small><strong>(21) 97499-4201</strong></div>
-            </a>
-            <a class="contact-item" href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener noreferrer">
-              <div class="card-icon">◎</div>
-              <div><small>Instagram</small><strong>@veltronix_tech</strong></div>
-            </a>
-            <a class="contact-item" href="mailto:contato.veltronix@gmail.com">
-              <div class="card-icon">✉</div>
-              <div><small>E-mail</small><strong>contato.veltronix@gmail.com</strong></div>
+        <p>
+          Conte um pouco sobre o seu projeto. Vamos analisar sua necessidade
+          e conversar sobre os próximos passos.
+        </p>
+
+        <div class="budget-contact">
+          <div>
+            <span class="muted">WhatsApp</span><br>
+            <a href="https://wa.me/5521974994201" target="_blank" rel="noopener noreferrer">
+              (21) 97499-4201 ↗
             </a>
           </div>
-
-          <div style="margin-top:25px">
-            <h3 style="font-size:1rem;margin-bottom:8px">Horário de atendimento online</h3>
-            <p style="color:var(--muted);font-size:.86rem">
-              Segunda a sexta: 14h às 22h<br>
-              Sábado: 10h às 18h<br>
-              Domingo: 14h às 22h30
-            </p>
+          <div>
+            <span class="muted">Instagram</span><br>
+            <a href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener noreferrer">
+              @veltronix_tech ↗
+            </a>
+          </div>
+          <div>
+            <span class="muted">E-mail</span><br>
+            <a href="mailto:contato.veltronix@gmail.com">
+              contato.veltronix@gmail.com ↗
+            </a>
           </div>
         </div>
+      </div>
 
-        <form class="budget-form reveal" id="budgetForm">
-          <h3 id="orcamento">Solicite seu orçamento</h3>
-          <p class="form-intro">Preencha os dados abaixo. As informações serão usadas para entender sua solicitação e preparar o contato.</p>
+      <div class="form-card reveal">
+        <h3>Solicite seu orçamento</h3>
+        <p class="form-intro">
+          Preencha os campos abaixo. Depois, você poderá continuar a conversa pelo WhatsApp.
+        </p>
 
+        <form id="budgetForm">
           <div class="form-grid">
             <div class="field">
               <label for="nome">Seu nome *</label>
-              <input id="nome" name="nome" autocomplete="name" required maxlength="100" placeholder="Como podemos te chamar?">
+              <input id="nome" name="nome" type="text"
+                placeholder="Como podemos chamar você?" autocomplete="name" required maxlength="100">
             </div>
 
             <div class="field">
-              <label for="contatoCliente">WhatsApp ou e-mail *</label>
-              <input id="contatoCliente" name="contato" required maxlength="150" placeholder="Seu contato">
+              <label for="contatoCliente">WhatsApp ou contato *</label>
+              <input id="contatoCliente" name="contato" type="text"
+                placeholder="Seu telefone ou e-mail" autocomplete="tel" required maxlength="150">
             </div>
 
             <div class="field full">
-              <label for="servico">Serviço desejado *</label>
+              <label for="servico">Qual serviço você procura? *</label>
               <select id="servico" name="servico" required>
                 <option value="">Selecione uma opção</option>
-                <option>Site Básico — R$ 150</option>
-                <option>Site Profissional — R$ 320</option>
-                <option>Site Avançado — R$ 500</option>
-                <option>Automação</option>
-                <option>Identidade digital</option>
-                <option>Manutenção de site</option>
-                <option>Outro projeto</option>
+                <option value="Site Básico — R$ 150">Site Básico — a partir de R$ 150</option>
+                <option value="Site Profissional — R$ 320">Site Profissional — a partir de R$ 320</option>
+                <option value="Site Avançado — R$ 500">Site Avançado — a partir de R$ 500</option>
+                <option value="Automação de processos">Automação de processos</option>
+                <option value="Identidade digital">Identidade digital</option>
+                <option value="Manutenção de sites">Manutenção de sites</option>
+                <option value="Otimização de site">Otimização de site</option>
+                <option value="Outro projeto digital">Outro projeto digital</option>
               </select>
             </div>
 
             <div class="field full">
-              <label for="descricao">Conte sobre seu projeto *</label>
-              <textarea id="descricao" name="descricao" required maxlength="3000" placeholder="O que sua empresa precisa? Quais recursos gostaria de ter?"></textarea>
+              <label for="descricao">Conte sobre sua ideia *</label>
+              <textarea id="descricao" name="descricao"
+                placeholder="O que você precisa? Quais funcionalidades imagina?" required maxlength="3000"></textarea>
             </div>
 
             <div class="field">
               <label for="prazo">Prazo desejado</label>
-              <input id="prazo" name="prazo" maxlength="100" placeholder="Ex.: nas próximas semanas">
+              <select id="prazo" name="prazo">
+                <option value="Sem prazo definido">Ainda não defini</option>
+                <option value="O mais breve possível">O mais breve possível</option>
+                <option value="Em até 2 semanas">Em até 2 semanas</option>
+                <option value="Em até 1 mês">Em até 1 mês</option>
+                <option value="Mais de 1 mês">Mais de 1 mês</option>
+              </select>
             </div>
 
             <div class="field">
               <label for="valor">Orçamento previsto</label>
               <select id="valor" name="valor">
-                <option value="">Ainda não definido</option>
-                <option>Até R$ 150</option>
-                <option>R$ 150 a R$ 320</option>
-                <option>R$ 320 a R$ 500</option>
-                <option>Acima de R$ 500</option>
+                <option value="Ainda não definido">Ainda não definido</option>
+                <option value="Até R$ 200">Até R$ 200</option>
+                <option value="R$ 200 a R$ 400">R$ 200 a R$ 400</option>
+                <option value="R$ 400 a R$ 700">R$ 400 a R$ 700</option>
+                <option value="Acima de R$ 700">Acima de R$ 700</option>
               </select>
             </div>
-
-            <div class="field full">
-              <button class="btn btn-primary" id="submitBudget" type="submit">Enviar solicitação ↗</button>
-              <p class="form-footnote">Ao enviar, você concorda em ser contatado pela VELTRONIX a respeito desta solicitação.</p>
-              <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
-            </div>
           </div>
+
+          <p class="form-privacy">
+            Ao enviar, seus dados serão utilizados para responder à sua solicitação.
+            Evite inserir senhas ou informações confidenciais.
+          </p>
+
+          <button class="btn btn-primary btn-full" type="submit" id="submitButton">
+            Enviar solicitação ↗
+          </button>
+
+          <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
         </form>
       </div>
     </div>
   </section>
 </main>
 
-<footer>
+<footer class="footer">
   <div class="container">
-    <div class="footer-top">
+    <div class="footer-grid">
       <div>
-        <a href="#inicio" class="brand">
-          <img src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg" alt="">
+        <a class="brand" href="#inicio">
+          <img
+            src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg"
+            alt="" onerror="this.style.display='none'">
           <span>
             <span class="brand-name">VELTRONIX</span>
-            <span class="brand-tagline">Tecnologia que impulsiona negócios.</span>
+            <span class="brand-tag">Tecnologia que impulsiona negócios.</span>
           </span>
         </a>
-        <p class="footer-copy">Desenvolvimento de sites e soluções digitais para empresas que querem fortalecer sua presença online.</p>
+
+        <p class="footer-description">
+          Soluções digitais para negócios que querem construir uma presença
+          online mais profissional.
+        </p>
       </div>
-      <nav class="footer-links" aria-label="Links do rodapé">
-        <a href="#servicos">Serviços</a>
-        <a href="#portfolio">Portfólio</a>
-        <a href="#planos">Planos</a>
-        <a href="#faq">Dúvidas</a>
-        <a href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
-        <a href="https://wa.me/5521974994201" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>
-      </nav>
+
+      <div>
+        <h4>Navegação</h4>
+        <div class="footer-links">
+          <a href="#servicos">Serviços</a>
+          <a href="#portfolio">Portfólio</a>
+          <a href="#precos">Preços</a>
+          <a href="#sobre">Sobre nós</a>
+          <a href="#contato">Orçamento</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Conecte-se</h4>
+        <div class="footer-links">
+          <a href="https://wa.me/5521974994201" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>
+          <a href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+          <a href="mailto:contato.veltronix@gmail.com">E-mail ↗</a>
+        </div>
+      </div>
     </div>
+
     <div class="footer-bottom">
-      <span>© <span id="year"></span> VELTRONIX. Todos os direitos reservados.</span>
-      <span>Tecnologia que impulsiona negócios.</span>
+      <span>© <span id="currentYear"></span> VELTRONIX. Todos os direitos reservados.</span>
+      <span>Feito com propósito e tecnologia. ✦</span>
     </div>
   </div>
 </footer>
 
-<a class="whatsapp-float" href="https://wa.me/5521974994201?text=Ol%C3%A1%2C%20VELTRONIX!%20Gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os." target="_blank" rel="noopener noreferrer" aria-label="Falar com a VELTRONIX pelo WhatsApp">☏</a>
+<a class="whatsapp-float"
+   href="https://wa.me/5521974994201?text=Ol%C3%A1%2C%20quero%20conhecer%20os%20servi%C3%A7os%20da%20VELTRONIX."
+   target="_blank" rel="noopener noreferrer"
+   aria-label="Falar com a VELTRONIX pelo WhatsApp"
+   title="Fale conosco pelo WhatsApp">◔</a>
 
 <script>
 "use strict";
 
-/* MENU MOBILE */
+/* ======================================
+   MENU MOBILE
+====================================== */
 const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 
@@ -1337,23 +2036,18 @@ function closeMenu() {
   menuToggle.setAttribute("aria-expanded", "false");
   menuToggle.setAttribute("aria-label", "Abrir menu");
   menuToggle.textContent = "☰";
-  document.body.classList.remove("menu-open");
 }
 
 menuToggle.addEventListener("click", () => {
   const isOpen = navLinks.classList.toggle("open");
+
   menuToggle.setAttribute("aria-expanded", String(isOpen));
   menuToggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
-  menuToggle.textContent = isOpen ? "×" : "☰";
-  document.body.classList.toggle("menu-open", isOpen);
+  menuToggle.textContent = isOpen ? "✕" : "☰";
 });
 
 navLinks.querySelectorAll("a").forEach(link => {
   link.addEventListener("click", closeMenu);
-});
-
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeMenu();
 });
 
 document.addEventListener("click", event => {
@@ -1362,25 +2056,32 @@ document.addEventListener("click", event => {
   }
 });
 
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 760) closeMenu();
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeMenu();
 });
 
-/* FAQ */
-document.querySelectorAll(".faq-question").forEach(button => {
-  button.addEventListener("click", () => {
-    const item = button.closest(".faq-item");
-    const open = item.classList.toggle("open");
-    button.setAttribute("aria-expanded", String(open));
-    button.querySelector("span:last-child").textContent = open ? "−" : "+";
-  });
-});
+/* ======================================
+   BARRA DE PROGRESSO DA PÁGINA
+====================================== */
+const scrollProgress = document.getElementById("scrollProgress");
 
-/* ANIMAÇÕES DE ENTRADA */
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const revealItems = document.querySelectorAll(".reveal");
+function updateScrollProgress() {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  scrollProgress.style.width = Math.min(100, Math.max(0, progress)) + "%";
+}
 
-if ("IntersectionObserver" in window && !reduceMotion) {
+window.addEventListener("scroll", updateScrollProgress, { passive: true });
+window.addEventListener("resize", updateScrollProgress);
+updateScrollProgress();
+
+/* ======================================
+   ANIMAÇÕES AO ROLAR A PÁGINA
+====================================== */
+const revealElements = document.querySelectorAll(".reveal");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if ("IntersectionObserver" in window && !reducedMotion) {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1390,134 +2091,169 @@ if ("IntersectionObserver" in window && !reduceMotion) {
     });
   }, { threshold: 0.12 });
 
-  revealItems.forEach(item => observer.observe(item));
+  revealElements.forEach(element => observer.observe(element));
 } else {
-  revealItems.forEach(item => item.classList.add("visible"));
+  revealElements.forEach(element => element.classList.add("visible"));
 }
 
-/* BARRA DE PROGRESSO */
-const scrollProgress = document.getElementById("scrollProgress");
+/* ======================================
+   ANO AUTOMÁTICO
+====================================== */
+document.getElementById("currentYear").textContent = new Date().getFullYear();
 
-function updateProgress() {
-  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
-  scrollProgress.style.width = progress + "%";
-}
-
-window.addEventListener("scroll", updateProgress, { passive: true });
-updateProgress();
-
-/* ANO DO RODAPÉ */
-document.getElementById("year").textContent = new Date().getFullYear();
-
-/* PLANOS: PREENCHE O SERVIÇO NO FORMULÁRIO */
+/* ======================================
+   BOTÕES QUE PREENCHEM O SERVIÇO
+====================================== */
 const serviceSelect = document.getElementById("servico");
 
 document.querySelectorAll("[data-service]").forEach(link => {
   link.addEventListener("click", () => {
-    const service = link.dataset.service;
+    const requestedService = link.dataset.service;
+
     const matchingOption = Array.from(serviceSelect.options).find(option =>
-      option.textContent.toLowerCase().startsWith(service.toLowerCase())
+      option.value === requestedService ||
+      option.value.startsWith(requestedService + " —")
     );
-    if (matchingOption) serviceSelect.value = matchingOption.value;
+
+    if (matchingOption) {
+      serviceSelect.value = matchingOption.value;
+    }
   });
 });
 
-/* FORMULÁRIO DE ORÇAMENTO
-   Integração com Supabase via REST API.
-   Caso a inserção não esteja configurada ou falhe, a solicitação
-   será preparada para envio pelo WhatsApp. */
+/* ======================================
+   ORÇAMENTO + WHATSAPP + SUPABASE
+======================================
+
+  O formulário tenta gravar a solicitação no Supabase.
+  Mesmo se o banco falhar, o cliente pode continuar pelo WhatsApp.
+
+  ATENÇÃO:
+  - A chave abaixo é uma chave publishable.
+  - Nunca coloque a service_role key no navegador.
+  - A tabela precisa ter as colunas esperadas e políticas RLS
+    adequadas para permitir o envio público com segurança.
+====================================== */
+
 const SUPABASE_URL = "https://swgrurgztdcyhtrjpotc.supabase.co";
-const SUPABASE_KEY = "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
 const WHATSAPP_NUMBER = "5521974994201";
 
 const budgetForm = document.getElementById("budgetForm");
-const submitBudget = document.getElementById("submitBudget");
-const formMessage = document.getElementById("formMessage");
+const submitButton = document.getElementById("submitButton");
+const formStatus = document.getElementById("formStatus");
 
-function showMessage(message, type) {
-  formMessage.textContent = message;
-  formMessage.className = "form-message show " + type;
+function showStatus(message, linkURL = null, linkText = "Abrir WhatsApp") {
+  formStatus.replaceChildren();
+  formStatus.classList.add("show");
+
+  const text = document.createElement("span");
+  text.textContent = message;
+  formStatus.appendChild(text);
+
+  if (linkURL) {
+    formStatus.appendChild(document.createElement("br"));
+    formStatus.appendChild(document.createElement("br"));
+
+    const link = document.createElement("a");
+    link.href = linkURL;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = linkText;
+    formStatus.appendChild(link);
+  }
 }
 
-function getFormData() {
-  const formData = new FormData(budgetForm);
-  return {
-    nome: String(formData.get("nome") || "").trim(),
-    contato: String(formData.get("contato") || "").trim(),
-    servico: String(formData.get("servico") || "").trim(),
-    descricao: String(formData.get("descricao") || "").trim(),
-    prazo: String(formData.get("prazo") || "").trim(),
-    valor: String(formData.get("valor") || "").trim()
-  };
-}
-
-function createWhatsAppMessage(data) {
-  return [
-    "Olá, VELTRONIX! Gostaria de solicitar um orçamento.",
+function makeWhatsAppURL(data) {
+  const message = [
+    "Olá, VELTRONIX! Quero solicitar um orçamento.",
     "",
     "Nome: " + data.nome,
     "Contato: " + data.contato,
     "Serviço: " + data.servico,
     "Descrição: " + data.descricao,
-    "Prazo desejado: " + (data.prazo || "Não informado"),
-    "Orçamento previsto: " + (data.valor || "Ainda não definido")
+    "Prazo: " + data.prazo,
+    "Orçamento previsto: " + data.valor
   ].join("\n");
+
+  return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
 }
 
 budgetForm.addEventListener("submit", async event => {
   event.preventDefault();
 
-  const data = getFormData();
+  if (!budgetForm.reportValidity()) return;
+
+  const data = {
+    nome: document.getElementById("nome").value.trim(),
+    contato: document.getElementById("contatoCliente").value.trim(),
+    servico: serviceSelect.value,
+    descricao: document.getElementById("descricao").value.trim(),
+    prazo: document.getElementById("prazo").value,
+    valor: document.getElementById("valor").value
+  };
 
   if (!data.nome || !data.contato || !data.servico || !data.descricao) {
-    showMessage("Preencha todos os campos obrigatórios para continuar.", "error");
+    showStatus("Confira os campos obrigatórios e tente novamente.");
     return;
   }
 
-  submitBudget.disabled = true;
-  submitBudget.textContent = "Enviando solicitação…";
+  const whatsappURL = makeWhatsAppURL(data);
 
-  let savedToSupabase = false;
+  submitButton.disabled = true;
+  submitButton.textContent = "Enviando solicitação…";
+  formStatus.classList.remove("show");
+
+  let savedToDatabase = false;
+  let databaseMessage = "";
 
   try {
     const response = await fetch(SUPABASE_URL + "/rest/v1/orcamentos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY,
+        "apikey": SUPABASE_PUBLISHABLE_KEY,
+        "Authorization": "Bearer " + SUPABASE_PUBLISHABLE_KEY,
         "Prefer": "return=minimal"
       },
       body: JSON.stringify(data)
     });
 
-    if (response.ok) {
-      savedToSupabase = true;
-    } else {
-      console.warn("Não foi possível salvar no Supabase. Verifique a tabela e as permissões.");
+    if (!response.ok) {
+      const detail = await response.text().catch(() => "");
+      throw new Error("HTTP " + response.status + (detail ? ": " + detail.slice(0, 250) : ""));
     }
+
+    savedToDatabase = true;
   } catch (error) {
-    console.warn("Erro ao conectar ao Supabase:", error);
+    console.error("Não foi possível salvar o orçamento no Supabase:", error);
+    databaseMessage = "Não conseguimos confirmar o salvamento no sistema.";
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Enviar solicitação ↗";
   }
 
-  showMessage(
-    savedToSupabase
-      ? "Solicitação registrada! Vamos abrir o WhatsApp para você concluir o contato."
-      : "Não foi possível confirmar o registro online. Vamos abrir o WhatsApp para enviar sua solicitação diretamente.",
-    savedToSupabase ? "success" : "error"
-  );
+  if (savedToDatabase) {
+    showStatus(
+      "Solicitação registrada no sistema. Para concluir o contato, abra o WhatsApp e envie a mensagem preparada.",
+      whatsappURL,
+      "Continuar pelo WhatsApp ↗"
+    );
+  } else {
+    showStatus(
+      databaseMessage + " Seus dados continuam disponíveis nesta página. Tente continuar pelo WhatsApp; se necessário, envie a solicitação novamente.",
+      whatsappURL,
+      "Tentar pelo WhatsApp ↗"
+    );
+  }
 
-  const whatsappURL = "https://wa.me/" + WHATSAPP_NUMBER +
-    "?text=" + encodeURIComponent(createWhatsAppMessage(data));
-
-  submitBudget.textContent = "Abrindo WhatsApp…";
-
-  window.open(whatsappURL, "_blank", "noopener,noreferrer");
-
-  submitBudget.disabled = false;
-  submitBudget.textContent = "Enviar solicitação ↗";
+  const statusTop = formStatus.getBoundingClientRect().top + window.scrollY - 110;
+  window.scrollTo({
+    top: statusTop,
+    behavior: reducedMotion ? "auto" : "smooth"
+  });
 });
 </script>
+
 </body>
 </html>
