@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -13,7 +13,6 @@
 :root{
   --bg:#08060d;
   --panel:#110d19;
-  --panel2:#0c0911;
   --purple:#b65cff;
   --purple-dark:#7624bd;
   --border:#30213e;
@@ -30,10 +29,10 @@ body{
   font-family:Arial,sans-serif;
   min-height:100vh;
 }
-button,input,select{font:inherit}
+button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 button:disabled{opacity:.55;cursor:wait}
-button:focus-visible,input:focus-visible,select:focus-visible{
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
   outline:2px solid #d6a7ff;
   outline-offset:3px;
 }
@@ -63,7 +62,7 @@ p{overflow-wrap:anywhere}
   margin:22px 0;
   box-shadow:0 12px 40px rgba(0,0,0,.15);
 }
-input,select{
+input,select,textarea{
   width:100%;
   padding:13px 14px;
   margin:9px 0 17px;
@@ -73,7 +72,7 @@ input,select{
   color:#fff;
   outline:none;
 }
-input:focus,select:focus{border-color:var(--purple)}
+input:focus,select:focus,textarea:focus{border-color:var(--purple)}
 label{display:block;color:#d6c8e2;margin-top:8px;font-size:14px}
 button{
   border:1px solid transparent;
@@ -88,6 +87,11 @@ button:hover:not(:disabled){transform:translateY(-1px)}
 .secondary,.logout{
   background:#30213d;
   border-color:#493258;
+}
+.whatsapp-button{
+  background:#123d30;
+  border-color:#1d664c;
+  color:#8af0bb;
 }
 .login{width:min(430px,92%);margin:70px auto}
 .login .card{padding:28px}
@@ -175,8 +179,39 @@ button:hover:not(:disabled){transform:translateY(-1px)}
 .hidden{display:none!important}
 .section-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
 .count-label{color:var(--muted);font-size:13px}
-.small{font-size:12px}
 #refreshButton{margin-left:8px}
+
+.notice-box{
+  background:#100c17;
+  border:1px solid #493258;
+  border-radius:12px;
+  padding:18px;
+  margin-top:16px;
+}
+.notice-box h3{margin-bottom:8px;color:#d1a1ff}
+.notice-preview{
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  background:#09070e;
+  border:1px solid #30213e;
+  padding:15px;
+  border-radius:9px;
+  color:#eee4f7;
+  line-height:1.65;
+  margin:12px 0;
+}
+.notice-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
+}
+.notice-actions button{flex:1;min-width:170px}
+.confirm-button{
+  background:#123d30;
+  border-color:#1d664c;
+  color:#8af0bb;
+}
 @media(max-width:700px){
   header{padding:18px 4%}
   .header-label{font-size:10px;letter-spacing:1px}
@@ -191,7 +226,9 @@ button:hover:not(:disabled){transform:translateY(-1px)}
   .quote-actions>button{width:100%}
   .status-control{flex-basis:100%}
   #refreshButton{margin:10px 0 0}
-  .dashboard-buttons{display:flex;flex-direction:column;align-items:stretch}
+  .dashboard-buttons{display:flex;flex-direction:column;align-items:stretch;gap:10px}
+  .notice-actions{flex-direction:column}
+  .notice-actions button{width:100%}
 }
 </style>
 </head>
@@ -210,22 +247,12 @@ button:hover:not(:disabled){transform:translateY(-1px)}
 
     <form id="loginForm">
       <label for="email">E-mail</label>
-      <input
-        id="email"
-        type="email"
-        autocomplete="username"
-        placeholder="Seu e-mail"
-        required
-      >
+      <input id="email" type="email" autocomplete="username"
+        placeholder="Seu e-mail" required>
 
       <label for="password">Senha</label>
-      <input
-        id="password"
-        type="password"
-        autocomplete="current-password"
-        placeholder="Sua senha"
-        required
-      >
+      <input id="password" type="password" autocomplete="current-password"
+        placeholder="Sua senha" required>
 
       <button id="loginButton" type="submit" style="width:100%">
         Entrar no painel
@@ -278,11 +305,8 @@ button:hover:not(:disabled){transform:translateY(-1px)}
     <div class="toolbar">
       <div>
         <label for="search">Buscar orçamento</label>
-        <input
-          id="search"
-          type="search"
-          placeholder="Nome, contato ou serviço"
-        >
+        <input id="search" type="search"
+          placeholder="Nome, contato ou serviço">
       </div>
 
       <div>
@@ -328,6 +352,7 @@ const VALID_STATUSES = [
 let allQuotes = [];
 let loadingQuotes = false;
 let sessionVersion = 0;
+let pendingNotice = null;
 
 function setMessage(id, message) {
   $(id).textContent = message || "";
@@ -336,13 +361,18 @@ function setMessage(id, message) {
 function showLogin() {
   sessionVersion++;
   allQuotes = [];
+  pendingNotice = null;
+
   $("loginArea").classList.remove("hidden");
   $("dashboard").classList.add("hidden");
   $("quotesList").replaceChildren();
+
   $("totalQuotes").textContent = "0";
   $("totalClients").textContent = "0";
   $("totalServices").textContent = "0";
   $("visibleCount").textContent = "";
+
+  setMessage("actionStatus", "");
 }
 
 function showDashboard(user) {
@@ -355,7 +385,6 @@ function showDashboard(user) {
 async function checkSession() {
   try {
     const { data, error } = await db.auth.getSession();
-
     if (error) throw error;
 
     if (data.session) {
@@ -386,7 +415,6 @@ $("loginForm").addEventListener("submit", async event => {
     });
 
     if (error) throw error;
-
     showDashboard(data.user);
   } catch (error) {
     setMessage(
@@ -424,7 +452,7 @@ async function loadQuotes() {
     $("totalQuotes").textContent = allQuotes.length;
 
     $("totalClients").textContent = new Set(
-      allQuotes.map(q => q.contato).filter(Boolean)
+      allQuotes.map(q => getContact(q)).filter(Boolean)
     ).size;
 
     $("totalServices").textContent = new Set(
@@ -450,6 +478,20 @@ async function loadQuotes() {
     loadingQuotes = false;
     $("refreshButton").disabled = false;
   }
+}
+
+/* Compatibilidade com diferentes nomes de coluna. */
+function getContact(quote) {
+  return quote.contato ||
+    quote.telefone ||
+    quote.whatsapp ||
+    "";
+}
+
+function getClientName(quote) {
+  return quote.nome ||
+    quote.nome_cliente ||
+    "Cliente";
 }
 
 function addLine(parent, label, value) {
@@ -479,8 +521,8 @@ function renderQuotes() {
 
   const filtered = allQuotes.filter(quote => {
     const searchable = [
-      quote.nome,
-      quote.contato,
+      getClientName(quote),
+      getContact(quote),
       quote.servico,
       quote.descricao,
       quote.prazo,
@@ -518,12 +560,14 @@ function renderQuotes() {
     top.className = "quote-top";
 
     const title = document.createElement("h3");
-    title.textContent = quote.nome || "Cliente sem nome";
+    title.textContent = getClientName(quote);
+
+    const currentStatus = quote.status || "Pendente";
 
     const badge = document.createElement("span");
     badge.className = "pill";
-    badge.dataset.status = quote.status || "Pendente";
-    badge.textContent = quote.status || "Pendente";
+    badge.dataset.status = currentStatus;
+    badge.textContent = currentStatus;
 
     top.append(title, badge);
     article.appendChild(top);
@@ -531,7 +575,7 @@ function renderQuotes() {
     const details = document.createElement("div");
     details.className = "quote-details";
 
-    addLine(details, "WhatsApp", quote.contato);
+    addLine(details, "WhatsApp", getContact(quote));
     addLine(details, "Serviço", quote.servico);
     addLine(details, "Descrição", quote.descricao);
     addLine(details, "Prazo", quote.prazo);
@@ -565,7 +609,7 @@ function renderQuotes() {
     select.id = statusLabel.htmlFor;
     select.setAttribute(
       "aria-label",
-      "Status do orçamento de " + (quote.nome || "cliente")
+      "Status do orçamento de " + getClientName(quote)
     );
 
     VALID_STATUSES.forEach(status => {
@@ -575,8 +619,8 @@ function renderQuotes() {
       select.appendChild(option);
     });
 
-    select.value = VALID_STATUSES.includes(quote.status)
-      ? quote.status
+    select.value = VALID_STATUSES.includes(currentStatus)
+      ? currentStatus
       : "Pendente";
 
     statusControl.append(statusLabel, select);
@@ -590,40 +634,241 @@ function renderQuotes() {
 
     actions.append(statusControl, saveButton);
 
-    if (quote.contato) {
-      const whatsappButton = document.createElement("button");
-      whatsappButton.className = "secondary";
-      whatsappButton.textContent = "Conversar pelo WhatsApp";
+    const whatsappButton = document.createElement("button");
+    whatsappButton.className = "whatsapp-button";
+    whatsappButton.textContent = "Avisar cliente pelo WhatsApp";
 
-      whatsappButton.addEventListener("click", () => {
-        openWhatsApp(quote.contato);
-      });
+    whatsappButton.addEventListener("click", () => {
+      prepareStatusNotice(quote, select.value);
+    });
 
-      actions.appendChild(whatsappButton);
-    }
+    actions.appendChild(whatsappButton);
+
+    const chatButton = document.createElement("button");
+    chatButton.className = "secondary";
+    chatButton.textContent = "Conversar pelo WhatsApp";
+
+    chatButton.addEventListener("click", () => {
+      openWhatsApp(getContact(quote));
+    });
+
+    actions.appendChild(chatButton);
 
     article.append(actions);
     list.appendChild(article);
   });
 }
 
-function openWhatsApp(contact) {
-  let number = String(contact).replace(/\D/g, "");
+/*
+  Normaliza o número para o formato internacional.
+  Não inventa um telefone se o cadastro estiver incompleto.
+*/
+function normalizeWhatsAppNumber(contact) {
+  let number = String(contact || "").replace(/\D/g, "");
+
+  if (number.startsWith("00")) {
+    number = number.slice(2);
+  }
 
   if (number.length === 10 || number.length === 11) {
     number = "55" + number;
   }
 
-  if (number.length < 12 || number.length > 13) {
+  if (!number.startsWith("55") ||
+      (number.length !== 12 && number.length !== 13)) {
+    return null;
+  }
+
+  return number;
+}
+
+function openWhatsApp(contact, message = "") {
+  const number = normalizeWhatsAppNumber(contact);
+
+  if (!number) {
     setMessage(
       "actionStatus",
-      "Confira o contato do cliente: o número não parece estar no formato internacional esperado."
+      "Não foi possível abrir o WhatsApp. Confira o telefone do cliente no cadastro."
     );
     return;
   }
 
-  const url = "https://wa.me/" + number;
+  const baseUrl = "https://wa.me/" + number;
+  const url = message
+    ? baseUrl + "?text=" + encodeURIComponent(message)
+    : baseUrl;
+
   window.open(url, "_blank", "noopener,noreferrer");
+}
+
+/* Cria a mensagem pronta usando o status selecionado. */
+function buildStatusMessage(quote, status) {
+  const name = getClientName(quote);
+  const service = quote.servico || "serviço solicitado";
+
+  const messages = {
+    "Pendente":
+      "Sua solicitação está pendente e aguardando análise.",
+    "Em negociação":
+      "Sua solicitação está em negociação. Em breve, entraremos em contato com você para alinhar os próximos detalhes.",
+    "Aprovado":
+      "Sua solicitação foi aprovada! Vamos alinhar os próximos passos do projeto.",
+    "Recusado":
+      "No momento, sua solicitação foi recusada. Se precisar, entre em contato conosco para conversar sobre outras possibilidades."
+  };
+
+  return [
+    "Olá, " + name + "! Tudo bem? 👋",
+    "",
+    "Temos uma atualização sobre sua solicitação na VELTRONIX.",
+    "",
+    "🛠️ Serviço: " + service,
+    "📌 Novo status: " + status.toUpperCase(),
+    "",
+    messages[status],
+    "",
+    "Obrigado pelo contato!",
+    "",
+    "VELTRONIX",
+    "Tecnologia que impulsiona negócios."
+  ].join("\n");
+}
+
+/*
+  O aviso só é preparado se o status selecionado
+  já estiver salvo no banco de dados.
+*/
+function prepareStatusNotice(quote, selectedStatus) {
+  const savedStatus = quote.status || "Pendente";
+
+  if (selectedStatus !== savedStatus) {
+    setMessage(
+      "actionStatus",
+      "Antes de avisar o cliente, clique em “Salvar status” e aguarde a confirmação."
+    );
+    return;
+  }
+
+  const contact = getContact(quote);
+  const number = normalizeWhatsAppNumber(contact);
+
+  if (!number) {
+    setMessage(
+      "actionStatus",
+      "O telefone do cliente não está válido. Corrija o cadastro antes de enviar o aviso."
+    );
+    return;
+  }
+
+  const message = buildStatusMessage(quote, savedStatus);
+
+  pendingNotice = {
+    quoteId: quote.id,
+    number,
+    message,
+    status: savedStatus
+  };
+
+  showNoticeConfirmation(quote, message);
+}
+
+/* Mostra a mensagem e pede confirmação manual. */
+function showNoticeConfirmation(quote, message) {
+  const existing = document.getElementById("noticeConfirmation");
+  if (existing) existing.remove();
+
+  const box = document.createElement("section");
+  box.id = "noticeConfirmation";
+  box.className = "notice-box";
+
+  const title = document.createElement("h3");
+  title.textContent = "Confirmar aviso pelo WhatsApp";
+
+  const description = document.createElement("p");
+  description.className = "muted";
+  description.textContent =
+    "Confira o texto abaixo. O WhatsApp só será aberto quando você confirmar.";
+
+  const preview = document.createElement("div");
+  preview.className = "notice-preview";
+  preview.textContent = message;
+
+  const actions = document.createElement("div");
+  actions.className = "notice-actions";
+
+  const confirmButton = document.createElement("button");
+  confirmButton.className = "confirm-button";
+  confirmButton.textContent = "Confirmar e abrir WhatsApp";
+
+  confirmButton.addEventListener("click", () => {
+    if (!pendingNotice ||
+        pendingNotice.quoteId !== quote.id) {
+      setMessage(
+        "actionStatus",
+        "A confirmação expirou. Prepare o aviso novamente."
+      );
+      box.remove();
+      return;
+    }
+
+    const latestQuote = allQuotes.find(
+      item => item.id === pendingNotice.quoteId
+    );
+
+    if (!latestQuote ||
+        (latestQuote.status || "Pendente") !== pendingNotice.status) {
+      setMessage(
+        "actionStatus",
+        "O status mudou. Atualize os dados e prepare uma nova mensagem."
+      );
+      box.remove();
+      pendingNotice = null;
+      return;
+    }
+
+    const currentNumber = normalizeWhatsAppNumber(
+      getContact(latestQuote)
+    );
+
+    if (currentNumber !== pendingNotice.number) {
+      setMessage(
+        "actionStatus",
+        "O telefone foi alterado. Prepare o aviso novamente."
+      );
+      box.remove();
+      pendingNotice = null;
+      return;
+    }
+
+    const notice = pendingNotice;
+    pendingNotice = null;
+    box.remove();
+
+    openWhatsApp(notice.number, notice.message);
+
+    setMessage(
+      "actionStatus",
+      "O WhatsApp foi aberto com a mensagem pronta. Confira a conversa e toque em Enviar no próprio WhatsApp."
+    );
+  });
+
+  const cancelButton = document.createElement("button");
+  cancelButton.className = "secondary";
+  cancelButton.textContent = "Cancelar";
+
+  cancelButton.addEventListener("click", () => {
+    pendingNotice = null;
+    box.remove();
+    setMessage("actionStatus", "Envio cancelado. Nenhuma mensagem foi enviada.");
+  });
+
+  actions.append(confirmButton, cancelButton);
+  box.append(title, description, preview, actions);
+
+  const statusSection = $("actionStatus").parentElement;
+  statusSection.appendChild(box);
+
+  box.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 async function updateStatus(quote, newStatus, button) {
@@ -632,7 +877,7 @@ async function updateStatus(quote, newStatus, button) {
     return;
   }
 
-  if (quote.status === newStatus) {
+  if ((quote.status || "Pendente") === newStatus) {
     setMessage(
       "actionStatus",
       "Esse orçamento já está com esse status."
@@ -668,10 +913,15 @@ async function updateStatus(quote, newStatus, button) {
     }
 
     quote.status = data.status;
+    pendingNotice = null;
+
+    const oldNotice = document.getElementById("noticeConfirmation");
+    if (oldNotice) oldNotice.remove();
 
     setMessage(
       "actionStatus",
-      "Status salvo: " + data.status + "."
+      "Status salvo: " + data.status +
+      ". Agora você pode preparar o aviso pelo WhatsApp."
     );
 
     renderQuotes();
@@ -695,9 +945,7 @@ $("logoutButton").addEventListener("click", async () => {
 
   try {
     const { error } = await db.auth.signOut();
-
     if (error) throw error;
-
     showLogin();
   } catch (error) {
     setMessage("status", "Erro ao sair da conta: " + error.message);
@@ -719,3 +967,4 @@ checkSession();
 
 </body>
 </html>
+```
