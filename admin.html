@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -37,3 +37,807 @@ button:focus-visible,input:focus-visible,select:focus-visible{
   outline-offset:3px;
 }
 header{
+  padding:22px 5%;
+  border-bottom:1px solid #282033;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  background:rgba(8,6,13,.88);
+}
+.brand{font-size:25px;font-weight:900;letter-spacing:-1px}
+.brand span{color:var(--purple)}
+.header-label{color:var(--muted);font-size:12px;letter-spacing:2px}
+.container{width:min(1100px,92%);margin:38px auto}
+h1{font-size:30px;margin-bottom:12px}
+h2{font-size:21px;margin-bottom:10px}
+h3{font-size:19px}
+p{overflow-wrap:anywhere}
+.muted{color:var(--muted);line-height:1.6}
+.card{
+  background:linear-gradient(145deg,rgba(25,17,36,.97),rgba(13,9,19,.98));
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:24px;
+  margin:22px 0;
+  box-shadow:0 12px 40px rgba(0,0,0,.15);
+}
+input,select{
+  width:100%;
+  padding:13px 14px;
+  margin:9px 0 17px;
+  border:1px solid #42304f;
+  border-radius:9px;
+  background:#09070e;
+  color:#fff;
+  outline:none;
+}
+input:focus,select:focus{border-color:var(--purple)}
+label{display:block;color:#d6c8e2;margin-top:8px;font-size:14px}
+button{
+  border:1px solid transparent;
+  padding:12px 17px;
+  border-radius:9px;
+  color:white;
+  font-weight:bold;
+  background:linear-gradient(100deg,var(--purple-dark),var(--purple));
+  transition:transform .2s,border-color .2s,opacity .2s;
+}
+button:hover:not(:disabled){transform:translateY(-1px)}
+.secondary,.logout{
+  background:#30213d;
+  border-color:#493258;
+}
+.whatsapp-button{
+  background:#123d30;
+  border-color:#1d664c;
+  color:#8af0bb;
+}
+.login{width:min(430px,92%);margin:70px auto}
+.login .card{padding:28px}
+#loginStatus,#status,#actionStatus{
+  margin-top:14px;
+  color:#d1a1ff;
+  line-height:1.6;
+  overflow-wrap:anywhere;
+}
+#actionStatus:empty{display:none}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.stats .card{margin:22px 0}
+.stat strong{
+  display:block;
+  color:#bd73ff;
+  font-size:38px;
+  margin-top:13px;
+}
+.stat .stat-caption{font-size:13px;color:var(--muted);margin-top:5px}
+.toolbar{
+  display:grid;
+  grid-template-columns:minmax(0,2fr) minmax(0,1fr);
+  gap:15px;
+  margin-top:20px;
+}
+.toolbar input,.toolbar select{margin-bottom:10px}
+.quote{
+  border:1px solid #352443;
+  background:rgba(12,9,17,.9);
+  border-radius:13px;
+  padding:20px;
+  margin:15px 0;
+  min-width:0;
+}
+.quote h3{color:#d1a1ff;margin-bottom:12px;overflow-wrap:anywhere}
+.quote-details{margin-top:12px}
+.quote-details p{
+  color:#d5d0dc;
+  line-height:1.75;
+  overflow-wrap:anywhere;
+}
+.quote-details strong{color:#fff}
+.quote-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  padding:6px 10px;
+  border-radius:30px;
+  background:#352443;
+  color:#e5c8ff;
+  font-size:12px;
+  font-weight:bold;
+}
+.pill[data-status="Aprovado"]{background:#123d30;color:var(--success)}
+.pill[data-status="Recusado"]{background:#451d2b;color:#ff9caf}
+.pill[data-status="Em negociação"]{background:#44351a;color:var(--warning)}
+.quote-actions{
+  display:flex;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
+}
+.status-control{flex:1;min-width:180px}
+.status-control label{margin-top:0}
+.status-control select{margin:8px 0 0}
+.empty{
+  padding:28px 16px;
+  text-align:center;
+  color:var(--muted);
+  border:1px dashed #42304f;
+  border-radius:12px;
+  margin-top:16px;
+}
+.hidden{display:none!important}
+.section-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.count-label{color:var(--muted);font-size:13px}
+#refreshButton{margin-left:8px}
+.dashboard-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.notice-box{
+  background:#100c17;
+  border:1px solid #493258;
+  border-radius:12px;
+  padding:18px;
+  margin-top:16px;
+}
+.notice-box h3{margin-bottom:8px;color:#d1a1ff}
+.notice-preview{
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  background:#09070e;
+  border:1px solid #30213e;
+  padding:15px;
+  border-radius:9px;
+  color:#eee4f7;
+  line-height:1.65;
+  margin:12px 0;
+}
+.notice-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
+}
+.notice-actions button{flex:1;min-width:170px}
+.confirm-button{
+  background:#123d30;
+  border-color:#1d664c;
+  color:#8af0bb;
+}
+@media(max-width:700px){
+  header{padding:18px 4%}
+  .header-label{font-size:10px;letter-spacing:1px}
+  .container{margin:25px auto}
+  h1{font-size:25px}
+  .card{padding:18px}
+  .stats{grid-template-columns:1fr;gap:0}
+  .stats .card{margin:10px 0}
+  .stat strong{font-size:32px}
+  .toolbar{grid-template-columns:1fr;gap:0}
+  .quote-actions{align-items:stretch}
+  .quote-actions>button{width:100%}
+  .status-control{flex-basis:100%}
+  #refreshButton{margin:0}
+  .dashboard-buttons{flex-direction:column;align-items:stretch}
+  .notice-actions{flex-direction:column}
+  .notice-actions button{width:100%}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="brand">VELTRONI<span>X</span></div>
+  <span class="header-label">ADMINISTRAÇÃO</span>
+</header>
+
+<section id="loginArea" class="login">
+  <div class="card">
+    <h1>Acessar painel</h1>
+    <p class="muted">Entre com sua conta administrativa.</p>
+
+    <form id="loginForm">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" autocomplete="username"
+        placeholder="Seu e-mail" required>
+
+      <label for="password">Senha</label>
+      <input id="password" type="password" autocomplete="current-password"
+        placeholder="Sua senha" required>
+
+      <button id="loginButton" type="submit" style="width:100%">
+        Entrar no painel
+      </button>
+    </form>
+    <p id="loginStatus" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<main id="dashboard" class="container hidden">
+  <h1>Painel VELTRONIX</h1>
+  <p class="muted">Conectado como <span id="userEmail"></span></p>
+
+  <div class="dashboard-buttons" style="margin-top:22px">
+    <button class="logout" id="logoutButton">Sair da conta</button>
+    <button id="refreshButton">Atualizar dados</button>
+  </div>
+
+  <section class="stats" aria-label="Indicadores">
+    <div class="card stat">
+      <p class="muted">Total de orçamentos</p>
+      <strong id="totalQuotes">0</strong>
+      <p class="stat-caption">Solicitações recebidas</p>
+    </div>
+    <div class="card stat">
+      <p class="muted">Clientes por contato</p>
+      <strong id="totalClients">0</strong>
+      <p class="stat-caption">Contatos únicos</p>
+    </div>
+    <div class="card stat">
+      <p class="muted">Serviços diferentes</p>
+      <strong id="totalServices">0</strong>
+      <p class="stat-caption">Tipos de serviço solicitados</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-heading">
+      <h2>Orçamentos recebidos</h2>
+      <span id="visibleCount" class="count-label"></span>
+    </div>
+
+    <p id="status" class="muted" role="status" aria-live="polite">
+      Carregando informações...
+    </p>
+
+    <div class="toolbar">
+      <div>
+        <label for="search">Buscar orçamento</label>
+        <input id="search" type="search"
+          placeholder="Nome, contato ou serviço">
+      </div>
+      <div>
+        <label for="filterStatus">Filtrar por status</label>
+        <select id="filterStatus">
+          <option value="">Todos os status</option>
+          <option value="Pendente">Pendente</option>
+          <option value="Em negociação">Em negociação</option>
+          <option value="Aprovado">Aprovado</option>
+          <option value="Recusado">Recusado</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="quotesList"></div>
+    <p id="actionStatus" role="status" aria-live="polite"></p>
+  </section>
+</main>
+
+<script>
+"use strict";
+
+const SUPABASE_URL =
+  "https://swgrurgztdcyhtrjpotc.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+const $ = id => document.getElementById(id);
+
+const VALID_STATUSES = [
+  "Pendente",
+  "Em negociação",
+  "Aprovado",
+  "Recusado"
+];
+
+let allQuotes = [];
+let loadingQuotes = false;
+let sessionVersion = 0;
+
+function setMessage(id, message) {
+  $(id).textContent = message || "";
+}
+
+function showLogin() {
+  sessionVersion++;
+  allQuotes = [];
+
+  $("loginArea").classList.remove("hidden");
+  $("dashboard").classList.add("hidden");
+  $("quotesList").replaceChildren();
+
+  $("totalQuotes").textContent = "0";
+  $("totalClients").textContent = "0";
+  $("totalServices").textContent = "0";
+  $("visibleCount").textContent = "";
+  setMessage("actionStatus", "");
+}
+
+function showDashboard(user) {
+  $("loginArea").classList.add("hidden");
+  $("dashboard").classList.remove("hidden");
+  $("userEmail").textContent = user.email || "";
+  loadQuotes();
+}
+
+async function checkSession() {
+  try {
+    const { data, error } = await db.auth.getSession();
+    if (error) throw error;
+
+    if (data.session) {
+      showDashboard(data.session.user);
+    } else {
+      showLogin();
+    }
+  } catch (error) {
+    setMessage("loginStatus", "Erro ao verificar sessão: " + error.message);
+  }
+}
+
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const button = $("loginButton");
+  button.disabled = true;
+  button.textContent = "Entrando...";
+  setMessage("loginStatus", "");
+
+  try {
+    const { data, error } = await db.auth.signInWithPassword({
+      email: $("email").value.trim(),
+      password: $("password").value
+    });
+
+    if (error) throw error;
+    showDashboard(data.user);
+  } catch (error) {
+    setMessage("loginStatus", "Não foi possível entrar: " + error.message);
+  } finally {
+    button.disabled = false;
+    button.textContent = "Entrar no painel";
+  }
+});
+
+async function loadQuotes() {
+  if (loadingQuotes) return;
+
+  loadingQuotes = true;
+  const currentVersion = sessionVersion;
+
+  $("refreshButton").disabled = true;
+  setMessage("status", "Buscando orçamentos...");
+  setMessage("actionStatus", "");
+  $("quotesList").replaceChildren();
+
+  try {
+    const { data, error } = await db
+      .from("orcamentos")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    if (currentVersion !== sessionVersion) return;
+
+    allQuotes = data || [];
+
+    $("totalQuotes").textContent = allQuotes.length;
+
+    $("totalClients").textContent = new Set(
+      allQuotes.map(getContact).filter(Boolean)
+    ).size;
+
+    $("totalServices").textContent = new Set(
+      allQuotes.map(q => q.servico).filter(Boolean)
+    ).size;
+
+    setMessage(
+      "status",
+      allQuotes.length
+        ? allQuotes.length + " orçamento(s) encontrado(s)."
+        : "Nenhum orçamento recebido ainda."
+    );
+
+    renderQuotes();
+  } catch (error) {
+    if (currentVersion !== sessionVersion) return;
+
+    allQuotes = [];
+    $("quotesList").replaceChildren();
+    setMessage("status", "Erro ao carregar: " + error.message);
+    $("visibleCount").textContent = "";
+  } finally {
+    loadingQuotes = false;
+    $("refreshButton").disabled = false;
+  }
+}
+
+function getContact(quote) {
+  return quote.contato || quote.telefone || quote.whatsapp || "";
+}
+
+function getClientName(quote) {
+  return quote.nome || quote.nome_cliente || "Cliente";
+}
+
+function addLine(parent, label, value) {
+  const line = document.createElement("p");
+  const strong = document.createElement("strong");
+
+  strong.textContent = label + ": ";
+
+  line.append(
+    strong,
+    document.createTextNode(
+      value === null || value === undefined || value === ""
+        ? "Não informado"
+        : String(value)
+    )
+  );
+
+  parent.appendChild(line);
+}
+
+function renderQuotes() {
+  const list = $("quotesList");
+  list.replaceChildren();
+
+  const term = $("search").value.trim().toLocaleLowerCase("pt-BR");
+  const wantedStatus = $("filterStatus").value;
+
+  const filtered = allQuotes.filter(quote => {
+    const searchable = [
+      getClientName(quote),
+      getContact(quote),
+      quote.servico,
+      quote.descricao,
+      quote.prazo,
+      quote.valor
+    ]
+      .filter(value => value !== null && value !== undefined)
+      .join(" ")
+      .toLocaleLowerCase("pt-BR");
+
+    const status = quote.status || "Pendente";
+
+    return searchable.includes(term) &&
+      (!wantedStatus || status === wantedStatus);
+  });
+
+  $("visibleCount").textContent =
+    filtered.length + " de " + allQuotes.length;
+
+  if (!filtered.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = allQuotes.length
+      ? "Nenhum orçamento corresponde à sua busca."
+      : "Os novos pedidos aparecerão aqui.";
+
+    list.appendChild(empty);
+    return;
+  }
+
+  filtered.forEach(quote => {
+    const article = document.createElement("article");
+    article.className = "quote";
+
+    const top = document.createElement("div");
+    top.className = "quote-top";
+
+    const title = document.createElement("h3");
+    title.textContent = getClientName(quote);
+
+    const currentStatus = quote.status || "Pendente";
+
+    const badge = document.createElement("span");
+    badge.className = "pill";
+    badge.dataset.status = currentStatus;
+    badge.textContent = currentStatus;
+
+    top.append(title, badge);
+    article.appendChild(top);
+
+    const details = document.createElement("div");
+    details.className = "quote-details";
+
+    addLine(details, "WhatsApp", getContact(quote));
+    addLine(details, "Serviço", quote.servico);
+    addLine(details, "Descrição", quote.descricao);
+    addLine(details, "Prazo", quote.prazo);
+    addLine(details, "Orçamento previsto", quote.valor);
+
+    if (quote.created_at) {
+      const date = new Date(quote.created_at);
+      if (!Number.isNaN(date.getTime())) {
+        addLine(details, "Recebido em", date.toLocaleString("pt-BR"));
+      }
+    }
+
+    article.appendChild(details);
+
+    const actions = document.createElement("div");
+    actions.className = "quote-actions";
+
+    const statusControl = document.createElement("div");
+    statusControl.className = "status-control";
+
+    const statusLabel = document.createElement("label");
+    statusLabel.textContent = "Alterar status";
+    statusLabel.htmlFor = "status-" + String(quote.id || "");
+
+    const select = document.createElement("select");
+    select.id = statusLabel.htmlFor;
+    select.setAttribute(
+      "aria-label",
+      "Status do orçamento de " + getClientName(quote)
+    );
+
+    VALID_STATUSES.forEach(status => {
+      const option = document.createElement("option");
+      option.value = status;
+      option.textContent = status;
+      select.appendChild(option);
+    });
+
+    select.value = VALID_STATUSES.includes(currentStatus)
+      ? currentStatus
+      : "Pendente";
+
+    statusControl.append(statusLabel, select);
+
+    const saveButton = document.createElement("button");
+    saveButton.textContent = "Salvar status";
+    saveButton.addEventListener("click", () => {
+      updateStatus(quote, select.value, saveButton);
+    });
+
+    const noticeButton = document.createElement("button");
+    noticeButton.className = "whatsapp-button";
+    noticeButton.textContent = "Avisar cliente pelo WhatsApp";
+    noticeButton.addEventListener("click", () => {
+      prepareStatusNotice(quote, select.value);
+    });
+
+    const chatButton = document.createElement("button");
+    chatButton.className = "secondary";
+    chatButton.textContent = "Conversar pelo WhatsApp";
+    chatButton.addEventListener("click", () => {
+      openWhatsApp(getContact(quote));
+    });
+
+    actions.append(statusControl, saveButton, noticeButton, chatButton);
+    article.appendChild(actions);
+    list.appendChild(article);
+  });
+}
+
+function normalizeWhatsAppNumber(contact) {
+  let number = String(contact || "").replace(/\D/g, "");
+
+  if (number.startsWith("00")) {
+    number = number.slice(2);
+  }
+
+  if (number.length === 10 || number.length === 11) {
+    number = "55" + number;
+  }
+
+  if (!number.startsWith("55") ||
+      (number.length !== 12 && number.length !== 13)) {
+    return null;
+  }
+
+  return number;
+}
+
+function openWhatsApp(contact, message = "") {
+  const number = normalizeWhatsAppNumber(contact);
+
+  if (!number) {
+    alert(
+      "Não foi possível validar o telefone. Confira o número cadastrado no orçamento."
+    );
+    return;
+  }
+
+  const url = "https://wa.me/" + number +
+    (message ? "?text=" + encodeURIComponent(message) : "");
+
+  /*
+    Chamado diretamente pelo clique do usuário para reduzir
+    a chance de bloqueio de pop-up no navegador.
+  */
+  const opened = window.open(url, "_blank");
+
+  if (!opened) {
+    alert(
+      "O navegador bloqueou a nova aba. Vamos abrir o WhatsApp nesta mesma página."
+    );
+    window.location.href = url;
+  }
+}
+
+function buildStatusMessage(quote, status) {
+  const name = getClientName(quote);
+  const service = quote.servico || "serviço solicitado";
+
+  const messages = {
+    "Pendente":
+      "Sua solicitação está pendente e aguardando análise.",
+    "Em negociação":
+      "Sua solicitação está em negociação. Em breve, entraremos em contato para alinhar os próximos detalhes.",
+    "Aprovado":
+      "Sua solicitação foi aprovada! Vamos alinhar os próximos passos do projeto.",
+    "Recusado":
+      "No momento, sua solicitação foi recusada. Se precisar, entre em contato conosco para conversar sobre outras possibilidades."
+  };
+
+  return [
+    "Olá, " + name + "! Tudo bem? 👋",
+    "",
+    "Temos uma atualização sobre sua solicitação na VELTRONIX.",
+    "",
+    "🛠️ Serviço: " + service,
+    "📌 Novo status: " + status.toUpperCase(),
+    "",
+    messages[status],
+    "",
+    "Obrigado pelo contato!",
+    "",
+    "VELTRONIX",
+    "Tecnologia que impulsiona negócios."
+  ].join("\n");
+}
+
+function prepareStatusNotice(quote, selectedStatus) {
+  const savedStatus = quote.status || "Pendente";
+
+  if (selectedStatus !== savedStatus) {
+    alert(
+      'Primeiro clique em "Salvar status" e aguarde a confirmação.'
+    );
+    return;
+  }
+
+  const contact = getContact(quote);
+  const number = normalizeWhatsAppNumber(contact);
+
+  if (!number) {
+    alert(
+      "Não consegui validar o telefone. Confira o número cadastrado no orçamento."
+    );
+    return;
+  }
+
+  const message = buildStatusMessage(quote, savedStatus);
+
+  const confirmed = window.confirm(
+    "Confirmar aviso pelo WhatsApp?\n\n" +
+    "Cliente: " + getClientName(quote) + "\n" +
+    "Status: " + savedStatus + "\n\n" +
+    "Ao confirmar, o WhatsApp será aberto com a mensagem pronta. " +
+    "Você ainda precisará tocar em Enviar no WhatsApp."
+  );
+
+  if (!confirmed) return;
+
+  const url = "https://wa.me/" + number +
+    "?text=" + encodeURIComponent(message);
+
+  const opened = window.open(url, "_blank");
+
+  if (!opened) {
+    /*
+      Alternativa para navegadores que bloqueiam pop-ups.
+      A conversa será aberta na página atual.
+    */
+    window.location.href = url;
+  }
+}
+
+async function updateStatus(quote, newStatus, button) {
+  if (!VALID_STATUSES.includes(newStatus)) {
+    alert("Status inválido.");
+    return;
+  }
+
+  if ((quote.status || "Pendente") === newStatus) {
+    alert("Esse orçamento já está com esse status.");
+    return;
+  }
+
+  if (!quote.id) {
+    alert(
+      "Este orçamento não possui um campo id disponível. Confira a estrutura da tabela."
+    );
+    return;
+  }
+
+  button.disabled = true;
+  setMessage("actionStatus", "Salvando status...");
+
+  try {
+    const { data, error } = await db
+      .from("orcamentos")
+      .update({ status: newStatus })
+      .eq("id", quote.id)
+      .select("id,status")
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (!data) {
+      throw new Error(
+        "Nenhuma linha foi atualizada. Confira a coluna status e as permissões administrativas do Supabase."
+      );
+    }
+
+    quote.status = data.status;
+
+    setMessage(
+      "actionStatus",
+      "Status salvo: " + data.status +
+      ". Você já pode preparar o aviso pelo WhatsApp."
+    );
+
+    renderQuotes();
+  } catch (error) {
+    alert(
+      "Não foi possível salvar o status.\n\n" + error.message
+    );
+
+    setMessage(
+      "actionStatus",
+      "Erro ao salvar status: " + error.message
+    );
+  } finally {
+    button.disabled = false;
+  }
+}
+
+$("search").addEventListener("input", renderQuotes);
+$("filterStatus").addEventListener("change", renderQuotes);
+$("refreshButton").addEventListener("click", loadQuotes);
+
+$("logoutButton").addEventListener("click", async () => {
+  $("logoutButton").disabled = true;
+
+  try {
+    const { error } = await db.auth.signOut();
+    if (error) throw error;
+    showLogin();
+  } catch (error) {
+    setMessage("status", "Erro ao sair da conta: " + error.message);
+  } finally {
+    $("logoutButton").disabled = false;
+  }
+});
+
+db.auth.onAuthStateChange((_event, session) => {
+  if (session) {
+    showDashboard(session.user);
+  } else {
+    showLogin();
+  }
+});
+
+checkSession();
+</script>
+</body>
+</html>
+```
