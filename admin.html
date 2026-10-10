@@ -1,104 +1,197 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#08060d">
+<meta name="description" content="Painel administrativo da VELTRONIX.">
 <title>Painel Administrativo | VELTRONIX</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+:root{
+  --bg:#08060d;
+  --panel:#110d19;
+  --panel2:#0c0911;
+  --purple:#b65cff;
+  --purple-dark:#7624bd;
+  --border:#30213e;
+  --text:#fff;
+  --muted:#aaa2b5;
+  --success:#5ee6a8;
+  --warning:#ffd166;
+  --danger:#ff758f;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  background:#08060d;
-  color:#fff;
+  background:radial-gradient(ellipse at top,#171026 0%,var(--bg) 50%);
+  color:var(--text);
   font-family:Arial,sans-serif;
   min-height:100vh;
 }
-button,input{font:inherit}
+button,input,select{font:inherit}
 button{cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}
+button:focus-visible,input:focus-visible,select:focus-visible{
+  outline:2px solid #d6a7ff;
+  outline-offset:3px;
+}
 header{
   padding:22px 5%;
   border-bottom:1px solid #282033;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:15px;
+  background:rgba(8,6,13,.88);
 }
-.brand{font-size:25px;font-weight:900}
-.brand span{color:#b65cff}
-.container{
-  width:min(1100px,92%);
-  margin:40px auto;
-}
+.brand{font-size:25px;font-weight:900;letter-spacing:-1px}
+.brand span{color:var(--purple)}
+.header-label{color:var(--muted);font-size:12px;letter-spacing:2px}
+.container{width:min(1100px,92%);margin:38px auto}
 h1{font-size:30px;margin-bottom:12px}
-.muted{color:#9993a5}
+h2{font-size:21px;margin-bottom:10px}
+h3{font-size:19px}
+p{overflow-wrap:anywhere}
+.muted{color:var(--muted);line-height:1.6}
 .card{
-  background:#110d19;
-  border:1px solid #30213e;
-  border-radius:15px;
-  padding:25px;
+  background:linear-gradient(145deg,rgba(25,17,36,.97),rgba(13,9,19,.98));
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:24px;
   margin:22px 0;
+  box-shadow:0 12px 40px rgba(0,0,0,.15);
 }
-input{
+input,select{
   width:100%;
-  padding:14px;
-  margin:10px 0 18px;
+  padding:13px 14px;
+  margin:9px 0 17px;
   border:1px solid #42304f;
   border-radius:9px;
   background:#09070e;
   color:#fff;
   outline:none;
 }
-input:focus{border-color:#b65cff}
+input:focus,select:focus{border-color:var(--purple)}
+label{display:block;color:#d6c8e2;margin-top:8px;font-size:14px}
 button{
-  border:0;
-  padding:13px 20px;
+  border:1px solid transparent;
+  padding:12px 17px;
   border-radius:9px;
   color:white;
   font-weight:bold;
-  background:linear-gradient(100deg,#7624bd,#b65cff);
+  background:linear-gradient(100deg,var(--purple-dark),var(--purple));
+  transition:transform .2s,border-color .2s,opacity .2s;
 }
-button:disabled{opacity:.5}
-.logout{background:#35253f}
-.login{
-  width:min(430px,92%);
-  margin:90px auto;
+button:hover:not(:disabled){transform:translateY(-1px)}
+.secondary,.logout{
+  background:#30213d;
+  border-color:#493258;
 }
-label{display:block;color:#d6c8e2}
-#loginStatus,#status{
-  margin-top:15px;
-  color:#c084fc;
-  line-height:1.5;
+.login{width:min(430px,92%);margin:70px auto}
+.login .card{padding:28px}
+#loginStatus,#status,#actionStatus{
+  margin-top:14px;
+  color:#d1a1ff;
+  line-height:1.6;
+  overflow-wrap:anywhere;
 }
+#actionStatus:empty{display:none}
 .stats{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
 }
+.stats .card{margin:22px 0}
 .stat strong{
   display:block;
   color:#bd73ff;
   font-size:38px;
-  margin-top:15px;
+  margin-top:13px;
 }
+.stat .stat-caption{font-size:13px;color:var(--muted);margin-top:5px}
+.toolbar{
+  display:grid;
+  grid-template-columns:minmax(0,2fr) minmax(0,1fr);
+  gap:15px;
+  margin-top:20px;
+}
+.toolbar input,.toolbar select{margin-bottom:10px}
 .quote{
   border:1px solid #352443;
-  background:#0c0911;
-  border-radius:12px;
+  background:rgba(12,9,17,.9);
+  border-radius:13px;
   padding:20px;
   margin:15px 0;
+  min-width:0;
 }
-.quote h3{color:#c084fc;margin-bottom:12px}
-.quote p{color:#d5d0dc;line-height:1.7;overflow-wrap:anywhere}
-.quote button{margin-top:15px}
-.empty{padding:25px;text-align:center;color:#aaa}
+.quote h3{color:#d1a1ff;margin-bottom:12px;overflow-wrap:anywhere}
+.quote-details{margin-top:12px}
+.quote-details p{
+  color:#d5d0dc;
+  line-height:1.75;
+  overflow-wrap:anywhere;
+}
+.quote-details strong{color:#fff}
+.quote-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  padding:6px 10px;
+  border-radius:30px;
+  background:#352443;
+  color:#e5c8ff;
+  font-size:12px;
+  font-weight:bold;
+}
+.pill[data-status="Aprovado"]{background:#123d30;color:var(--success)}
+.pill[data-status="Recusado"]{background:#451d2b;color:#ff9caf}
+.pill[data-status="Em negociação"]{background:#44351a;color:var(--warning)}
+.quote-actions{
+  display:flex;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
+}
+.status-control{flex:1;min-width:180px}
+.status-control label{margin-top:0}
+.status-control select{margin:8px 0 0}
+.empty{
+  padding:28px 16px;
+  text-align:center;
+  color:var(--muted);
+  border:1px dashed #42304f;
+  border-radius:12px;
+  margin-top:16px;
+}
 .hidden{display:none!important}
-@media(max-width:650px){
-  .stats{grid-template-columns:1fr}
+.section-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.count-label{color:var(--muted);font-size:13px}
+.small{font-size:12px}
+#refreshButton{margin-left:8px}
+@media(max-width:700px){
   header{padding:18px 4%}
-  h1{font-size:25px}
+  .header-label{font-size:10px;letter-spacing:1px}
   .container{margin:25px auto}
+  h1{font-size:25px}
   .card{padding:18px}
+  .stats{grid-template-columns:1fr;gap:0}
+  .stats .card{margin:10px 0}
+  .stat strong{font-size:32px}
+  .toolbar{grid-template-columns:1fr;gap:0}
+  .quote-actions{align-items:stretch}
+  .quote-actions>button{width:100%}
+  .status-control{flex-basis:100%}
+  #refreshButton{margin:10px 0 0}
+  .dashboard-buttons{display:flex;flex-direction:column;align-items:stretch}
 }
 </style>
 </head>
@@ -107,7 +200,7 @@ label{display:block;color:#d6c8e2}
 
 <header>
   <div class="brand">VELTRONI<span>X</span></div>
-  <span class="muted">ADMINISTRAÇÃO</span>
+  <span class="header-label">ADMINISTRAÇÃO</span>
 </header>
 
 <section id="loginArea" class="login">
@@ -117,17 +210,29 @@ label{display:block;color:#d6c8e2}
 
     <form id="loginForm">
       <label for="email">E-mail</label>
-      <input id="email" type="email" placeholder="Seu e-mail" required>
+      <input
+        id="email"
+        type="email"
+        autocomplete="username"
+        placeholder="Seu e-mail"
+        required
+      >
 
       <label for="password">Senha</label>
-      <input id="password" type="password" placeholder="Sua senha" required>
+      <input
+        id="password"
+        type="password"
+        autocomplete="current-password"
+        placeholder="Sua senha"
+        required
+      >
 
       <button id="loginButton" type="submit" style="width:100%">
         Entrar no painel
       </button>
     </form>
 
-    <p id="loginStatus"></p>
+    <p id="loginStatus" role="status" aria-live="polite"></p>
   </div>
 </section>
 
@@ -135,224 +240,479 @@ label{display:block;color:#d6c8e2}
   <h1>Painel VELTRONIX</h1>
   <p class="muted">Conectado como <span id="userEmail"></span></p>
 
-  <div style="margin-top:22px">
+  <div class="dashboard-buttons" style="margin-top:22px">
     <button class="logout" id="logoutButton">Sair da conta</button>
-    <button id="refreshButton" style="margin-left:8px">Atualizar</button>
+    <button id="refreshButton">Atualizar dados</button>
   </div>
 
-  <section class="stats">
+  <section class="stats" aria-label="Indicadores">
     <div class="card stat">
       <p class="muted">Total de orçamentos</p>
       <strong id="totalQuotes">0</strong>
+      <p class="stat-caption">Solicitações recebidas</p>
     </div>
+
     <div class="card stat">
-      <p class="muted">Clientes cadastrados</p>
+      <p class="muted">Clientes por contato</p>
       <strong id="totalClients">0</strong>
+      <p class="stat-caption">Contatos únicos</p>
     </div>
+
     <div class="card stat">
-      <p class="muted">Serviços solicitados</p>
+      <p class="muted">Serviços diferentes</p>
       <strong id="totalServices">0</strong>
+      <p class="stat-caption">Tipos de serviço solicitados</p>
     </div>
   </section>
 
   <section class="card">
-    <h2>Orçamentos recebidos</h2>
-    <p id="status" class="muted">Carregando informações...</p>
+    <div class="section-heading">
+      <h2>Orçamentos recebidos</h2>
+      <span id="visibleCount" class="count-label"></span>
+    </div>
+
+    <p id="status" class="muted" role="status" aria-live="polite">
+      Carregando informações...
+    </p>
+
+    <div class="toolbar">
+      <div>
+        <label for="search">Buscar orçamento</label>
+        <input
+          id="search"
+          type="search"
+          placeholder="Nome, contato ou serviço"
+        >
+      </div>
+
+      <div>
+        <label for="filterStatus">Filtrar por status</label>
+        <select id="filterStatus">
+          <option value="">Todos os status</option>
+          <option value="Pendente">Pendente</option>
+          <option value="Em negociação">Em negociação</option>
+          <option value="Aprovado">Aprovado</option>
+          <option value="Recusado">Recusado</option>
+        </select>
+      </div>
+    </div>
+
     <div id="quotesList"></div>
+    <p id="actionStatus" role="status" aria-live="polite"></p>
   </section>
 </main>
 
 <script>
+"use strict";
+
 const SUPABASE_URL =
   "https://swgrurgztdcyhtrjpotc.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
 
-const supabaseClient = window.supabase.createClient(
+const db = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
 
-const loginArea = document.getElementById("loginArea");
-const dashboard = document.getElementById("dashboard");
-const loginStatus = document.getElementById("loginStatus");
-const statusText = document.getElementById("status");
+const $ = id => document.getElementById(id);
 
-function showLogin(){
-  loginArea.classList.remove("hidden");
-  dashboard.classList.add("hidden");
+const VALID_STATUSES = [
+  "Pendente",
+  "Em negociação",
+  "Aprovado",
+  "Recusado"
+];
+
+let allQuotes = [];
+let loadingQuotes = false;
+let sessionVersion = 0;
+
+function setMessage(id, message) {
+  $(id).textContent = message || "";
 }
 
-function showDashboard(user){
-  loginArea.classList.add("hidden");
-  dashboard.classList.remove("hidden");
-  document.getElementById("userEmail").textContent =
-    user.email || "";
+function showLogin() {
+  sessionVersion++;
+  allQuotes = [];
+  $("loginArea").classList.remove("hidden");
+  $("dashboard").classList.add("hidden");
+  $("quotesList").replaceChildren();
+  $("totalQuotes").textContent = "0";
+  $("totalClients").textContent = "0";
+  $("totalServices").textContent = "0";
+  $("visibleCount").textContent = "";
+}
+
+function showDashboard(user) {
+  $("loginArea").classList.add("hidden");
+  $("dashboard").classList.remove("hidden");
+  $("userEmail").textContent = user.email || "";
   loadQuotes();
 }
 
-async function checkSession(){
-  const {data,error} = await supabaseClient.auth.getSession();
+async function checkSession() {
+  try {
+    const { data, error } = await db.auth.getSession();
 
-  if(error){
-    loginStatus.textContent = error.message;
-    return;
-  }
+    if (error) throw error;
 
-  if(data.session){
-    showDashboard(data.session.user);
-  }else{
-    showLogin();
+    if (data.session) {
+      showDashboard(data.session.user);
+    } else {
+      showLogin();
+    }
+  } catch (error) {
+    setMessage(
+      "loginStatus",
+      "Erro ao verificar sessão: " + error.message
+    );
   }
 }
 
-document.getElementById("loginForm")
-.addEventListener("submit",async function(event){
+$("loginForm").addEventListener("submit", async event => {
   event.preventDefault();
 
-  const button = document.getElementById("loginButton");
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-
+  const button = $("loginButton");
   button.disabled = true;
   button.textContent = "Entrando...";
-  loginStatus.textContent = "";
+  setMessage("loginStatus", "");
 
-  const {data,error} =
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password
+  try {
+    const { data, error } = await db.auth.signInWithPassword({
+      email: $("email").value.trim(),
+      password: $("password").value
     });
 
-  button.disabled = false;
-  button.textContent = "Entrar no painel";
+    if (error) throw error;
 
-  if(error){
-    loginStatus.textContent =
-      "Não foi possível entrar: " + error.message;
-    return;
+    showDashboard(data.user);
+  } catch (error) {
+    setMessage(
+      "loginStatus",
+      "Não foi possível entrar: " + error.message
+    );
+  } finally {
+    button.disabled = false;
+    button.textContent = "Entrar no painel";
   }
-
-  showDashboard(data.user);
 });
 
-async function loadQuotes(){
-  statusText.textContent = "Buscando orçamentos...";
-  const list = document.getElementById("quotesList");
-  list.innerHTML = "";
+async function loadQuotes() {
+  if (loadingQuotes) return;
 
-  const {data,error} = await supabaseClient
-    .from("orcamentos")
-    .select("*")
-    .order("created_at",{ascending:false});
+  loadingQuotes = true;
+  const currentVersion = sessionVersion;
 
-  if(error){
-    statusText.textContent =
-      "Erro ao carregar: " + error.message;
+  $("refreshButton").disabled = true;
+  setMessage("status", "Buscando orçamentos...");
+  setMessage("actionStatus", "");
+  $("quotesList").replaceChildren();
+
+  try {
+    const { data, error } = await db
+      .from("orcamentos")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    if (currentVersion !== sessionVersion) return;
+
+    allQuotes = data || [];
+
+    $("totalQuotes").textContent = allQuotes.length;
+
+    $("totalClients").textContent = new Set(
+      allQuotes.map(q => q.contato).filter(Boolean)
+    ).size;
+
+    $("totalServices").textContent = new Set(
+      allQuotes.map(q => q.servico).filter(Boolean)
+    ).size;
+
+    setMessage(
+      "status",
+      allQuotes.length
+        ? allQuotes.length + " orçamento(s) encontrado(s)."
+        : "Nenhum orçamento recebido ainda."
+    );
+
+    renderQuotes();
+  } catch (error) {
+    if (currentVersion !== sessionVersion) return;
+
+    allQuotes = [];
+    $("quotesList").replaceChildren();
+    setMessage("status", "Erro ao carregar: " + error.message);
+    $("visibleCount").textContent = "";
+  } finally {
+    loadingQuotes = false;
+    $("refreshButton").disabled = false;
+  }
+}
+
+function addLine(parent, label, value) {
+  const line = document.createElement("p");
+  const strong = document.createElement("strong");
+
+  strong.textContent = label + ": ";
+
+  line.append(
+    strong,
+    document.createTextNode(
+      value === null || value === undefined || value === ""
+        ? "Não informado"
+        : String(value)
+    )
+  );
+
+  parent.appendChild(line);
+}
+
+function renderQuotes() {
+  const list = $("quotesList");
+  list.replaceChildren();
+
+  const term = $("search").value.trim().toLocaleLowerCase("pt-BR");
+  const wantedStatus = $("filterStatus").value;
+
+  const filtered = allQuotes.filter(quote => {
+    const searchable = [
+      quote.nome,
+      quote.contato,
+      quote.servico,
+      quote.descricao,
+      quote.prazo,
+      quote.valor
+    ]
+      .filter(value => value !== null && value !== undefined)
+      .join(" ")
+      .toLocaleLowerCase("pt-BR");
+
+    const status = quote.status || "Pendente";
+
+    return searchable.includes(term) &&
+      (!wantedStatus || status === wantedStatus);
+  });
+
+  $("visibleCount").textContent =
+    filtered.length + " de " + allQuotes.length;
+
+  if (!filtered.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = allQuotes.length
+      ? "Nenhum orçamento corresponde à sua busca."
+      : "Os novos pedidos aparecerão aqui.";
+
+    list.appendChild(empty);
     return;
   }
 
-  const quotes = data || [];
-  const clients = new Set(
-    quotes.map(q => q.contato).filter(Boolean)
-  );
-  const services = new Set(
-    quotes.map(q => q.servico).filter(Boolean)
-  );
-
-  document.getElementById("totalQuotes").textContent =
-    quotes.length;
-
-  document.getElementById("totalClients").textContent =
-    clients.size;
-
-  document.getElementById("totalServices").textContent =
-    services.size;
-
-  if(quotes.length === 0){
-    statusText.textContent = "Nenhum orçamento recebido ainda.";
-    list.innerHTML =
-      '<div class="empty">Os novos pedidos aparecerão aqui.</div>';
-    return;
-  }
-
-  statusText.textContent =
-    quotes.length + " orçamento(s) encontrado(s).";
-
-  quotes.forEach(quote => {
+  filtered.forEach(quote => {
     const article = document.createElement("article");
     article.className = "quote";
+
+    const top = document.createElement("div");
+    top.className = "quote-top";
 
     const title = document.createElement("h3");
     title.textContent = quote.nome || "Cliente sem nome";
 
-    const details = document.createElement("p");
+    const badge = document.createElement("span");
+    badge.className = "pill";
+    badge.dataset.status = quote.status || "Pendente";
+    badge.textContent = quote.status || "Pendente";
 
-    const fields = [
-      ["WhatsApp",quote.contato],
-      ["Serviço",quote.servico],
-      ["Descrição",quote.descricao],
-      ["Prazo",quote.prazo],
-      ["Orçamento previsto",quote.valor]
-    ];
+    top.append(title, badge);
+    article.appendChild(top);
 
-    fields.forEach(([label,value]) => {
-      const line = document.createElement("div");
-      const strong = document.createElement("strong");
-      strong.textContent = label + ": ";
-      line.appendChild(strong);
-      line.appendChild(
-        document.createTextNode(value || "Não informado")
-      );
-      details.appendChild(line);
-    });
+    const details = document.createElement("div");
+    details.className = "quote-details";
 
-    article.appendChild(title);
-    article.appendChild(details);
+    addLine(details, "WhatsApp", quote.contato);
+    addLine(details, "Serviço", quote.servico);
+    addLine(details, "Descrição", quote.descricao);
+    addLine(details, "Prazo", quote.prazo);
+    addLine(details, "Orçamento previsto", quote.valor);
 
-    if(quote.contato){
-      const whatsapp = document.createElement("button");
-      whatsapp.textContent = "Conversar pelo WhatsApp";
-      whatsapp.addEventListener("click",() => {
-        const number = quote.contato.replace(/\D/g,"");
-        window.open(
-          "https://wa.me/" + number,
-          "_blank",
-          "noopener,noreferrer"
+    if (quote.created_at) {
+      const date = new Date(quote.created_at);
+
+      if (!Number.isNaN(date.getTime())) {
+        addLine(
+          details,
+          "Recebido em",
+          date.toLocaleString("pt-BR")
         );
-      });
-      article.appendChild(whatsapp);
+      }
     }
 
+    article.appendChild(details);
+
+    const actions = document.createElement("div");
+    actions.className = "quote-actions";
+
+    const statusControl = document.createElement("div");
+    statusControl.className = "status-control";
+
+    const statusLabel = document.createElement("label");
+    statusLabel.textContent = "Alterar status";
+    statusLabel.htmlFor = "status-" + String(quote.id || "");
+
+    const select = document.createElement("select");
+    select.id = statusLabel.htmlFor;
+    select.setAttribute(
+      "aria-label",
+      "Status do orçamento de " + (quote.nome || "cliente")
+    );
+
+    VALID_STATUSES.forEach(status => {
+      const option = document.createElement("option");
+      option.value = status;
+      option.textContent = status;
+      select.appendChild(option);
+    });
+
+    select.value = VALID_STATUSES.includes(quote.status)
+      ? quote.status
+      : "Pendente";
+
+    statusControl.append(statusLabel, select);
+
+    const saveButton = document.createElement("button");
+    saveButton.textContent = "Salvar status";
+
+    saveButton.addEventListener("click", () => {
+      updateStatus(quote, select.value, saveButton);
+    });
+
+    actions.append(statusControl, saveButton);
+
+    if (quote.contato) {
+      const whatsappButton = document.createElement("button");
+      whatsappButton.className = "secondary";
+      whatsappButton.textContent = "Conversar pelo WhatsApp";
+
+      whatsappButton.addEventListener("click", () => {
+        openWhatsApp(quote.contato);
+      });
+
+      actions.appendChild(whatsappButton);
+    }
+
+    article.append(actions);
     list.appendChild(article);
   });
 }
 
-document.getElementById("refreshButton")
-.addEventListener("click",loadQuotes);
+function openWhatsApp(contact) {
+  let number = String(contact).replace(/\D/g, "");
 
-document.getElementById("logoutButton")
-.addEventListener("click",async function(){
-  const {error} = await supabaseClient.auth.signOut();
+  if (number.length === 10 || number.length === 11) {
+    number = "55" + number;
+  }
 
-  if(error){
-    statusText.textContent = error.message;
+  if (number.length < 12 || number.length > 13) {
+    setMessage(
+      "actionStatus",
+      "Confira o contato do cliente: o número não parece estar no formato internacional esperado."
+    );
     return;
   }
 
-  showLogin();
+  const url = "https://wa.me/" + number;
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+async function updateStatus(quote, newStatus, button) {
+  if (!VALID_STATUSES.includes(newStatus)) {
+    setMessage("actionStatus", "Status inválido.");
+    return;
+  }
+
+  if (quote.status === newStatus) {
+    setMessage(
+      "actionStatus",
+      "Esse orçamento já está com esse status."
+    );
+    return;
+  }
+
+  if (!quote.id) {
+    setMessage(
+      "actionStatus",
+      "Este orçamento não possui um campo id disponível. Confira a estrutura da tabela."
+    );
+    return;
+  }
+
+  button.disabled = true;
+  setMessage("actionStatus", "Salvando status...");
+
+  try {
+    const { data, error } = await db
+      .from("orcamentos")
+      .update({ status: newStatus })
+      .eq("id", quote.id)
+      .select("id,status")
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (!data) {
+      throw new Error(
+        "Nenhuma linha foi atualizada. Verifique se a coluna status existe e se a política RLS permite a alteração para um administrador autorizado."
+      );
+    }
+
+    quote.status = data.status;
+
+    setMessage(
+      "actionStatus",
+      "Status salvo: " + data.status + "."
+    );
+
+    renderQuotes();
+  } catch (error) {
+    setMessage(
+      "actionStatus",
+      "Não foi possível salvar. Confira a coluna status e as permissões administrativas no Supabase. Detalhe: " +
+      error.message
+    );
+  } finally {
+    button.disabled = false;
+  }
+}
+
+$("search").addEventListener("input", renderQuotes);
+$("filterStatus").addEventListener("change", renderQuotes);
+$("refreshButton").addEventListener("click", loadQuotes);
+
+$("logoutButton").addEventListener("click", async () => {
+  $("logoutButton").disabled = true;
+
+  try {
+    const { error } = await db.auth.signOut();
+
+    if (error) throw error;
+
+    showLogin();
+  } catch (error) {
+    setMessage("status", "Erro ao sair da conta: " + error.message);
+  } finally {
+    $("logoutButton").disabled = false;
+  }
 });
 
-supabaseClient.auth.onAuthStateChange(
-  (_event,session) => {
-    if(session){
-      showDashboard(session.user);
-    }else{
-      showLogin();
-    }
+db.auth.onAuthStateChange((_event, session) => {
+  if (session) {
+    showDashboard(session.user);
+  } else {
+    showLogin();
   }
-);
+});
 
 checkSession();
 </script>
