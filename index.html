@@ -1,2997 +1,1523 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>VELTRONIX | Tecnologia que impulsiona negócios</title>
-
-  <meta
-    name="description"
-    content="VELTRONIX — Tecnologia que impulsiona negócios. Sites profissionais, automação, identidade digital e soluções sob medida."
-  />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
-
-  <style>
-    :root {
-      --bg: #080611;
-      --bg2: #0d0a18;
-      --bg3: #110c1d;
-
-      --purple: #a855f7;
-      --purple2: #7928ca;
-      --purple3: #c084fc;
-      --light: #d8b4fe;
-
-      --text: #f5f3f7;
-      --muted: #aaa3b5;
-      --border: rgba(168, 85, 247, .18);
-
-      --green: #25d366;
-
-      --max: 1180px;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: "Inter", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(
-          circle at 20% 10%,
-          rgba(168, 85, 247, .09),
-          transparent 28%
-        ),
-        radial-gradient(
-          circle at 80% 50%,
-          rgba(121, 40, 202, .07),
-          transparent 30%
-        );
-      z-index: -2;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input,
-    select,
-    textarea {
-      font-family: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .container {
-      width: min(var(--max), calc(100% - 40px));
-      margin: auto;
-    }
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-
-      background: rgba(8, 6, 17, .88);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-
-      border-bottom: 1px solid rgba(168, 85, 247, .12);
-    }
-
-    .header-inner {
-      min-height: 78px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 25px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: .5px;
-    }
-
-    .brand img {
-      width: 44px;
-      height: 44px;
-      object-fit: cover;
-      border-radius: 10px;
-
-      border: 1px solid rgba(168, 85, 247, .3);
-      box-shadow: 0 0 25px rgba(168, 85, 247, .18);
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-
-    .brand-name {
-      font-size: 16px;
-      letter-spacing: 1px;
-    }
-
-    .brand-sub {
-      font-size: 9px;
-      color: var(--purple3);
-      letter-spacing: 1.5px;
-      margin-top: 4px;
-    }
-
-    .nav-links {
-      list-style: none;
-
-      display: flex;
-      align-items: center;
-      gap: 26px;
-    }
-
-    .nav-links a {
-      position: relative;
-
-      font-size: 13px;
-      color: #c9c3d1;
-      transition: .25s;
-    }
-
-    .nav-links a:hover {
-      color: #fff;
-    }
-
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -7px;
-
-      width: 0;
-      height: 2px;
-
-      background: linear-gradient(
-        90deg,
-        var(--purple),
-        var(--purple3)
-      );
-
-      border-radius: 10px;
-      transition: .25s;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .nav-extra {
-      display: none;
-    }
-
-    .menu-toggle {
-      width: 44px;
-      height: 44px;
-
-      border: 1px solid rgba(168, 85, 247, .22);
-      border-radius: 12px;
-
-      background: rgba(168, 85, 247, .07);
-
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-
-      cursor: pointer;
-    }
-
-    .menu-toggle span {
-      width: 20px;
-      height: 2px;
-
-      border-radius: 10px;
-
-      background: #fff;
-      transition: .25s;
-    }
-
-    /* =========================
-       VIDEO BANNER
-    ========================= */
-
-    .video-banner {
-      width: 100%;
-
-      position: relative;
-
-      background: #050408;
-
-      border-bottom: 1px solid rgba(168, 85, 247, .18);
-
-      overflow: hidden;
-    }
-
-    .video-banner video {
-      width: 100%;
-      height: clamp(240px, 45vw, 520px);
-
-      display: block;
-
-      object-fit: cover;
-
-      background: #050408;
-    }
-
-    .video-banner::after {
-      content: "";
-
-      position: absolute;
-      inset: 0;
-
-      pointer-events: none;
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(8, 6, 17, .04),
-          rgba(8, 6, 17, .22)
-        ),
-        linear-gradient(
-          90deg,
-          rgba(8, 6, 17, .08),
-          transparent 35%,
-          transparent 65%,
-          rgba(8, 6, 17, .08)
-        );
-    }
-
-    /* =========================
-       HERO
-    ========================= */
-
-    .hero {
-      padding: 105px 0 90px;
-      position: relative;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 70px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-
-      padding: 8px 12px;
-
-      border: 1px solid rgba(168, 85, 247, .22);
-      border-radius: 999px;
-
-      background: rgba(168, 85, 247, .06);
-
-      color: var(--purple3);
-
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-
-      margin-bottom: 22px;
-    }
-
-    .eyebrow-dot {
-      width: 7px;
-      height: 7px;
-
-      border-radius: 50%;
-
-      background: var(--purple);
-
-      box-shadow: 0 0 12px var(--purple);
-    }
-
-    .hero h1 {
-      font-size: clamp(42px, 6vw, 76px);
-      line-height: .98;
-      letter-spacing: -3px;
-
-      max-width: 800px;
-
-      margin-bottom: 25px;
-    }
-
-    .gradient-text {
-      background: linear-gradient(
-        100deg,
-        #fff,
-        var(--purple3),
-        var(--purple)
-      );
-
-      -webkit-background-clip: text;
-      background-clip: text;
-
-      color: transparent;
-    }
-
-    .hero p {
-      max-width: 640px;
-
-      color: var(--muted);
-
-      font-size: 17px;
-      line-height: 1.8;
-
-      margin-bottom: 32px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-
-      min-height: 50px;
-
-      padding: 0 21px;
-
-      border-radius: 12px;
-
-      font-size: 13px;
-      font-weight: 700;
-
-      border: 1px solid transparent;
-
-      transition: .25s;
-
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: linear-gradient(
-        135deg,
-        var(--purple),
-        var(--purple2)
-      );
-
-      box-shadow:
-        0 12px 35px rgba(168, 85, 247, .2);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 16px 40px rgba(168, 85, 247, .3);
-    }
-
-    .btn-outline {
-      border-color: rgba(168, 85, 247, .25);
-      background: rgba(168, 85, 247, .04);
-      color: #ddd6e5;
-    }
-
-    .btn-outline:hover {
-      border-color: rgba(168, 85, 247, .55);
-      background: rgba(168, 85, 247, .08);
-    }
-
-    .hero-note {
-      margin-top: 30px;
-
-      color: #716b78;
-
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 2px;
-    }
-
-    .hero-card {
-      position: relative;
-
-      min-height: 390px;
-
-      border: 1px solid rgba(168, 85, 247, .18);
-      border-radius: 25px;
-
-      background:
-        radial-gradient(
-          circle at 50% 25%,
-          rgba(168, 85, 247, .15),
-          transparent 35%
-        ),
-        linear-gradient(
-          145deg,
-          rgba(168, 85, 247, .09),
-          rgba(255, 255, 255, .015)
-        );
-
-      overflow: hidden;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.03),
-        0 30px 90px rgba(0,0,0,.25);
-    }
-
-    .hero-card::before {
-      content: "";
-
-      position: absolute;
-      width: 250px;
-      height: 250px;
-
-      border-radius: 50%;
-
-      border: 1px solid rgba(168, 85, 247, .12);
-
-      box-shadow:
-        0 0 0 40px rgba(168, 85, 247, .025),
-        0 0 0 80px rgba(168, 85, 247, .018);
-    }
-
-    .hero-logo {
-      width: 150px;
-      height: 150px;
-
-      object-fit: cover;
-
-      border-radius: 30px;
-
-      position: relative;
-      z-index: 2;
-
-      border: 1px solid rgba(168, 85, 247, .35);
-
-      box-shadow:
-        0 0 60px rgba(168, 85, 247, .25);
-    }
-
-    /* =========================
-       SECTIONS
-    ========================= */
-
-    section {
-      padding: 100px 0;
-    }
-
-    .section-head {
-      margin-bottom: 50px;
-      max-width: 700px;
-    }
-
-    .section-kicker {
-      color: var(--purple3);
-
-      font-size: 11px;
-      font-weight: 800;
-
-      text-transform: uppercase;
-      letter-spacing: 2px;
-
-      margin-bottom: 12px;
-    }
-
-    .section-head h2 {
-      font-size: clamp(30px, 4vw, 48px);
-      line-height: 1.08;
-
-      letter-spacing: -1.5px;
-
-      margin-bottom: 16px;
-    }
-
-    .section-head p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.8;
-    }
-
-    /* =========================
-       SERVICES
-    ========================= */
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .service-card {
-      padding: 28px;
-
-      border: 1px solid rgba(168, 85, 247, .13);
-      border-radius: 18px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(168, 85, 247, .06),
-          rgba(255,255,255,.012)
-        );
-
-      transition: .25s;
-    }
-
-    .service-card:hover {
-      transform: translateY(-5px);
-
-      border-color: rgba(168, 85, 247, .35);
-
-      box-shadow:
-        0 25px 60px rgba(0,0,0,.2);
-    }
-
-    .service-icon {
-      width: 45px;
-      height: 45px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 13px;
-
-      background: rgba(168, 85, 247, .1);
-
-      border: 1px solid rgba(168, 85, 247, .17);
-
-      color: var(--purple3);
-
-      font-weight: 800;
-
-      margin-bottom: 20px;
-    }
-
-    .service-card h3 {
-      font-size: 17px;
-      margin-bottom: 10px;
-    }
-
-    .service-card p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    /* =========================
-       PROJECTS
-    ========================= */
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .project-card {
-      overflow: hidden;
-
-      border: 1px solid rgba(168, 85, 247, .14);
-      border-radius: 20px;
-
-      background: var(--bg2);
-
-      transition: .25s;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-
-      border-color: rgba(168, 85, 247, .35);
-
-      box-shadow:
-        0 30px 70px rgba(0,0,0,.25);
-    }
-
-    .project-image {
-      height: 280px;
-
-      display: grid;
-      place-items: center;
-
-      background:
-        radial-gradient(
-          circle at center,
-          rgba(168, 85, 247, .12),
-          transparent 55%
-        );
-
-      border-bottom: 1px solid rgba(168, 85, 247, .1);
-    }
-
-    .project-image img {
-      width: 150px;
-      height: 150px;
-
-      object-fit: cover;
-
-      border-radius: 25px;
-
-      border: 1px solid rgba(168, 85, 247, .25);
-
-      box-shadow:
-        0 0 45px rgba(168, 85, 247, .16);
-    }
-
-    .project-content {
-      padding: 24px;
-    }
-
-    .project-tag {
-      color: var(--purple3);
-
-      font-size: 10px;
-      font-weight: 800;
-
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    .project-content h3 {
-      font-size: 22px;
-      margin: 8px 0;
-    }
-
-    .project-content p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
-      margin-bottom: 18px;
-    }
-
-    .project-link {
-      color: var(--purple3);
-
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    /* =========================
-       ABOUT
-    ========================= */
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: .9fr 1.1fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .about-box {
-      min-height: 400px;
-
-      border-radius: 25px;
-
-      border: 1px solid rgba(168, 85, 247, .15);
-
-      background:
-        radial-gradient(
-          circle at center,
-          rgba(168, 85, 247, .1),
-          transparent 55%
-        ),
-        var(--bg2);
-
-      display: grid;
-      place-items: center;
-    }
-
-    .about-box img {
-      width: 170px;
-      height: 170px;
-
-      object-fit: cover;
-
-      border-radius: 35px;
-
-      border: 1px solid rgba(168, 85, 247, .3);
-
-      box-shadow:
-        0 0 70px rgba(168, 85, 247, .2);
-    }
-
-    .about-text p {
-      color: var(--muted);
-
-      font-size: 15px;
-      line-height: 1.9;
-
-      margin-bottom: 20px;
-    }
-
-    .about-points {
-      display: grid;
-      gap: 12px;
-
-      margin-top: 25px;
-    }
-
-    .about-point {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    .about-point span {
-      color: var(--purple3);
-      font-weight: 800;
-    }
-
-    .about-point p {
-      margin: 0;
-      font-size: 13px;
-    }
-
-    /* =========================
-       PROCESS
-    ========================= */
-
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-    }
-
-    .process-card {
-      padding: 25px;
-
-      border: 1px solid rgba(168, 85, 247, .13);
-      border-radius: 18px;
-
-      background: rgba(168, 85, 247, .035);
-    }
-
-    .process-number {
-      color: var(--purple3);
-
-      font-size: 12px;
-      font-weight: 800;
-
-      margin-bottom: 35px;
-    }
-
-    .process-card h3 {
-      font-size: 16px;
-      margin-bottom: 9px;
-    }
-
-    .process-card p {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.7;
-    }
-
-    /* =========================
-       DIFFERENTIALS
-    ========================= */
-
-    .diff-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .diff-card {
-      padding: 25px;
-
-      border-radius: 18px;
-
-      border: 1px solid rgba(168, 85, 247, .12);
-
-      background: linear-gradient(
-        145deg,
-        rgba(168, 85, 247, .055),
-        transparent
-      );
-    }
-
-    .diff-card h3 {
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
-
-    .diff-card p {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.7;
-    }
-
-    /* =========================
-       HORÁRIOS
-    ========================= */
-
-    .schedule-box {
-      padding: 35px;
-
-      border-radius: 22px;
-
-      border: 1px solid rgba(168, 85, 247, .16);
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(168, 85, 247, .08),
-          rgba(255,255,255,.01)
-        );
-    }
-
-    .schedule-list {
-      display: grid;
-      gap: 14px;
-    }
-
-    .schedule-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-
-      padding-bottom: 14px;
-
-      border-bottom: 1px solid rgba(255,255,255,.06);
-
-      font-size: 13px;
-    }
-
-    .schedule-item:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .schedule-item span:first-child {
-      color: #ddd7e3;
-    }
-
-    .schedule-item span:last-child {
-      color: var(--purple3);
-      font-weight: 700;
-    }
-
-    /* =========================
-       FAQ
-    ========================= */
-
-    .faq-list {
-      display: grid;
-      gap: 12px;
-      max-width: 850px;
-    }
-
-    .faq-item {
-      border: 1px solid rgba(168, 85, 247, .13);
-      border-radius: 15px;
-      overflow: hidden;
-
-      background: rgba(168, 85, 247, .025);
-    }
-
-    .faq-question {
-      width: 100%;
-
-      padding: 20px;
-
-      border: 0;
-      background: transparent;
-
-      color: #fff;
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      cursor: pointer;
-
-      text-align: left;
-
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .faq-question span {
-      color: var(--purple3);
-      font-size: 18px;
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-
-      transition: .3s;
-
-      padding: 0 20px;
-
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .faq-item.active .faq-answer {
-      max-height: 200px;
-      padding-bottom: 20px;
-    }
-
-    /* =========================
-       ORÇAMENTO
-    ========================= */
-
-    .budget-wrapper {
-      display: grid;
-      grid-template-columns: .8fr 1.2fr;
-      gap: 35px;
-      align-items: start;
-    }
-
-    .budget-info h3 {
-      font-size: 25px;
-      margin-bottom: 14px;
-    }
-
-    .budget-info p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .budget-info-box {
-      margin-top: 25px;
-
-      padding: 20px;
-
-      border: 1px solid rgba(168, 85, 247, .13);
-      border-radius: 16px;
-
-      background: rgba(168, 85, 247, .035);
-    }
-
-    .budget-info-box strong {
-      display: block;
-      color: var(--purple3);
-      margin-bottom: 5px;
-      font-size: 12px;
-    }
-
-    .budget-info-box span {
-      color: #d8d2df;
-      font-size: 13px;
-    }
-
-    .budget-form {
-      padding: 30px;
-
-      border: 1px solid rgba(168, 85, 247, .15);
-      border-radius: 22px;
-
-      background: var(--bg2);
-
-      box-shadow:
-        0 25px 70px rgba(0,0,0,.18);
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .form-group {
-      display: grid;
-      gap: 7px;
-    }
-
-    .form-group.full {
-      grid-column: 1 / -1;
-    }
-
-    .form-group label {
-      font-size: 11px;
-      color: #c7c0cf;
-      font-weight: 700;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-
-      border: 1px solid rgba(168, 85, 247, .13);
-      border-radius: 11px;
-
-      background: #090711;
-
-      color: #fff;
-
-      outline: none;
-
-      padding: 13px 14px;
-
-      font-size: 13px;
-
-      transition: .2s;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: rgba(168, 85, 247, .55);
-
-      box-shadow:
-        0 0 0 3px rgba(168, 85, 247, .08);
-    }
-
-    .form-group textarea {
-      min-height: 125px;
-      resize: vertical;
-    }
-
-    .form-status {
-      margin-top: 15px;
-
-      font-size: 12px;
-      color: var(--muted);
-
-      min-height: 18px;
-    }
-
-    /* =========================
-       CONTATO
-    ========================= */
-
-    .contact-section {
-      padding-bottom: 80px;
-    }
-
-    .contact-box {
-      text-align: center;
-
-      padding: 65px 30px;
-
-      border-radius: 28px;
-
-      border: 1px solid rgba(168, 85, 247, .16);
-
-      background:
-        radial-gradient(
-          circle at center,
-          rgba(168, 85, 247, .1),
-          transparent 55%
-        ),
-        var(--bg2);
-    }
-
-    .contact-box h2 {
-      font-size: clamp(30px, 5vw, 52px);
-      letter-spacing: -2px;
-      margin-bottom: 15px;
-    }
-
-    .contact-box p {
-      max-width: 650px;
-      margin: auto;
-
-      color: var(--muted);
-
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .contact-details {
-      margin-top: 25px;
-
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .contact-detail {
-      padding: 10px 15px;
-
-      border: 1px solid rgba(168, 85, 247, .13);
-      border-radius: 999px;
-
-      background: rgba(168, 85, 247, .035);
-
-      color: #cfc8d6;
-
-      font-size: 11px;
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      border-top: 1px solid rgba(168, 85, 247, .1);
-
-      padding: 35px 0;
-
-      background: #06050b;
-    }
-
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 20px;
-    }
-
-    .footer-brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .footer-brand img {
-      width: 40px;
-      height: 40px;
-
-      border-radius: 10px;
-
-      object-fit: cover;
-    }
-
-    .footer-brand strong {
-      display: block;
-      font-size: 13px;
-    }
-
-    .footer-brand span {
-      color: #716b78;
-      font-size: 10px;
-    }
-
-    .footer-copy {
-      color: #625d68;
-      font-size: 10px;
-      text-align: right;
-    }
-
-    /* =========================
-       WHATSAPP FLUTUANTE
-    ========================= */
-
-    .whatsapp-float {
-      position: fixed;
-
-      right: 20px;
-      bottom: 20px;
-
-      width: 56px;
-      height: 56px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 50%;
-
-      background: var(--green);
-
-      color: #fff;
-
-      font-size: 25px;
-
-      z-index: 900;
-
-      box-shadow:
-        0 12px 35px rgba(0,0,0,.3);
-
-      transition: .25s;
-    }
-
-    .whatsapp-float:hover {
-      transform: translateY(-4px) scale(1.03);
-    }
-
-    /* =========================
-       RESPONSIVO
-    ========================= */
-
-    @media (max-width: 900px) {
-
-      .nav-links {
-        position: fixed;
-
-        top: 78px;
-        right: 20px;
-        left: 20px;
-
-        padding: 20px;
-
-        border: 1px solid rgba(168, 85, 247, .18);
-        border-radius: 18px;
-
-        background:
-          rgba(13, 10, 24, .97);
-
-        backdrop-filter: blur(20px);
-
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-
-        gap: 0;
-
-        transform: translateY(-15px);
-        opacity: 0;
-        visibility: hidden;
-
-        transition: .25s;
-
-        box-shadow:
-          0 30px 80px rgba(0,0,0,.4);
-      }
-
-      .nav-links.active {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .nav-links li {
-        width: 100%;
-      }
-
-      .nav-links a {
-        display: flex;
-        align-items: center;
-
-        min-height: 48px;
-
-        padding: 0 10px;
-
-        border-bottom: 1px solid rgba(255,255,255,.045);
-
-        font-size: 13px;
-      }
-
-      .nav-links a::after {
-        display: none;
-      }
-
-      .nav-links li:last-child a {
-        border-bottom: 0;
-      }
-
-      .nav-extra {
-        display: block;
-
-        margin: 13px 0 5px;
-
-        padding: 7px 10px;
-
-        color: #746c7c;
-
-        font-size: 9px;
-        font-weight: 800;
-
-        letter-spacing: 1.8px;
-
-        text-transform: uppercase;
-      }
-
-      .nav-social a {
-        color: var(--purple3);
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
-
-      .hero-grid,
-      .about-grid,
-      .budget-wrapper {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-card {
-        min-height: 320px;
-      }
-
-      .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .process-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .diff-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 650px) {
-
-      .container {
-        width: min(var(--max), calc(100% - 28px));
-      }
-
-      .header-inner {
-        min-height: 70px;
-      }
-
-      .nav-links {
-        top: 70px;
-        right: 14px;
-        left: 14px;
-      }
-
-      .video-banner video {
-        height: 300px;
-      }
-
-      .hero {
-        padding: 75px 0 65px;
-      }
-
-      section {
-        padding: 75px 0;
-      }
-
-      .hero h1 {
-        font-size: 42px;
-        letter-spacing: -2px;
-      }
-
-      .hero p {
-        font-size: 15px;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-      }
-
-      .hero-actions .btn {
-        width: 100%;
-      }
-
-      .services-grid,
-      .projects-grid,
-      .process-grid,
-      .diff-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .project-image {
-        height: 230px;
-      }
-
-      .about-box {
-        min-height: 300px;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-group.full {
-        grid-column: auto;
-      }
-
-      .budget-form {
-        padding: 20px;
-      }
-
-      .contact-box {
-        padding: 45px 20px;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .footer-copy {
-        text-align: left;
-      }
-
-      .whatsapp-float {
-        width: 52px;
-        height: 52px;
-
-        right: 15px;
-        bottom: 15px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08080c">
+<meta name="description" content="VELTRONIX — Tecnologia que impulsiona negócios. Desenvolvimento de sites, automações, identidade digital e soluções tecnológicas para empresas.">
+<meta name="robots" content="index,follow">
+
+<title>VELTRONIX | Tecnologia que impulsiona negócios</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #08080c;
+  --surface: #101016;
+  --surface2: #15131e;
+  --purple: #a855f7;
+  --purple2: #7928ca;
+  --light: #c084fc;
+  --text: #f7f4fc;
+  --muted: #aaa5b7;
+  --border: rgba(192,132,252,.17);
+  --max: 1160px;
+  --radius: 20px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, Arial, sans-serif;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+body.menu-open { overflow: hidden; }
+
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+img { max-width: 100%; display: block; }
+::selection { background: var(--purple); color: white; }
+
+.container {
+  width: min(var(--max), calc(100% - 40px));
+  margin-inline: auto;
+}
+
+section { padding: 100px 0; }
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--light);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.section-label::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--purple);
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.12;
+  letter-spacing: -1.8px;
+  font-weight: 800;
+  max-width: 750px;
+}
+
+.section-description {
+  color: var(--muted);
+  max-width: 650px;
+  margin-top: 18px;
+}
+
+.gradient-text {
+  background: linear-gradient(100deg, #fff 0%, #c084fc 48%, #a855f7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 21px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-size: .93rem;
+  font-weight: 750;
+  transition: transform .2s, background .2s, border-color .2s;
+}
+
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primary {
+  background: linear-gradient(120deg, var(--purple2), var(--purple));
+  color: #fff;
+  box-shadow: 0 8px 28px rgba(168,85,247,.18);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 10px 36px rgba(168,85,247,.3);
+}
+
+.btn-secondary {
+  border-color: var(--border);
+  background: rgba(255,255,255,.025);
+  color: white;
+}
+
+.btn-secondary:hover {
+  border-color: var(--purple);
+  background: rgba(168,85,247,.08);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  background: rgba(168,85,247,.06);
+  padding: 8px 13px;
+  color: #e1c4ff;
+  font-size: .78rem;
+  font-weight: 650;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #a855f7;
+  box-shadow: 0 0 12px rgba(168,85,247,.8);
+}
+
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(8,8,12,.88);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.nav-wrap {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.brand img {
+  width: 43px;
+  height: 43px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #17121f;
+  border: 1px solid var(--border);
+}
+
+.brand-name {
+  font-size: 1.12rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  line-height: 1.2;
+}
+
+.brand-tagline {
+  color: var(--muted);
+  font-size: .66rem;
+  letter-spacing: .2px;
+  margin-top: 3px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav-links a:not(.btn) {
+  font-size: .86rem;
+  color: #d2cddd;
+  transition: color .2s;
+}
+
+.nav-links a:not(.btn):hover { color: var(--light); }
+
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: white;
+  font-size: 1.35rem;
+}
+
+/* HERO */
+.hero {
+  min-height: 680px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 90px 0 85px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  width: 650px;
+  height: 650px;
+  right: -150px;
+  top: -80px;
+  background: radial-gradient(circle, rgba(121,40,202,.2), rgba(121,40,202,0) 70%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  opacity: .17;
+  background-image: linear-gradient(rgba(168,85,247,.15) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(168,85,247,.15) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+  pointer-events: none;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: clamp(2.8rem, 6vw, 5.1rem);
+  line-height: 1.02;
+  letter-spacing: -3px;
+  font-weight: 900;
+  margin: 23px 0;
+}
+
+.hero-copy {
+  color: var(--muted);
+  font-size: 1.04rem;
+  max-width: 580px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.hero-note {
+  color: #928ba0;
+  font-size: .78rem;
+  margin-top: 18px;
+}
+
+.hero-visual {
+  min-height: 390px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.orbit {
+  position: absolute;
+  border: 1px solid rgba(192,132,252,.2);
+  border-radius: 50%;
+  transform: rotate(-24deg);
+}
+
+.orbit.one { width: 310px; height: 190px; }
+.orbit.two { width: 390px; height: 250px; transform: rotate(36deg); }
+.orbit.three { width: 450px; height: 320px; transform: rotate(-48deg); opacity: .55; }
+
+.visual-core {
+  width: 180px;
+  height: 180px;
+  border-radius: 40px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #20132f, #0e0b15 70%);
+  border: 1px solid rgba(192,132,252,.42);
+  box-shadow: 0 0 90px rgba(168,85,247,.2), inset 0 0 35px rgba(168,85,247,.1);
+  transform: rotate(-7deg);
+}
+
+.visual-core img {
+  width: 120px;
+  height: 120px;
+  border-radius: 25px;
+  object-fit: cover;
+}
+
+.floating-chip {
+  position: absolute;
+  padding: 12px 15px;
+  background: rgba(18,15,26,.94);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  color: #e9d5ff;
+  font-size: .8rem;
+  font-weight: 700;
+  box-shadow: 0 12px 35px rgba(0,0,0,.25);
+}
+
+.chip-one { top: 42px; right: 0; }
+.chip-two { bottom: 48px; left: -5px; }
+.chip-three { bottom: 10px; right: 15px; }
+
+.trust-strip {
+  border-block: 1px solid rgba(255,255,255,.06);
+  background: rgba(255,255,255,.015);
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.trust-item {
+  text-align: center;
+  padding: 24px 15px;
+  color: #c8c0d4;
+  font-size: .9rem;
+  border-right: 1px solid rgba(255,255,255,.06);
+}
+
+.trust-item:last-child { border-right: 0; }
+.trust-item strong { color: white; }
+
+/* SERVICES */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 17px;
+  margin-top: 42px;
+}
+
+.card {
+  background: linear-gradient(145deg, rgba(22,19,31,.92), rgba(13,13,19,.96));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 25px;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(192,132,252,.5);
+  box-shadow: 0 15px 40px rgba(0,0,0,.22);
+}
+
+.card-icon {
+  display: grid;
+  place-items: center;
+  width: 49px;
+  height: 49px;
+  border-radius: 14px;
+  color: #e9d5ff;
+  font-size: 1.4rem;
+  background: rgba(168,85,247,.12);
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.card h3 { font-size: 1.05rem; margin-bottom: 10px; }
+.card p { color: var(--muted); font-size: .87rem; }
+
+/* PORTFOLIO */
+.portfolio-section { background: linear-gradient(180deg, transparent, rgba(168,85,247,.035), transparent); }
+
+.portfolio-card {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 35px;
+  align-items: center;
+  margin-top: 42px;
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+}
+
+.project-preview {
+  min-height: 280px;
+  border-radius: 17px;
+  border: 1px solid rgba(212,175,55,.22);
+  background:
+    radial-gradient(circle at 80% 20%, rgba(212,175,55,.13), transparent 40%),
+    linear-gradient(145deg, #17130b, #090909 75%);
+  display: grid;
+  place-items: center;
+  padding: 25px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.project-preview .vf-mark {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  color: #d4af37;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.project-preview span {
+  display: block;
+  color: #f1d36b;
+  letter-spacing: 3px;
+  font-size: .75rem;
+  margin-top: 6px;
+}
+
+.project-tag {
+  color: var(--light);
+  font-size: .75rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.project-info h3 {
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  line-height: 1.2;
+  margin: 12px 0;
+}
+
+.project-info p { color: var(--muted); }
+.project-info .btn { margin-top: 22px; }
+
+/* PROCESS */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 42px;
+}
+
+.process-step {
+  padding: 23px;
+  border-left: 2px solid var(--purple2);
+  background: rgba(255,255,255,.02);
+}
+
+.step-number {
+  color: var(--light);
+  font-weight: 900;
+  font-size: .78rem;
+  letter-spacing: 1px;
+}
+
+.process-step h3 { font-size: 1rem; margin: 10px 0; }
+.process-step p { font-size: .86rem; color: var(--muted); }
+
+/* PRICING */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  margin-top: 42px;
+}
+
+.price-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 29px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.price-card.featured {
+  border-color: var(--purple);
+  box-shadow: 0 0 40px rgba(168,85,247,.1);
+  background: linear-gradient(160deg, rgba(168,85,247,.1), var(--surface) 55%);
+}
+
+.price-badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: rgba(168,85,247,.13);
+  color: #e9d5ff;
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-size: .7rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.price-card h3 { font-size: 1.2rem; }
+.price-desc { color: var(--muted); font-size: .85rem; margin: 8px 0 18px; min-height: 46px; }
+
+.price {
+  font-size: 2.5rem;
+  letter-spacing: -1.5px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.price small {
+  font-size: .83rem;
+  letter-spacing: 0;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.price-card ul {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  margin: 25px 0;
+  flex: 1;
+}
+
+.price-card li {
+  color: #d7d0e1;
+  font-size: .86rem;
+  display: flex;
+  gap: 9px;
+}
+
+.price-card li::before { content: "✓"; color: var(--light); font-weight: 900; }
+.price-card .btn { width: 100%; }
+
+.pricing-note {
+  color: var(--muted);
+  font-size: .82rem;
+  margin-top: 20px;
+  max-width: 850px;
+}
+
+/* ABOUT */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.about-panel {
+  padding: 30px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: radial-gradient(circle at top right, rgba(168,85,247,.13), transparent 45%), var(--surface);
+}
+
+.about-panel h3 { font-size: 1.3rem; margin-bottom: 12px; }
+.about-panel p { color: var(--muted); font-size: .92rem; }
+
+.about-points {
+  display: grid;
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.about-point {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+}
+
+.about-point .card-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.about-point h4 { font-size: .94rem; }
+.about-point p { color: var(--muted); font-size: .84rem; }
+
+/* FAQ */
+.faq-list {
+  max-width: 850px;
+  margin-top: 38px;
+  display: grid;
+  gap: 12px;
+}
+
+.faq-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 20px;
+  background: transparent;
+  border: 0;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  text-align: left;
+  font-weight: 750;
+}
+
+.faq-question span:last-child { color: var(--light); font-size: 1.2rem; }
+
+.faq-answer {
+  display: none;
+  padding: 0 20px 20px;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.faq-item.open .faq-answer { display: block; }
+
+/* CONTACT */
+.contact-section {
+  background: radial-gradient(ellipse at 50% 100%, rgba(121,40,202,.13), transparent 65%);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 42px;
+  align-items: start;
+  margin-top: 38px;
+}
+
+.contact-list {
+  display: grid;
+  gap: 13px;
+  margin-top: 26px;
+}
+
+.contact-item {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255,255,255,.02);
+}
+
+.contact-item .card-icon { margin: 0; width: 43px; height: 43px; font-size: 1.1rem; }
+.contact-item small { display: block; color: var(--muted); font-size: .75rem; }
+.contact-item strong { font-size: .9rem; overflow-wrap: anywhere; }
+
+.budget-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 28px;
+}
+
+.budget-form h3 { font-size: 1.35rem; margin-bottom: 7px; }
+.form-intro { color: var(--muted); font-size: .86rem; margin-bottom: 23px; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field { display: grid; gap: 7px; }
+.field.full { grid-column: 1 / -1; }
+
+.field label { color: #e4dcec; font-size: .8rem; font-weight: 700; }
+
+.field input, .field select, .field textarea {
+  width: 100%;
+  background: #0b0a10;
+  border: 1px solid rgba(192,132,252,.2);
+  border-radius: 10px;
+  padding: 13px 14px;
+  color: white;
+  outline: none;
+}
+
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(168,85,247,.1);
+}
+
+.field select option { background: #111; }
+.field textarea { min-height: 115px; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: #6e6879; }
+
+.form-footnote { color: var(--muted); font-size: .75rem; margin-top: 13px; }
+.form-message { display: none; padding: 12px; margin-top: 14px; border-radius: 10px; font-size: .85rem; }
+.form-message.show { display: block; }
+.form-message.success { background: rgba(34,197,94,.1); color: #86efac; }
+.form-message.error { background: rgba(248,113,113,.1); color: #fca5a5; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid rgba(255,255,255,.07);
+  padding: 35px 0 25px;
+  background: #060609;
+}
+
+.footer-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 35px;
+  padding-bottom: 28px;
+}
+
+.footer-copy { max-width: 380px; color: var(--muted); font-size: .84rem; margin-top: 13px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 18px; color: #c7bfd2; font-size: .83rem; }
+.footer-links a:hover { color: var(--light); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding-top: 20px;
+  color: #827b8e;
+  font-size: .75rem;
+}
+
+/* WHATSAPP FLOAT */
+.whatsapp-float {
+  position: fixed;
+  z-index: 900;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #25d366;
+  color: white;
+  font-size: 1.55rem;
+  font-weight: 900;
+  box-shadow: 0 10px 30px rgba(37,211,102,.23);
+  transition: transform .2s;
+}
+
+.whatsapp-float:hover { transform: translateY(-4px) scale(1.03); }
+
+/* REVEAL AND PROGRESS */
+.scroll-progress {
+  position: fixed;
+  z-index: 1200;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, var(--purple2), var(--light));
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+@media (max-width: 1000px) {
+  .nav-links { gap: 15px; }
+  .nav-links a:not(.btn) { font-size: .8rem; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-grid { gap: 25px; }
+  .process-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 760px) {
+  section { padding: 74px 0; }
+  .container { width: min(var(--max), calc(100% - 32px)); }
+  .nav-wrap { min-height: 68px; }
+  .brand img { width: 39px; height: 39px; }
+  .brand-name { font-size: 1rem; }
+  .brand-tagline { font-size: .6rem; }
+  .menu-toggle { display: block; }
+
+  .nav-links {
+    position: fixed;
+    inset: 68px 0 0;
+    padding: 25px 24px calc(30px + env(safe-area-inset-bottom));
+    background: rgba(8,8,12,.98);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 7px;
+    overflow-y: auto;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity .2s, transform .2s, visibility .2s;
+  }
+
+  .nav-links.open {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .nav-links a:not(.btn) {
+    font-size: 1rem;
+    padding: 13px 12px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+
+  .nav-links .btn { margin-top: 12px; }
+
+  .hero { min-height: auto; padding: 72px 0 55px; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero h1 { letter-spacing: -2px; font-size: clamp(2.65rem, 12vw, 4.3rem); }
+  .hero-copy { font-size: .96rem; }
+  .hero-visual { min-height: 300px; margin-top: 5px; }
+  .orbit.one { width: 250px; height: 155px; }
+  .orbit.two { width: 305px; height: 195px; }
+  .orbit.three { width: 340px; height: 240px; }
+  .visual-core { width: 145px; height: 145px; border-radius: 32px; }
+  .visual-core img { width: 100px; height: 100px; border-radius: 20px; }
+  .chip-one { right: 0; top: 24px; }
+  .chip-two { left: 0; bottom: 35px; }
+  .chip-three { right: 0; bottom: 0; }
+
+  .trust-grid { grid-template-columns: 1fr; }
+  .trust-item { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.06); padding: 15px; }
+  .trust-item:last-child { border-bottom: 0; }
+
+  .services-grid { grid-template-columns: 1fr; }
+  .card { padding: 22px; }
+  .portfolio-card { grid-template-columns: 1fr; padding: 19px; gap: 24px; }
+  .project-preview { min-height: 210px; }
+  .process-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .price-desc { min-height: auto; }
+  .about-grid { grid-template-columns: 1fr; gap: 30px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 28px; }
+  .budget-form { padding: 21px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+  .footer-top { flex-direction: column; }
+  .footer-bottom { flex-direction: column; }
+}
+
+@media (max-width: 380px) {
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; }
+  .hero-visual { transform: scale(.9); margin-inline: -15px; }
+}
+</style>
 </head>
 
 <body>
+<div class="scroll-progress" id="scrollProgress"></div>
 
-  <!-- =========================
-       HEADER
-  ========================= -->
+<header>
+  <div class="container nav-wrap">
+    <a href="#inicio" class="brand" aria-label="VELTRONIX - Início">
+      <img src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg" alt="Logo VELTRONIX">
+      <span>
+        <span class="brand-name">VELTRONIX</span>
+        <span class="brand-tagline">Tecnologia que impulsiona negócios.</span>
+      </span>
+    </a>
 
-  <header>
-    <div class="container header-inner">
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">☰</button>
 
-      <a href="#inicio" class="brand">
-        <img
-          src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg"
-          alt="Logo VELTRONIX"
-        />
+    <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
+      <a href="#inicio">Início</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#portfolio">Portfólio</a>
+      <a href="#planos">Planos</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+      <a class="btn btn-primary" href="#orcamento">Solicitar orçamento ↗</a>
+    </nav>
+  </div>
+</header>
 
-        <span class="brand-text">
-          <span class="brand-name">VELTRONIX</span>
-          <span class="brand-sub">TECNOLOGIA QUE IMPULSIONA NEGÓCIOS</span>
-        </span>
-      </a>
+<main>
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div class="reveal">
+        <span class="eyebrow"><span class="status-dot"></span> Tecnologia para o seu negócio</span>
+        <h1>Sua empresa merece uma presença <span class="gradient-text">digital de verdade.</span></h1>
+        <p class="hero-copy">
+          Desenvolvemos sites modernos e soluções digitais para ajudar empresas a apresentar seus serviços, fortalecer sua marca e facilitar o contato com seus clientes.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#orcamento">Vamos conversar ↗</a>
+          <a class="btn btn-secondary" href="#portfolio">Conheça nosso trabalho</a>
+        </div>
+        <p class="hero-note">Atendimento personalizado • Projetos sob medida • Comunicação direta</p>
+      </div>
 
-      <nav>
-        <ul class="nav-links" id="navLinks">
-
-          <li>
-            <a href="#inicio">Início</a>
-          </li>
-
-          <li>
-            <a href="#servicos">Serviços</a>
-          </li>
-
-          <li>
-            <a href="#projetos">Projetos</a>
-          </li>
-
-          <li>
-            <a href="#sobre">Sobre</a>
-          </li>
-
-          <li>
-            <a href="#processo">Processo</a>
-          </li>
-
-          <li>
-            <a href="#orcamento">Orçamento</a>
-          </li>
-
-          <li>
-            <a href="#contato">Contato</a>
-          </li>
-
-          <!-- CONTATOS DO MENU HAMBÚRGUER -->
-
-          <li class="nav-extra">
-            Contato direto
-          </li>
-
-          <li class="nav-social">
-            <a
-              href="https://wa.me/5521974994201"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              WhatsApp ↗
-            </a>
-          </li>
-
-          <li class="nav-social">
-            <a
-              href="https://www.instagram.com/veltronix_tech/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Instagram ↗
-            </a>
-          </li>
-
-          <li class="nav-social">
-            <a href="mailto:contato.veltronix@gmail.com">
-              E-mail ↗
-            </a>
-          </li>
-
-          <li class="nav-social">
-            <a href="#horarios">
-              Horários
-            </a>
-          </li>
-
-        </ul>
-      </nav>
-
-      <button
-        class="menu-toggle"
-        id="menuToggle"
-        aria-label="Abrir menu"
-        aria-expanded="false"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
+      <div class="hero-visual reveal" aria-label="Identidade visual tecnológica da VELTRONIX">
+        <div class="orbit one"></div>
+        <div class="orbit two"></div>
+        <div class="orbit three"></div>
+        <div class="visual-core">
+          <img src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg" alt="" aria-hidden="true">
+        </div>
+        <div class="floating-chip chip-one">✦ Design moderno</div>
+        <div class="floating-chip chip-two">⌘ Soluções digitais</div>
+        <div class="floating-chip chip-three">↗ Feito para crescer</div>
+      </div>
     </div>
-  </header>
-
-
-  <!-- =========================
-       BANNER EM VÍDEO
-  ========================= -->
-
-  <section class="video-banner" aria-label="Banner da VELTRONIX">
-
-    <video
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-    >
-      <source
-        src="banner-veltronix.mp4"
-        type="video/mp4"
-      />
-
-      Seu navegador não suporta vídeo.
-    </video>
-
   </section>
 
+  <div class="trust-strip">
+    <div class="container trust-grid">
+      <div class="trust-item"><strong>Design personalizado</strong><br>Visual alinhado à sua marca</div>
+      <div class="trust-item"><strong>Experiência responsiva</strong><br>Adaptado para celular e computador</div>
+      <div class="trust-item"><strong>Contato facilitado</strong><br>Mais caminhos para seu cliente falar com você</div>
+    </div>
+  </div>
 
-  <!-- =========================
-       HERO
-  ========================= -->
+  <!-- SERVIÇOS -->
+  <section id="servicos">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-label">O que fazemos</span>
+        <h2 class="section-title">Tecnologia aplicada às <span class="gradient-text">necessidades do seu negócio.</span></h2>
+        <p class="section-description">Soluções pensadas para sua realidade, com escopo definido antes do desenvolvimento.</p>
+      </div>
 
-  <main>
+      <div class="services-grid">
+        <article class="card reveal">
+          <div class="card-icon">⌘</div>
+          <h3>Desenvolvimento de sites</h3>
+          <p>Sites profissionais para apresentar sua empresa, seus serviços e seus canais de contato em um só lugar.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon">⚙</div>
+          <h3>Automações</h3>
+          <p>Integrações e pequenos fluxos digitais para reduzir tarefas repetitivas, conforme a necessidade do projeto.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon">✦</div>
+          <h3>Identidade digital</h3>
+          <p>Organização da apresentação online da sua marca para transmitir uma imagem mais consistente e profissional.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card-icon">↗</div>
+          <h3>Manutenção e otimização</h3>
+          <p>Correções, atualizações e melhorias em sites existentes, de acordo com o serviço contratado.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-    <section class="hero" id="inicio">
+  <!-- PORTFÓLIO -->
+  <section class="portfolio-section" id="portfolio">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-label">Portfólio</span>
+        <h2 class="section-title">Projetos que transformam ideias em <span class="gradient-text">experiências digitais.</span></h2>
+        <p class="section-description">Conheça um projeto publicado que demonstra como uma empresa pode apresentar seu negócio pela internet.</p>
+      </div>
 
-      <div class="container hero-grid">
-
-        <div>
-
-          <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            Soluções digitais
+      <article class="portfolio-card reveal">
+        <div class="project-preview" aria-label="Identidade visual ilustrativa do projeto VF FILHOS LANCHES">
+          <div>
+            <div class="vf-mark">VF</div>
+            <span>FILHOS LANCHES</span>
           </div>
+        </div>
+        <div class="project-info">
+          <span class="project-tag">Projeto de portfólio</span>
+          <h3>VF FILHOS LANCHES</h3>
+          <p>Projeto digital para uma lanchonete, com cardápio online e recursos voltados à experiência de pedidos. Explore o site para conhecer o trabalho publicado.</p>
+          <a class="btn btn-primary" href="https://vffilhoslanches.github.io/vf-filho-lanche/" target="_blank" rel="noopener noreferrer">Visitar projeto ↗</a>
+        </div>
+      </article>
+    </div>
+  </section>
 
-          <h1>
-            Sua ideia merece
-            <span class="gradient-text">
-              uma presença digital.
-            </span>
-          </h1>
+  <!-- PROCESSO -->
+  <section id="processo">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-label">Como funciona</span>
+        <h2 class="section-title">Do primeiro contato à <span class="gradient-text">publicação.</span></h2>
+        <p class="section-description">Um processo simples, com alinhamento de expectativas em cada etapa.</p>
+      </div>
 
-          <p>
-            Criamos sites profissionais, experiências digitais
-            e soluções tecnológicas para ajudar negócios a crescer,
-            conquistar clientes e se posicionar melhor na internet.
-          </p>
+      <div class="process-grid">
+        <article class="process-step reveal">
+          <span class="step-number">ETAPA 01</span>
+          <h3>Entendimento</h3>
+          <p>Conversamos para compreender sua empresa, seu público e o objetivo do projeto.</p>
+        </article>
+        <article class="process-step reveal">
+          <span class="step-number">ETAPA 02</span>
+          <h3>Planejamento</h3>
+          <p>Definimos as páginas, os recursos, o prazo e o investimento antes de começar.</p>
+        </article>
+        <article class="process-step reveal">
+          <span class="step-number">ETAPA 03</span>
+          <h3>Desenvolvimento</h3>
+          <p>Construímos o projeto conforme o escopo aprovado e alinhamos os ajustes previstos.</p>
+        </article>
+        <article class="process-step reveal">
+          <span class="step-number">ETAPA 04</span>
+          <h3>Entrega</h3>
+          <p>Após a revisão e a conclusão das condições combinadas, publicamos ou entregamos o projeto.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-          <div class="hero-actions">
+  <!-- PLANOS -->
+  <section id="planos">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-label">Investimento</span>
+        <h2 class="section-title">Uma solução para cada <span class="gradient-text">etapa do negócio.</span></h2>
+        <p class="section-description">Valores iniciais de referência. O preço final depende do escopo, dos recursos e das integrações solicitadas.</p>
+      </div>
 
-            <a
-              href="#orcamento"
-              class="btn btn-primary"
-            >
-              Solicitar orçamento ↗
+      <div class="pricing-grid">
+        <article class="price-card reveal">
+          <h3>Site Básico</h3>
+          <p class="price-desc">Para apresentar sua empresa e facilitar o contato online.</p>
+          <div class="price">R$ 150<small> / a partir de</small></div>
+          <ul>
+            <li>Página com informações principais</li>
+            <li>Apresentação de serviços</li>
+            <li>Botão de WhatsApp</li>
+            <li>Layout adaptado para celular</li>
+            <li>Publicação conforme condições combinadas</li>
+          </ul>
+          <a class="btn btn-secondary" href="#orcamento" data-service="Site Básico">Escolher Básico</a>
+        </article>
+
+        <article class="price-card featured reveal">
+          <span class="price-badge">OPÇÃO INTERMEDIÁRIA</span>
+          <h3>Site Profissional</h3>
+          <p class="price-desc">Para empresas que precisam de uma apresentação mais completa.</p>
+          <div class="price">R$ 320<small> / a partir de</small></div>
+          <ul>
+            <li>Estrutura mais completa</li>
+            <li>Design personalizado</li>
+            <li>Seções organizadas</li>
+            <li>Formulário ou integração simples, se acordado</li>
+            <li>Adaptação para dispositivos móveis</li>
+            <li>SEO básico conforme o projeto</li>
+          </ul>
+          <a class="btn btn-primary" href="#orcamento" data-service="Site Profissional">Escolher Profissional</a>
+        </article>
+
+        <article class="price-card reveal">
+          <h3>Site Avançado</h3>
+          <p class="price-desc">Para projetos com necessidades adicionais e funcionalidades específicas.</p>
+          <div class="price">R$ 500<small> / a partir de</small></div>
+          <ul>
+            <li>Estrutura personalizada</li>
+            <li>Funcionalidades definidas com o cliente</li>
+            <li>Possíveis integrações adicionais</li>
+            <li>Planejamento de recursos específicos</li>
+            <li>Estimativa conforme a complexidade</li>
+          </ul>
+          <a class="btn btn-secondary" href="#orcamento" data-service="Site Avançado">Conversar sobre o projeto</a>
+        </article>
+      </div>
+
+      <p class="pricing-note reveal">
+        Importante: os valores são iniciais e não garantem que qualquer sistema complexo esteja incluído. Domínio, hospedagem, serviços de terceiros, taxas e funcionalidades extras podem ter custos separados. Tudo será informado antes da aprovação. A contratação de manutenção é opcional.
+      </p>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="container about-grid">
+      <div class="reveal">
+        <span class="section-label">Sobre a VELTRONIX</span>
+        <h2 class="section-title">Tecnologia com propósito. <span class="gradient-text">Soluções com direção.</span></h2>
+        <p class="section-description">
+          A VELTRONIX é uma marca focada no desenvolvimento de sites e soluções digitais para negócios. Nosso objetivo é entender o que cada empresa precisa e transformar essa necessidade em um projeto claro, funcional e bem apresentado.
+        </p>
+        <div style="margin-top:26px">
+          <a class="btn btn-primary" href="#orcamento">Conte sua ideia ↗</a>
+        </div>
+      </div>
+
+      <div class="about-panel reveal">
+        <h3>O que orienta nosso trabalho</h3>
+        <p>Um bom projeto começa com uma conversa honesta sobre objetivos, prazo, investimento e funcionalidades.</p>
+        <div class="about-points">
+          <div class="about-point">
+            <div class="card-icon">◎</div>
+            <div><h4>Foco no cliente</h4><p>Entender a necessidade antes de propor uma solução.</p></div>
+          </div>
+          <div class="about-point">
+            <div class="card-icon">✦</div>
+            <div><h4>Design e usabilidade</h4><p>Priorizar clareza, navegação e adaptação para telas diferentes.</p></div>
+          </div>
+          <div class="about-point">
+            <div class="card-icon">↗</div>
+            <div><h4>Escopo transparente</h4><p>Alinhar o que está incluído e o que pode gerar custo adicional.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-label">Dúvidas frequentes</span>
+        <h2 class="section-title">Antes de <span class="gradient-text">começar.</span></h2>
+      </div>
+
+      <div class="faq-list">
+        <article class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false"><span>Quanto custa desenvolver um site?</span><span>+</span></button>
+          <div class="faq-answer">Os valores iniciais são R$ 150 para o Básico, R$ 320 para o Profissional e R$ 500 para o Avançado. O preço final depende do escopo e das funcionalidades combinadas.</div>
+        </article>
+        <article class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false"><span>Quanto tempo leva para ficar pronto?</span><span>+</span></button>
+          <div class="faq-answer">O prazo depende do tamanho do projeto, dos recursos solicitados e do envio dos materiais pelo cliente. O prazo estimado será informado na proposta antes do início.</div>
+        </article>
+        <article class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false"><span>O site funciona no celular?</span><span>+</span></button>
+          <div class="faq-answer">A adaptação para celular faz parte do planejamento dos sites. O comportamento final será revisado de acordo com o escopo contratado.</div>
+        </article>
+        <article class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false"><span>Preciso pagar manutenção todo mês?</span><span>+</span></button>
+          <div class="faq-answer">Não. A manutenção é opcional e pode ser contratada separadamente. Custos de domínio, hospedagem ou serviços externos, quando houver, serão explicados na proposta.</div>
+        </article>
+        <article class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false"><span>Posso pedir novas funções depois da entrega?</span><span>+</span></button>
+          <div class="faq-answer">Sim. Novas funcionalidades podem ser avaliadas e orçadas separadamente. Elas não são automaticamente incluídas no preço original ou na manutenção básica.</div>
+        </article>
+        <article class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false"><span>Como solicito um orçamento?</span><span>+</span></button>
+          <div class="faq-answer">Você pode preencher o formulário nesta página ou entrar em contato pelo WhatsApp. Vamos entender a necessidade e preparar uma proposta adequada.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO / ORÇAMENTO -->
+  <section class="contact-section" id="contato">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-label">Vamos conversar</span>
+        <h2 class="section-title">Sua próxima ideia começa <span class="gradient-text">aqui.</span></h2>
+        <p class="section-description">Conte um pouco sobre sua empresa ou projeto. Vamos avaliar suas necessidades e conversar sobre os próximos passos.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="reveal">
+          <div class="contact-list">
+            <a class="contact-item" href="https://wa.me/5521974994201" target="_blank" rel="noopener noreferrer">
+              <div class="card-icon">☏</div>
+              <div><small>WhatsApp</small><strong>(21) 97499-4201</strong></div>
             </a>
-
-            <a
-              href="#projetos"
-              class="btn btn-outline"
-            >
-              Conhecer projetos
+            <a class="contact-item" href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener noreferrer">
+              <div class="card-icon">◎</div>
+              <div><small>Instagram</small><strong>@veltronix_tech</strong></div>
             </a>
-
+            <a class="contact-item" href="mailto:contato.veltronix@gmail.com">
+              <div class="card-icon">✉</div>
+              <div><small>E-mail</small><strong>contato.veltronix@gmail.com</strong></div>
+            </a>
           </div>
 
-          <div class="hero-note">
-            VELTRONIX — TECNOLOGIA QUE IMPULSIONA NEGÓCIOS.
-          </div>
-
-        </div>
-
-        <div class="hero-card">
-
-          <img
-            class="hero-logo"
-            src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg"
-            alt="VELTRONIX"
-          />
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         SERVIÇOS
-    ========================= -->
-
-    <section id="servicos">
-
-      <div class="container">
-
-        <div class="section-head">
-
-          <div class="section-kicker">
-            O que fazemos
-          </div>
-
-          <h2>
-            Tecnologia pensada para
-            <span class="gradient-text">
-              negócios reais.
-            </span>
-          </h2>
-
-          <p>
-            Soluções digitais desenvolvidas para transmitir
-            profissionalismo e facilitar o crescimento da sua empresa.
-          </p>
-
-        </div>
-
-        <div class="services-grid">
-
-          <article class="service-card">
-
-            <div class="service-icon">
-              01
-            </div>
-
-            <h3>
-              Criação de sites
-            </h3>
-
-            <p>
-              Sites modernos, responsivos e profissionais,
-              desenvolvidos para apresentar sua empresa
-              e gerar novas oportunidades.
+          <div style="margin-top:25px">
+            <h3 style="font-size:1rem;margin-bottom:8px">Horário de atendimento online</h3>
+            <p style="color:var(--muted);font-size:.86rem">
+              Segunda a sexta: 14h às 22h<br>
+              Sábado: 10h às 18h<br>
+              Domingo: 14h às 22h30
             </p>
-
-          </article>
-
-
-          <article class="service-card">
-
-            <div class="service-icon">
-              02
-            </div>
-
-            <h3>
-              Automação de processos
-            </h3>
-
-            <p>
-              Automatização de tarefas e processos para
-              reduzir trabalho manual e melhorar a eficiência.
-            </p>
-
-          </article>
-
-
-          <article class="service-card">
-
-            <div class="service-icon">
-              03
-            </div>
-
-            <h3>
-              Identidade digital
-            </h3>
-
-            <p>
-              Presença digital profissional para que sua
-              marca tenha uma identidade forte e consistente.
-            </p>
-
-          </article>
-
-
-          <article class="service-card">
-
-            <div class="service-icon">
-              04
-            </div>
-
-            <h3>
-              Manutenção de sites
-            </h3>
-
-            <p>
-              Atualizações, melhorias, correções e suporte
-              para manter seu projeto funcionando corretamente.
-            </p>
-
-          </article>
-
-
-          <article class="service-card">
-
-            <div class="service-icon">
-              05
-            </div>
-
-            <h3>
-              Presença digital
-            </h3>
-
-            <p>
-              Estratégias e soluções para colocar sua empresa
-              em uma posição mais profissional no ambiente digital.
-            </p>
-
-          </article>
-
-
-          <article class="service-card">
-
-            <div class="service-icon">
-              06
-            </div>
-
-            <h3>
-              Soluções sob medida
-            </h3>
-
-            <p>
-              Projetos personalizados de acordo com as
-              necessidades específicas do seu negócio.
-            </p>
-
-          </article>
-
+          </div>
         </div>
 
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         PROJETOS
-    ========================= -->
-
-    <section id="projetos">
-
-      <div class="container">
-
-        <div class="section-head">
-
-          <div class="section-kicker">
-            Portfólio
-          </div>
-
-          <h2>
-            Projetos que já estão
-            <span class="gradient-text">
-              ganhando vida.
-            </span>
-          </h2>
-
-          <p>
-            Alguns dos projetos desenvolvidos pela VELTRONIX
-            para transformar ideias em experiências digitais.
-          </p>
-
-        </div>
-
-        <div class="projects-grid">
-
-          <a
-            class="project-card"
-            href="https://vffilhoslanches.github.io/vf-filho-lanche/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-
-            <div class="project-image">
-
-              <img
-                src="https://vffilhoslanches.github.io/vf-filho-lanche/logo-vf.jpeg"
-                alt="VF FILHOS LANCHES"
-              />
-
-            </div>
-
-            <div class="project-content">
-
-              <span class="project-tag">
-                Site profissional
-              </span>
-
-              <h3>
-                VF FILHOS LANCHES
-              </h3>
-
-              <p>
-                Plataforma digital para apresentação do cardápio,
-                pedidos e experiência de compra do estabelecimento.
-              </p>
-
-              <span class="project-link">
-                Ver projeto ↗
-              </span>
-
-            </div>
-
-          </a>
-
-
-          <article class="project-card">
-
-            <div class="project-image">
-
-              <img
-                src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg"
-                alt="VELTRONIX"
-              />
-
-            </div>
-
-            <div class="project-content">
-
-              <span class="project-tag">
-                Projeto próprio
-              </span>
-
-              <h3>
-                VELTRONIX
-              </h3>
-
-              <p>
-                A própria plataforma da VELTRONIX, criada para
-                apresentar nossos serviços, projetos e soluções.
-              </p>
-
-              <span class="project-link">
-                Este é o projeto atual
-              </span>
-
-            </div>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         SOBRE
-    ========================= -->
-
-    <section id="sobre">
-
-      <div class="container about-grid">
-
-        <div class="about-box">
-
-          <img
-            src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg"
-            alt="VELTRONIX"
-          />
-
-        </div>
-
-        <div class="about-text">
-
-          <div class="section-kicker">
-            Sobre a VELTRONIX
-          </div>
-
-          <h2>
-            Tecnologia com
-            <span class="gradient-text">
-              propósito.
-            </span>
-          </h2>
-
-          <p>
-            A VELTRONIX nasceu com o objetivo de ajudar empresas
-            e empreendedores a aproveitarem melhor as oportunidades
-            que a tecnologia oferece.
-          </p>
-
-          <p>
-            Criamos experiências digitais modernas, funcionais
-            e pensadas para transformar uma ideia em algo real.
-          </p>
-
-          <div class="about-points">
-
-            <div class="about-point">
-              <span>✓</span>
-
-              <p>
-                Projetos pensados para cada negócio.
-              </p>
-            </div>
-
-            <div class="about-point">
-              <span>✓</span>
-
-              <p>
-                Design moderno e profissional.
-              </p>
-            </div>
-
-            <div class="about-point">
-              <span>✓</span>
-
-              <p>
-                Tecnologia acessível e objetiva.
-              </p>
-            </div>
-
-            <div class="about-point">
-              <span>✓</span>
-
-              <p>
-                Foco em resultado e experiência.
-              </p>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         PROCESSO
-    ========================= -->
-
-    <section id="processo">
-
-      <div class="container">
-
-        <div class="section-head">
-
-          <div class="section-kicker">
-            Nosso processo
-          </div>
-
-          <h2>
-            Do primeiro contato
-            <span class="gradient-text">
-              ao projeto pronto.
-            </span>
-          </h2>
-
-          <p>
-            Um processo simples e transparente para transformar
-            sua ideia em uma solução digital.
-          </p>
-
-        </div>
-
-        <div class="process-grid">
-
-          <article class="process-card">
-
-            <div class="process-number">
-              01 / CONVERSA
-            </div>
-
-            <h3>
-              Entendemos sua ideia
-            </h3>
-
-            <p>
-              Conversamos sobre seu negócio, objetivos,
-              necessidades e o que você deseja construir.
-            </p>
-
-          </article>
-
-
-          <article class="process-card">
-
-            <div class="process-number">
-              02 / PLANEJAMENTO
-            </div>
-
-            <h3>
-              Planejamos a solução
-            </h3>
-
-            <p>
-              Organizamos as funcionalidades, estrutura,
-              visual e prioridades do projeto.
-            </p>
-
-          </article>
-
-
-          <article class="process-card">
-
-            <div class="process-number">
-              03 / DESENVOLVIMENTO
-            </div>
-
-            <h3>
-              Construímos
-            </h3>
-
-            <p>
-              Desenvolvemos a solução com foco em qualidade,
-              desempenho e experiência.
-            </p>
-
-          </article>
-
-
-          <article class="process-card">
-
-            <div class="process-number">
-              04 / ENTREGA
-            </div>
-
-            <h3>
-              Projeto no ar
-            </h3>
-
-            <p>
-              Após os ajustes finais, entregamos o projeto
-              pronto para ser utilizado.
-            </p>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         DIFERENCIAIS
-    ========================= -->
-
-    <section>
-
-      <div class="container">
-
-        <div class="section-head">
-
-          <div class="section-kicker">
-            Por que a VELTRONIX
-          </div>
-
-          <h2>
-            Mais que um site.
-            <span class="gradient-text">
-              Uma presença digital.
-            </span>
-          </h2>
-
-        </div>
-
-        <div class="diff-grid">
-
-          <article class="diff-card">
-
-            <h3>
-              Visual profissional
-            </h3>
-
-            <p>
-              Cada detalhe é pensado para transmitir
-              credibilidade e confiança.
-            </p>
-
-          </article>
-
-
-          <article class="diff-card">
-
-            <h3>
-              Responsivo
-            </h3>
-
-            <p>
-              Projetos preparados para funcionar bem
-              em celulares, tablets e computadores.
-            </p>
-
-          </article>
-
-
-          <article class="diff-card">
-
-            <h3>
-              Experiência
-            </h3>
-
-            <p>
-              Interfaces pensadas para serem simples,
-              rápidas e fáceis de utilizar.
-            </p>
-
-          </article>
-
-
-          <article class="diff-card">
-
-            <h3>
-              Personalização
-            </h3>
-
-            <p>
-              Nada de soluções genéricas. O projeto
-              é adaptado para sua realidade.
-            </p>
-
-          </article>
-
-
-          <article class="diff-card">
-
-            <h3>
-              Tecnologia
-            </h3>
-
-            <p>
-              Utilizamos tecnologias modernas para
-              criar soluções mais completas.
-            </p>
-
-          </article>
-
-
-          <article class="diff-card">
-
-            <h3>
-              Suporte
-            </h3>
-
-            <p>
-              Acompanhamento para manter sua solução
-              funcionando e evoluindo.
-            </p>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         HORÁRIOS
-    ========================= -->
-
-    <section id="horarios">
-
-      <div class="container">
-
-        <div class="section-head">
-
-          <div class="section-kicker">
-            Atendimento
-          </div>
-
-          <h2>
-            Quando falar com a
-            <span class="gradient-text">
-              VELTRONIX.
-            </span>
-          </h2>
-
-        </div>
-
-        <div class="schedule-box">
-
-          <div class="schedule-list">
-
-            <div class="schedule-item">
-              <span>Segunda-feira</span>
-              <span>09:00 — 18:00</span>
-            </div>
-
-            <div class="schedule-item">
-              <span>Terça-feira</span>
-              <span>09:00 — 18:00</span>
-            </div>
-
-            <div class="schedule-item">
-              <span>Quarta-feira</span>
-              <span>09:00 — 18:00</span>
-            </div>
-
-            <div class="schedule-item">
-              <span>Quinta-feira</span>
-              <span>09:00 — 18:00</span>
-            </div>
-
-            <div class="schedule-item">
-              <span>Sexta-feira</span>
-              <span>09:00 — 18:00</span>
-            </div>
-
-            <div class="schedule-item">
-              <span>Sábado</span>
-              <span>09:00 — 14:00</span>
-            </div>
-
-            <div class="schedule-item">
-              <span>Domingo</span>
-              <span>Fechado</span>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         FAQ
-    ========================= -->
-
-    <section>
-
-      <div class="container">
-
-        <div class="section-head">
-
-          <div class="section-kicker">
-            Dúvidas
-          </div>
-
-          <h2>
-            Perguntas
-            <span class="gradient-text">
-              frequentes.
-            </span>
-          </h2>
-
-        </div>
-
-        <div class="faq-list">
-
-          <div class="faq-item">
-
-            <button class="faq-question">
-              Quanto custa criar um site?
-              <span>+</span>
-            </button>
-
-            <div class="faq-answer">
-              O valor depende do tipo de projeto,
-              quantidade de páginas, funcionalidades
-              e necessidades do negócio. Solicite um
-              orçamento para receber uma proposta personalizada.
-            </div>
-
-          </div>
-
-
-          <div class="faq-item">
-
-            <button class="faq-question">
-              O site funciona no celular?
-              <span>+</span>
-            </button>
-
-            <div class="faq-answer">
-              Sim. Os projetos são desenvolvidos pensando
-              em celulares, tablets e computadores.
-            </div>
-
-          </div>
-
-
-          <div class="faq-item">
-
-            <button class="faq-question">
-              Posso pedir alterações?
-              <span>+</span>
-            </button>
-
-            <div class="faq-answer">
-              Sim. Durante o desenvolvimento alinhamos
-              os detalhes do projeto e realizamos os
-              ajustes necessários.
-            </div>
-
-          </div>
-
-
-          <div class="faq-item">
-
-            <button class="faq-question">
-              A VELTRONIX faz manutenção?
-              <span>+</span>
-            </button>
-
-            <div class="faq-answer">
-              Sim. Também oferecemos manutenção,
-              atualizações e melhorias para projetos existentes.
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         ORÇAMENTO
-    ========================= -->
-
-    <section id="orcamento">
-
-      <div class="container budget-wrapper">
-
-        <div class="budget-info">
-
-          <div class="section-kicker">
-            Orçamento
-          </div>
-
-          <h3>
-            Vamos transformar sua ideia em realidade?
-          </h3>
-
-          <p>
-            Conte um pouco sobre o que você precisa.
-            Nossa equipe analisará as informações e
-            entrará em contato.
-          </p>
-
-          <div class="budget-info-box">
-
-            <strong>
-              Atendimento
-            </strong>
-
-            <span>
-              Resposta pelo WhatsApp ou e-mail.
-            </span>
-
-          </div>
-
-          <div class="budget-info-box">
-
-            <strong>
-              Projeto personalizado
-            </strong>
-
-            <span>
-              Cada orçamento é analisado individualmente.
-            </span>
-
-          </div>
-
-        </div>
-
-
-        <form
-          class="budget-form"
-          id="budgetForm"
-        >
+        <form class="budget-form reveal" id="budgetForm">
+          <h3 id="orcamento">Solicite seu orçamento</h3>
+          <p class="form-intro">Preencha os dados abaixo. As informações serão usadas para entender sua solicitação e preparar o contato.</p>
 
           <div class="form-grid">
-
-            <div class="form-group">
-
-              <label for="nome">
-                Seu nome
-              </label>
-
-              <input
-                type="text"
-                id="nome"
-                name="nome"
-                placeholder="Digite seu nome"
-                required
-              />
-
+            <div class="field">
+              <label for="nome">Seu nome *</label>
+              <input id="nome" name="nome" autocomplete="name" required maxlength="100" placeholder="Como podemos te chamar?">
             </div>
 
-
-            <div class="form-group">
-
-              <label for="contato">
-                WhatsApp / Contato
-              </label>
-
-              <input
-                type="text"
-                id="contato"
-                name="contato"
-                placeholder="(00) 00000-0000"
-                required
-              />
-
+            <div class="field">
+              <label for="contatoCliente">WhatsApp ou e-mail *</label>
+              <input id="contatoCliente" name="contato" required maxlength="150" placeholder="Seu contato">
             </div>
 
-
-            <div class="form-group full">
-
-              <label for="servico">
-                Serviço
-              </label>
-
-              <select
-                id="servico"
-                name="servico"
-                required
-              >
-
-                <option value="">
-                  Selecione uma opção
-                </option>
-
-                <option value="Criação de site">
-                  Criação de site
-                </option>
-
-                <option value="Automação de processos">
-                  Automação de processos
-                </option>
-
-                <option value="Identidade digital">
-                  Identidade digital
-                </option>
-
-                <option value="Manutenção de site">
-                  Manutenção de site
-                </option>
-
-                <option value="Presença digital">
-                  Presença digital
-                </option>
-
-                <option value="Outro projeto">
-                  Outro projeto
-                </option>
-
+            <div class="field full">
+              <label for="servico">Serviço desejado *</label>
+              <select id="servico" name="servico" required>
+                <option value="">Selecione uma opção</option>
+                <option>Site Básico — R$ 150</option>
+                <option>Site Profissional — R$ 320</option>
+                <option>Site Avançado — R$ 500</option>
+                <option>Automação</option>
+                <option>Identidade digital</option>
+                <option>Manutenção de site</option>
+                <option>Outro projeto</option>
               </select>
-
             </div>
 
-
-            <div class="form-group full">
-
-              <label for="descricao">
-                Conte sobre o projeto
-              </label>
-
-              <textarea
-                id="descricao"
-                name="descricao"
-                placeholder="Explique o que você precisa..."
-                required
-              ></textarea>
-
+            <div class="field full">
+              <label for="descricao">Conte sobre seu projeto *</label>
+              <textarea id="descricao" name="descricao" required maxlength="3000" placeholder="O que sua empresa precisa? Quais recursos gostaria de ter?"></textarea>
             </div>
 
-
-            <div class="form-group">
-
-              <label for="prazo">
-                Prazo desejado
-              </label>
-
-              <input
-                type="text"
-                id="prazo"
-                name="prazo"
-                placeholder="Ex.: 15 dias"
-              />
-
+            <div class="field">
+              <label for="prazo">Prazo desejado</label>
+              <input id="prazo" name="prazo" maxlength="100" placeholder="Ex.: nas próximas semanas">
             </div>
 
-
-            <div class="form-group">
-
-              <label for="valor">
-                Faixa de investimento
-              </label>
-
-              <input
-                type="text"
-                id="valor"
-                name="valor"
-                placeholder="Ex.: R$ 500"
-              />
-
+            <div class="field">
+              <label for="valor">Orçamento previsto</label>
+              <select id="valor" name="valor">
+                <option value="">Ainda não definido</option>
+                <option>Até R$ 150</option>
+                <option>R$ 150 a R$ 320</option>
+                <option>R$ 320 a R$ 500</option>
+                <option>Acima de R$ 500</option>
+              </select>
             </div>
 
-
-            <div class="form-group full">
-
-              <button
-                type="submit"
-                class="btn btn-primary"
-                style="width:100%;"
-              >
-                Enviar solicitação ↗
-              </button>
-
+            <div class="field full">
+              <button class="btn btn-primary" id="submitBudget" type="submit">Enviar solicitação ↗</button>
+              <p class="form-footnote">Ao enviar, você concorda em ser contatado pela VELTRONIX a respeito desta solicitação.</p>
+              <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
             </div>
-
           </div>
-
-          <div
-            class="form-status"
-            id="formStatus"
-          ></div>
-
         </form>
-
       </div>
-
-    </section>
-
-
-    <!-- =========================
-         CONTATO
-    ========================= -->
-
-    <section
-      id="contato"
-      class="contact-section"
-    >
-
-      <div class="container">
-
-        <div class="contact-box">
-
-          <div class="section-kicker">
-            VELTRONIX
-          </div>
-
-          <h2>
-            Pronto para começar?
-          </h2>
-
-          <p>
-            Conte sua ideia para a gente e descubra
-            como a tecnologia pode ajudar o seu negócio.
-          </p>
-
-          <div class="contact-details">
-
-            <div class="contact-detail">
-              contato.veltronix@gmail.com
-            </div>
-
-            <div class="contact-detail">
-              Atendimento digital
-            </div>
-
-            <div class="contact-detail">
-              Brasil
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =========================
-       FOOTER
-  ========================= -->
-
-  <footer>
-
-    <div class="container footer-inner">
-
-      <div class="footer-brand">
-
-        <img
-          src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg"
-          alt="VELTRONIX"
-        />
-
-        <div>
-
-          <strong>
-            VELTRONIX
-          </strong>
-
-          <span>
-            Tecnologia que impulsiona negócios.
-          </span>
-
-        </div>
-
-      </div>
-
-      <div class="footer-copy">
-        © 2026 VELTRONIX. Todos os direitos reservados.
-      </div>
-
     </div>
+  </section>
+</main>
 
-  </footer>
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <a href="#inicio" class="brand">
+          <img src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg" alt="">
+          <span>
+            <span class="brand-name">VELTRONIX</span>
+            <span class="brand-tagline">Tecnologia que impulsiona negócios.</span>
+          </span>
+        </a>
+        <p class="footer-copy">Desenvolvimento de sites e soluções digitais para empresas que querem fortalecer sua presença online.</p>
+      </div>
+      <nav class="footer-links" aria-label="Links do rodapé">
+        <a href="#servicos">Serviços</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#planos">Planos</a>
+        <a href="#faq">Dúvidas</a>
+        <a href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+        <a href="https://wa.me/5521974994201" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> VELTRONIX. Todos os direitos reservados.</span>
+      <span>Tecnologia que impulsiona negócios.</span>
+    </div>
+  </div>
+</footer>
 
+<a class="whatsapp-float" href="https://wa.me/5521974994201?text=Ol%C3%A1%2C%20VELTRONIX!%20Gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os." target="_blank" rel="noopener noreferrer" aria-label="Falar com a VELTRONIX pelo WhatsApp">☏</a>
 
-  <!-- =========================
-       WHATSAPP FLUTUANTE
-  ========================= -->
+<script>
+"use strict";
 
-  <a
-    href="https://wa.me/5521974994201"
-    class="whatsapp-float"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Falar com a VELTRONIX pelo WhatsApp"
-  >
-    ☎
-  </a>
+/* MENU MOBILE */
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 
+function closeMenu() {
+  navLinks.classList.remove("open");
+  menuToggle.setAttribute("aria-expanded", "false");
+  menuToggle.setAttribute("aria-label", "Abrir menu");
+  menuToggle.textContent = "☰";
+  document.body.classList.remove("menu-open");
+}
 
-  <!-- =========================
-       JAVASCRIPT
-  ========================= -->
+menuToggle.addEventListener("click", () => {
+  const isOpen = navLinks.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+  menuToggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
+  menuToggle.textContent = isOpen ? "×" : "☰";
+  document.body.classList.toggle("menu-open", isOpen);
+});
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", closeMenu);
+});
 
-  <script>
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeMenu();
+});
 
-    /* =========================
-       MENU HAMBÚRGUER
-    ========================= */
+document.addEventListener("click", event => {
+  if (!navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
+    closeMenu();
+  }
+});
 
-    const menuToggle =
-      document.getElementById("menuToggle");
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 760) closeMenu();
+});
 
-    const navLinks =
-      document.getElementById("navLinks");
+/* FAQ */
+document.querySelectorAll(".faq-question").forEach(button => {
+  button.addEventListener("click", () => {
+    const item = button.closest(".faq-item");
+    const open = item.classList.toggle("open");
+    button.setAttribute("aria-expanded", String(open));
+    button.querySelector("span:last-child").textContent = open ? "−" : "+";
+  });
+});
 
-    menuToggle.addEventListener("click", () => {
+/* ANIMAÇÕES DE ENTRADA */
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const revealItems = document.querySelectorAll(".reveal");
 
-      const active =
-        navLinks.classList.toggle("active");
-
-      menuToggle.setAttribute(
-        "aria-expanded",
-        active
-      );
-
-      const spans =
-        menuToggle.querySelectorAll("span");
-
-      if (active) {
-
-        spans[0].style.transform =
-          "translateY(7px) rotate(45deg)";
-
-        spans[1].style.opacity = "0";
-
-        spans[2].style.transform =
-          "translateY(-7px) rotate(-45deg)";
-
-      } else {
-
-        spans[0].style.transform = "";
-
-        spans[1].style.opacity = "1";
-
-        spans[2].style.transform = "";
-
+if ("IntersectionObserver" in window && !reduceMotion) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
       }
+    });
+  }, { threshold: 0.12 });
 
+  revealItems.forEach(item => observer.observe(item));
+} else {
+  revealItems.forEach(item => item.classList.add("visible"));
+}
+
+/* BARRA DE PROGRESSO */
+const scrollProgress = document.getElementById("scrollProgress");
+
+function updateProgress() {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  scrollProgress.style.width = progress + "%";
+}
+
+window.addEventListener("scroll", updateProgress, { passive: true });
+updateProgress();
+
+/* ANO DO RODAPÉ */
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* PLANOS: PREENCHE O SERVIÇO NO FORMULÁRIO */
+const serviceSelect = document.getElementById("servico");
+
+document.querySelectorAll("[data-service]").forEach(link => {
+  link.addEventListener("click", () => {
+    const service = link.dataset.service;
+    const matchingOption = Array.from(serviceSelect.options).find(option =>
+      option.textContent.toLowerCase().startsWith(service.toLowerCase())
+    );
+    if (matchingOption) serviceSelect.value = matchingOption.value;
+  });
+});
+
+/* FORMULÁRIO DE ORÇAMENTO
+   Integração com Supabase via REST API.
+   Caso a inserção não esteja configurada ou falhe, a solicitação
+   será preparada para envio pelo WhatsApp. */
+const SUPABASE_URL = "https://swgrurgztdcyhtrjpotc.supabase.co";
+const SUPABASE_KEY = "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
+const WHATSAPP_NUMBER = "5521974994201";
+
+const budgetForm = document.getElementById("budgetForm");
+const submitBudget = document.getElementById("submitBudget");
+const formMessage = document.getElementById("formMessage");
+
+function showMessage(message, type) {
+  formMessage.textContent = message;
+  formMessage.className = "form-message show " + type;
+}
+
+function getFormData() {
+  const formData = new FormData(budgetForm);
+  return {
+    nome: String(formData.get("nome") || "").trim(),
+    contato: String(formData.get("contato") || "").trim(),
+    servico: String(formData.get("servico") || "").trim(),
+    descricao: String(formData.get("descricao") || "").trim(),
+    prazo: String(formData.get("prazo") || "").trim(),
+    valor: String(formData.get("valor") || "").trim()
+  };
+}
+
+function createWhatsAppMessage(data) {
+  return [
+    "Olá, VELTRONIX! Gostaria de solicitar um orçamento.",
+    "",
+    "Nome: " + data.nome,
+    "Contato: " + data.contato,
+    "Serviço: " + data.servico,
+    "Descrição: " + data.descricao,
+    "Prazo desejado: " + (data.prazo || "Não informado"),
+    "Orçamento previsto: " + (data.valor || "Ainda não definido")
+  ].join("\n");
+}
+
+budgetForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const data = getFormData();
+
+  if (!data.nome || !data.contato || !data.servico || !data.descricao) {
+    showMessage("Preencha todos os campos obrigatórios para continuar.", "error");
+    return;
+  }
+
+  submitBudget.disabled = true;
+  submitBudget.textContent = "Enviando solicitação…";
+
+  let savedToSupabase = false;
+
+  try {
+    const response = await fetch(SUPABASE_URL + "/rest/v1/orcamentos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+        "Authorization": "Bearer " + SUPABASE_KEY,
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify(data)
     });
 
-
-    /* FECHA O MENU AO CLICAR EM UM LINK */
-
-    navLinks
-      .querySelectorAll("a")
-      .forEach(link => {
-
-        link.addEventListener("click", () => {
-
-          navLinks.classList.remove("active");
-
-          menuToggle.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-
-          const spans =
-            menuToggle.querySelectorAll("span");
-
-          spans[0].style.transform = "";
-          spans[1].style.opacity = "1";
-          spans[2].style.transform = "";
-
-        });
-
-      });
-
-
-    /* =========================
-       FAQ
-    ========================= */
-
-    document
-      .querySelectorAll(".faq-question")
-      .forEach(button => {
-
-        button.addEventListener("click", () => {
-
-          const item =
-            button.parentElement;
-
-          const wasActive =
-            item.classList.contains("active");
-
-          document
-            .querySelectorAll(".faq-item")
-            .forEach(faq => {
-              faq.classList.remove("active");
-
-              const span =
-                faq.querySelector(".faq-question span");
-
-              if (span) {
-                span.textContent = "+";
-              }
-            });
-
-          if (!wasActive) {
-
-            item.classList.add("active");
-
-            const span =
-              button.querySelector("span");
-
-            if (span) {
-              span.textContent = "−";
-            }
-
-          }
-
-        });
-
-      });
-
-
-    /* =========================
-       SUPABASE
-    ========================= */
-
-    const SUPABASE_URL =
-      "https://swgrurgztdcyhtrjpotc.supabase.co";
-
-    const SUPABASE_KEY =
-      "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
-
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
-
-
-    /* =========================
-       FORMULÁRIO DE ORÇAMENTO
-    ========================= */
-
-    const budgetForm =
-      document.getElementById("budgetForm");
-
-    const formStatus =
-      document.getElementById("formStatus");
-
-    budgetForm.addEventListener(
-      "submit",
-      async (event) => {
-
-        event.preventDefault();
-
-        formStatus.textContent =
-          "Enviando sua solicitação...";
-
-        formStatus.style.color =
-          "#c084fc";
-
-        const nome =
-          document.getElementById("nome").value.trim();
-
-        const contato =
-          document.getElementById("contato").value.trim();
-
-        const servico =
-          document.getElementById("servico").value;
-
-        const descricao =
-          document.getElementById("descricao").value.trim();
-
-        const prazo =
-          document.getElementById("prazo").value.trim();
-
-        const valor =
-          document.getElementById("valor").value.trim();
-
-
-        try {
-
-          const { error } =
-            await supabaseClient
-              .from("orcamentos")
-              .insert([
-                {
-                  nome: nome,
-                  contato: contato,
-                  servico: servico,
-                  descricao: descricao,
-                  prazo: prazo,
-                  valor: valor
-                }
-              ]);
-
-
-          if (error) {
-            throw error;
-          }
-
-
-          formStatus.textContent =
-            "Solicitação enviada com sucesso! Entraremos em contato.";
-
-          formStatus.style.color =
-            "#25d366";
-
-          budgetForm.reset();
-
-
-          /* ENVIA TAMBÉM PARA O WHATSAPP */
-
-          const mensagem =
-            `Olá, VELTRONIX! 👋
-
-` +
-            `Gostaria de solicitar um orçamento.
-
-` +
-            `Nome: ${nome}
-` +
-            `Contato: ${contato}
-` +
-            `Serviço: ${servico}
-` +
-            `Descrição: ${descricao}
-` +
-            `Prazo: ${prazo || "Não informado"}
-` +
-            `Investimento: ${valor || "Não informado"}`;
-
-
-          const whatsappUrl =
-            "https://wa.me/5521974994201?text=" +
-            encodeURIComponent(mensagem);
-
-
-          setTimeout(() => {
-
-            window.open(
-              whatsappUrl,
-              "_blank"
-            );
-
-          }, 800);
-
-
-        } catch (error) {
-
-          console.error(
-            "Erro ao enviar orçamento:",
-            error
-          );
-
-          formStatus.textContent =
-            "Não foi possível enviar agora. Tente novamente ou fale conosco pelo WhatsApp.";
-
-          formStatus.style.color =
-            "#ff7b7b";
-
-        }
-
-      }
-    );
-
-
-    /* =========================
-       PAUSA DO VÍDEO QUANDO
-       A ABA NÃO ESTÁ VISÍVEL
-    ========================= */
-
-    const bannerVideo =
-      document.querySelector(".video-banner video");
-
-    document.addEventListener(
-      "visibilitychange",
-      () => {
-
-        if (!bannerVideo) return;
-
-        if (document.hidden) {
-
-          bannerVideo.pause();
-
-        } else {
-
-          bannerVideo.play().catch(() => {});
-
-        }
-
-      }
-    );
-
-  </script>
-
+    if (response.ok) {
+      savedToSupabase = true;
+    } else {
+      console.warn("Não foi possível salvar no Supabase. Verifique a tabela e as permissões.");
+    }
+  } catch (error) {
+    console.warn("Erro ao conectar ao Supabase:", error);
+  }
+
+  showMessage(
+    savedToSupabase
+      ? "Solicitação registrada! Vamos abrir o WhatsApp para você concluir o contato."
+      : "Não foi possível confirmar o registro online. Vamos abrir o WhatsApp para enviar sua solicitação diretamente.",
+    savedToSupabase ? "success" : "error"
+  );
+
+  const whatsappURL = "https://wa.me/" + WHATSAPP_NUMBER +
+    "?text=" + encodeURIComponent(createWhatsAppMessage(data));
+
+  submitBudget.textContent = "Abrindo WhatsApp…";
+
+  window.open(whatsappURL, "_blank", "noopener,noreferrer");
+
+  submitBudget.disabled = false;
+  submitBudget.textContent = "Enviar solicitação ↗";
+});
+</script>
 </body>
-             </html>
+</html>
