@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -658,10 +657,6 @@ function openWhatsApp(contact, message = "") {
   const url = "https://wa.me/" + number +
     (message ? "?text=" + encodeURIComponent(message) : "");
 
-  /*
-    Chamado diretamente pelo clique do usuário para reduzir
-    a chance de bloqueio de pop-up no navegador.
-  */
   const opened = window.open(url, "_blank");
 
   if (!opened) {
@@ -742,10 +737,6 @@ function prepareStatusNotice(quote, selectedStatus) {
   const opened = window.open(url, "_blank");
 
   if (!opened) {
-    /*
-      Alternativa para navegadores que bloqueiam pop-ups.
-      A conversa será aberta na página atual.
-    */
     window.location.href = url;
   }
 }
@@ -772,26 +763,31 @@ async function updateStatus(quote, newStatus, button) {
   setMessage("actionStatus", "Salvando status...");
 
   try {
+    /*
+      Atualiza o status e solicita o registro atualizado.
+      Se nenhuma linha voltar, pode haver bloqueio de RLS
+      ou o ID pode não corresponder a uma linha acessível.
+    */
     const { data, error } = await db
       .from("orcamentos")
       .update({ status: newStatus })
       .eq("id", quote.id)
-      .select("id,status")
-      .maybeSingle();
+      .select();
 
     if (error) throw error;
 
-    if (!data) {
+    if (!Array.isArray(data) || data.length === 0) {
       throw new Error(
-        "Nenhuma linha foi atualizada. Confira a coluna status e as permissões administrativas do Supabase."
+        "O Supabase não atualizou nenhuma linha. Verifique se a coluna id identifica esse orçamento e se existe uma política RLS UPDATE permitindo que sua conta autenticada atualize a tabela public.orcamentos. O código do painel não consegue liberar essa permissão sozinho."
       );
     }
 
-    quote.status = data.status;
+    const updatedQuote = data[0];
+    quote.status = updatedQuote.status || newStatus;
 
     setMessage(
       "actionStatus",
-      "Status salvo: " + data.status +
+      "Status salvo: " + quote.status +
       ". Você já pode preparar o aviso pelo WhatsApp."
     );
 
@@ -840,4 +836,3 @@ checkSession();
 </script>
 </body>
 </html>
-```
