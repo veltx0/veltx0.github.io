@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -176,41 +177,16 @@ button:hover:not(:disabled){transform:translateY(-1px)}
   margin-top:16px;
 }
 .hidden{display:none!important}
-.section-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
 .count-label{color:var(--muted);font-size:13px}
 #refreshButton{margin-left:8px}
 .dashboard-buttons{display:flex;gap:10px;flex-wrap:wrap}
-.notice-box{
-  background:#100c17;
-  border:1px solid #493258;
-  border-radius:12px;
-  padding:18px;
-  margin-top:16px;
-}
-.notice-box h3{margin-bottom:8px;color:#d1a1ff}
-.notice-preview{
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
-  background:#09070e;
-  border:1px solid #30213e;
-  padding:15px;
-  border-radius:9px;
-  color:#eee4f7;
-  line-height:1.65;
-  margin:12px 0;
-}
-.notice-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:12px;
-}
-.notice-actions button{flex:1;min-width:170px}
-.confirm-button{
-  background:#123d30;
-  border-color:#1d664c;
-  color:#8af0bb;
-}
 @media(max-width:700px){
   header{padding:18px 4%}
   .header-label{font-size:10px;letter-spacing:1px}
@@ -226,8 +202,6 @@ button:hover:not(:disabled){transform:translateY(-1px)}
   .status-control{flex-basis:100%}
   #refreshButton{margin:0}
   .dashboard-buttons{flex-direction:column;align-items:stretch}
-  .notice-actions{flex-direction:column}
-  .notice-actions button{width:100%}
 }
 </style>
 </head>
@@ -249,7 +223,8 @@ button:hover:not(:disabled){transform:translateY(-1px)}
         placeholder="Seu e-mail" required>
 
       <label for="password">Senha</label>
-      <input id="password" type="password" autocomplete="current-password"
+      <input id="password" type="password"
+        autocomplete="current-password"
         placeholder="Sua senha" required>
 
       <button id="loginButton" type="submit" style="width:100%">
@@ -307,10 +282,12 @@ button:hover:not(:disabled){transform:translateY(-1px)}
         <label for="filterStatus">Filtrar por status</label>
         <select id="filterStatus">
           <option value="">Todos os status</option>
-          <option value="Pendente">Pendente</option>
-          <option value="Em negociação">Em negociação</option>
-          <option value="Aprovado">Aprovado</option>
-          <option value="Recusado">Recusado</option>
+          <option value="recebido">Recebido</option>
+          <option value="em_analise">Em negociação</option>
+          <option value="enviado">Enviado</option>
+          <option value="aprovado">Aprovado</option>
+          <option value="recusado">Recusado</option>
+          <option value="cancelado">Cancelado</option>
         </select>
       </div>
     </div>
@@ -336,12 +313,25 @@ const db = window.supabase.createClient(
 
 const $ = id => document.getElementById(id);
 
-const VALID_STATUSES = [
-  "Pendente",
-  "Em negociação",
-  "Aprovado",
-  "Recusado"
+// Valores compatíveis com a restrição da tabela no Supabase.
+const STATUS_OPTIONS = [
+  { value: "recebido", label: "Recebido" },
+  { value: "em_analise", label: "Em negociação" },
+  { value: "enviado", label: "Enviado" },
+  { value: "aprovado", label: "Aprovado" },
+  { value: "recusado", label: "Recusado" },
+  { value: "cancelado", label: "Cancelado" }
 ];
+
+const VALID_STATUSES = STATUS_OPTIONS.map(item => item.value);
+
+const STATUS_LABELS = Object.fromEntries(
+  STATUS_OPTIONS.map(item => [item.value, item.label])
+);
+
+function statusLabel(status) {
+  return STATUS_LABELS[status] || status || "Recebido";
+}
 
 let allQuotes = [];
 let loadingQuotes = false;
@@ -384,7 +374,8 @@ async function checkSession() {
       showLogin();
     }
   } catch (error) {
-    setMessage("loginStatus", "Erro ao verificar sessão: " + error.message);
+    setMessage("loginStatus",
+      "Erro ao verificar sessão: " + error.message);
   }
 }
 
@@ -405,7 +396,8 @@ $("loginForm").addEventListener("submit", async event => {
     if (error) throw error;
     showDashboard(data.user);
   } catch (error) {
-    setMessage("loginStatus", "Não foi possível entrar: " + error.message);
+    setMessage("loginStatus",
+      "Não foi possível entrar: " + error.message);
   } finally {
     button.disabled = false;
     button.textContent = "Entrar no painel";
@@ -511,7 +503,7 @@ function renderQuotes() {
       .join(" ")
       .toLocaleLowerCase("pt-BR");
 
-    const status = quote.status || "Pendente";
+    const status = quote.status || "recebido";
 
     return searchable.includes(term) &&
       (!wantedStatus || status === wantedStatus);
@@ -541,12 +533,12 @@ function renderQuotes() {
     const title = document.createElement("h3");
     title.textContent = getClientName(quote);
 
-    const currentStatus = quote.status || "Pendente";
+    const currentStatus = quote.status || "recebido";
 
     const badge = document.createElement("span");
     badge.className = "pill";
-    badge.dataset.status = currentStatus;
-    badge.textContent = currentStatus;
+    badge.dataset.status = statusLabel(currentStatus);
+    badge.textContent = statusLabel(currentStatus);
 
     top.append(title, badge);
     article.appendChild(top);
@@ -575,29 +567,29 @@ function renderQuotes() {
     const statusControl = document.createElement("div");
     statusControl.className = "status-control";
 
-    const statusLabel = document.createElement("label");
-    statusLabel.textContent = "Alterar status";
-    statusLabel.htmlFor = "status-" + String(quote.id || "");
+    const statusLabelElement = document.createElement("label");
+    statusLabelElement.textContent = "Alterar status";
+    statusLabelElement.htmlFor = "status-" + String(quote.id || "");
 
     const select = document.createElement("select");
-    select.id = statusLabel.htmlFor;
+    select.id = statusLabelElement.htmlFor;
     select.setAttribute(
       "aria-label",
       "Status do orçamento de " + getClientName(quote)
     );
 
-    VALID_STATUSES.forEach(status => {
+    STATUS_OPTIONS.forEach(status => {
       const option = document.createElement("option");
-      option.value = status;
-      option.textContent = status;
+      option.value = status.value;
+      option.textContent = status.label;
       select.appendChild(option);
     });
 
     select.value = VALID_STATUSES.includes(currentStatus)
       ? currentStatus
-      : "Pendente";
+      : "recebido";
 
-    statusControl.append(statusLabel, select);
+    statusControl.append(statusLabelElement, select);
 
     const saveButton = document.createElement("button");
     saveButton.textContent = "Salvar status";
@@ -672,14 +664,18 @@ function buildStatusMessage(quote, status) {
   const service = quote.servico || "serviço solicitado";
 
   const messages = {
-    "Pendente":
-      "Sua solicitação está pendente e aguardando análise.",
-    "Em negociação":
+    recebido:
+      "Recebemos sua solicitação e ela está aguardando análise.",
+    em_analise:
       "Sua solicitação está em negociação. Em breve, entraremos em contato para alinhar os próximos detalhes.",
-    "Aprovado":
+    enviado:
+      "Sua proposta foi enviada. Confira as informações e entre em contato se tiver dúvidas.",
+    aprovado:
       "Sua solicitação foi aprovada! Vamos alinhar os próximos passos do projeto.",
-    "Recusado":
-      "No momento, sua solicitação foi recusada. Se precisar, entre em contato conosco para conversar sobre outras possibilidades."
+    recusado:
+      "No momento, sua solicitação foi recusada. Se precisar, entre em contato conosco para conversar sobre outras possibilidades.",
+    cancelado:
+      "Sua solicitação foi cancelada. Se precisar, entre em contato conosco para conversar."
   };
 
   return [
@@ -688,7 +684,7 @@ function buildStatusMessage(quote, status) {
     "Temos uma atualização sobre sua solicitação na VELTRONIX.",
     "",
     "🛠️ Serviço: " + service,
-    "📌 Novo status: " + status.toUpperCase(),
+    "📌 Novo status: " + statusLabel(status).toUpperCase(),
     "",
     messages[status],
     "",
@@ -700,7 +696,7 @@ function buildStatusMessage(quote, status) {
 }
 
 function prepareStatusNotice(quote, selectedStatus) {
-  const savedStatus = quote.status || "Pendente";
+  const savedStatus = quote.status || "recebido";
 
   if (selectedStatus !== savedStatus) {
     alert(
@@ -724,7 +720,7 @@ function prepareStatusNotice(quote, selectedStatus) {
   const confirmed = window.confirm(
     "Confirmar aviso pelo WhatsApp?\n\n" +
     "Cliente: " + getClientName(quote) + "\n" +
-    "Status: " + savedStatus + "\n\n" +
+    "Status: " + statusLabel(savedStatus) + "\n\n" +
     "Ao confirmar, o WhatsApp será aberto com a mensagem pronta. " +
     "Você ainda precisará tocar em Enviar no WhatsApp."
   );
@@ -747,7 +743,7 @@ async function updateStatus(quote, newStatus, button) {
     return;
   }
 
-  if ((quote.status || "Pendente") === newStatus) {
+  if ((quote.status || "recebido") === newStatus) {
     alert("Esse orçamento já está com esse status.");
     return;
   }
@@ -763,11 +759,6 @@ async function updateStatus(quote, newStatus, button) {
   setMessage("actionStatus", "Salvando status...");
 
   try {
-    /*
-      Atualiza o status e solicita o registro atualizado.
-      Se nenhuma linha voltar, pode haver bloqueio de RLS
-      ou o ID pode não corresponder a uma linha acessível.
-    */
     const { data, error } = await db
       .from("orcamentos")
       .update({ status: newStatus })
@@ -778,7 +769,7 @@ async function updateStatus(quote, newStatus, button) {
 
     if (!Array.isArray(data) || data.length === 0) {
       throw new Error(
-        "O Supabase não atualizou nenhuma linha. Verifique se a coluna id identifica esse orçamento e se existe uma política RLS UPDATE permitindo que sua conta autenticada atualize a tabela public.orcamentos. O código do painel não consegue liberar essa permissão sozinho."
+        "O Supabase não atualizou nenhuma linha. Verifique se o ID existe e se as políticas de segurança permitem a atualização."
       );
     }
 
@@ -787,7 +778,7 @@ async function updateStatus(quote, newStatus, button) {
 
     setMessage(
       "actionStatus",
-      "Status salvo: " + quote.status +
+      "Status salvo: " + statusLabel(quote.status) +
       ". Você já pode preparar o aviso pelo WhatsApp."
     );
 
@@ -836,3 +827,4 @@ checkSession();
 </script>
 </body>
 </html>
+```
