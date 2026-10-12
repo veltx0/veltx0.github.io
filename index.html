@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -181,6 +181,14 @@ section {
   transform: translateY(-3px);
 }
 
+.btn:focus-visible,
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--purple-light);
+  outline-offset: 4px;
+}
+
 .btn-primary {
   background: linear-gradient(115deg, #a855f7, #7928ca);
   color: white;
@@ -206,11 +214,17 @@ section {
   width: 100%;
 }
 
+.btn:disabled {
+  opacity: .65;
+  cursor: wait;
+  transform: none;
+}
+
 .header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(8,8,12,.78);
+  background: rgba(8,8,12,.88);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(192,132,252,.12);
@@ -1065,6 +1079,10 @@ details p {
   box-shadow: 0 12px 35px rgba(37,211,102,.35);
 }
 
+.whatsapp-float:focus-visible {
+  outline-color: #25d366;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -1098,7 +1116,7 @@ details p {
   }
 
   .hero-grid {
-    grid-template-columns: 1fr  .8fr;
+    grid-template-columns: 1fr .8fr;
     gap: 22px;
   }
 
@@ -2257,3 +2275,4 @@ budgetForm.addEventListener("submit", async event => {
 
 </body>
 </html>
+```
