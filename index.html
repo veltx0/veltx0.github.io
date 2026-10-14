@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -30,13 +29,29 @@ html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{
   font-family:Inter,sans-serif;
   background:var(--bg);color:var(--text);
-  line-height:1.65;overflow-x:hidden
+  line-height:1.65;overflow-x:hidden;
+  position:relative;isolation:isolate
 }
+/* Fundo preto com brilho roxo animado; não precisa de vídeo. */
 body::before{
-  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
   background:
-    radial-gradient(ellipse at 15% 10%,rgba(121,40,202,.16),transparent 36%),
-    radial-gradient(ellipse at 90% 35%,rgba(168,85,247,.09),transparent 32%)
+    radial-gradient(ellipse at 12% 8%,rgba(121,40,202,.19),transparent 34%),
+    radial-gradient(ellipse at 88% 28%,rgba(168,85,247,.11),transparent 31%),
+    radial-gradient(ellipse at 52% 88%,rgba(121,40,202,.09),transparent 38%),
+    #08080c;
+  background-size:140% 140%;
+  animation:ambientGlow 22s ease-in-out infinite alternate
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.16;
+  background-image:linear-gradient(120deg,transparent 0 49.7%,rgba(168,85,247,.13) 50%,transparent 50.3% 100%);
+  background-size:180px 180px;
+  mask-image:linear-gradient(to bottom,black,transparent 78%)
+}
+@keyframes ambientGlow{
+  0%{background-position:0% 0%}
+  100%{background-position:100% 75%}
 }
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit}
@@ -153,9 +168,13 @@ header{
 .card{
   position:relative;padding:26px;border:1px solid var(--border);
   border-radius:21px;background:linear-gradient(145deg,#171123e8,#0c0a12e8);
-  transition:transform .25s,border-color .25s;overflow:hidden
+  transition:transform .25s,border-color .25s,box-shadow .25s;overflow:hidden
 }
-.card:hover{transform:translateY(-5px);border-color:#c084fc70}
+.card::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background:radial-gradient(circle at 0% 0%,rgba(168,85,247,.10),transparent 48%)
+}
+.card:hover{transform:translateY(-5px);border-color:#c084fc70;box-shadow:0 14px 42px rgba(121,40,202,.12)}
 .card-icon{
   width:52px;height:52px;display:grid;place-items:center;
   border:1px solid var(--border);border-radius:15px;
@@ -217,8 +236,7 @@ header{
   border-radius:25px;background:radial-gradient(circle,#a855f729,transparent 60%),#100d19
 }
 .about-monogram{font-size:clamp(5rem,12vw,8rem);font-weight:900;letter-spacing:-.13em;color:transparent;-webkit-text-stroke:1px #d8b4fe}
-.about-content h2{font-size:clamp(2rem,4vw,3rem);line-height:1.12;letter-spacing:-.05em;margin:16px 0}
-.about-content p{color:var(--muted);margin-bottom:15px}
+.about-content h2{font-size:clamp(2rem,4vw,3rem);line-height:1.12;letter-spacing:-.05em;margin:16px 0}.about-content p{color:var(--muted);margin-bottom:15px}
 .about-points{display:grid;gap:13px;margin-top:22px}
 .about-point{display:flex;gap:12px}
 .about-point span{color:var(--light)}
@@ -318,6 +336,7 @@ footer{border-top:1px solid var(--border);padding:35px 0;background:#08080c}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+  body::before{background-position:50% 50%}
 }
 </style>
 </head>
@@ -327,7 +346,7 @@ footer{border-top:1px solid var(--border);padding:35px 0;background:#08080c}
 <header>
   <div class="container nav">
     <a class="brand" href="#inicio" aria-label="VELTRONIX - início">
-      <img src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg" alt="Logo VELTRONIX" onerror="this.style.display='none'">
+      <img src="logo-veltronix.png" alt="Logo VELTRONIX" onerror="this.style.display='none'">
       <span>
         <span class="brand-name">VELTRONIX</span>
         <span class="brand-tag">Tecnologia que impulsiona negócios.</span>
@@ -536,27 +555,27 @@ footer{border-top:1px solid var(--border);padding:35px 0;background:#08080c}
     <p class="pricing-disclaimer">Os recursos, limites, prazo, hospedagem, domínio e eventuais serviços de terceiros devem ser definidos no orçamento. Funcionalidades extras podem alterar o valor.</p>
 
     <div class="maintenance" id="manutencao">
-      <span class="eyebrow">Cuidado contínuo</span>
-      <h3 style="margin-top:14px">Manutenção de site</h3>
-      <div class="maintenance-price">1º mês grátis · depois R$ 49/mês</div>
-      <p>O primeiro mês é gratuito. Após esse período, a manutenção passa a custar R$ 49 por mês, mediante continuidade do serviço. O escopo das atualizações e do suporte deve ser combinado previamente.</p>
-      <a class="btn primary quote-plan" data-plan="Manutenção de site - primeiro mês grátis, depois R$ 49/mês" href="#orcamento" style="margin-top:18px">Tenho interesse ↗</a>
+      <h3>Manutenção de site</h3>
+      <p>O primeiro mês é gratuito. Depois, você pode continuar com o serviço de manutenção mensal.</p>
+      <div class="maintenance-price">R$ 49/mês</div>
+      <p>Atualizações e pequenos ajustes combinados. Serviços adicionais são avaliados separadamente.</p>
+      <a class="btn secondary" href="#orcamento" style="margin-top:15px">Tenho interesse</a>
     </div>
   </div>
 </section>
 
 <section id="sobre">
   <div class="container about-grid">
-    <div class="about-visual"><div class="about-monogram">V.</div></div>
+    <div class="about-visual" aria-hidden="true"><span class="about-monogram">V.</span></div>
     <div class="about-content">
       <span class="eyebrow">Sobre a VELTRONIX</span>
       <h2>Tecnologia que impulsiona <span class="gradient">negócios.</span></h2>
-      <p>A VELTRONIX é uma marca voltada à criação de soluções digitais para negócios que querem construir ou melhorar sua presença na internet.</p>
-      <p>Nosso objetivo é desenvolver projetos com identidade visual consistente, navegação clara e recursos alinhados às necessidades de cada cliente.</p>
+      <p>A VELTRONIX desenvolve soluções digitais para ajudar negócios a construir uma presença profissional na internet.</p>
+      <p>Nosso foco é entender cada necessidade, planejar com clareza e criar experiências digitais modernas e acessíveis.</p>
       <div class="about-points">
-        <div class="about-point"><span>✦</span><div><strong>Projetos personalizados</strong><small>Cada orçamento considera as necessidades do cliente.</small></div></div>
-        <div class="about-point"><span>✦</span><div><strong>Comunicação direta</strong><small>Alinhamento do escopo e das expectativas.</small></div></div>
-        <div class="about-point"><span>✦</span><div><strong>Foco em usabilidade</strong><small>Experiências pensadas para diferentes telas.</small></div></div>
+        <div class="about-point"><span>✦</span><div><strong>Atendimento próximo</strong><small>Comunicação clara durante o projeto.</small></div></div>
+        <div class="about-point"><span>✦</span><div><strong>Soluções personalizadas</strong><small>O projeto é pensado para cada necessidade.</small></div></div>
+        <div class="about-point"><span>✦</span><div><strong>Design responsivo</strong><small>Experiência adaptada a diferentes telas.</small></div></div>
       </div>
     </div>
   </div>
@@ -566,20 +585,18 @@ footer{border-top:1px solid var(--border);padding:35px 0;background:#08080c}
   <div class="container">
     <div class="section-heading">
       <span class="eyebrow">Dúvidas frequentes</span>
-      <h2>Antes de começar, <span class="gradient">saiba mais.</span></h2>
+      <h2>Respostas para começar com <span class="gradient">segurança.</span></h2>
+      <p>Algumas informações úteis antes de solicitar seu orçamento.</p>
     </div>
     <div class="faq-list">
-      <details><summary>Como faço para solicitar um orçamento?</summary><p>Preencha o formulário desta página ou entre em contato pelo WhatsApp. Descreva sua ideia para podermos entender o projeto.</p></details>
-      <details><summary>Os valores são fixos para qualquer projeto?</summary><p>Os preços exibidos são valores iniciais dos planos apresentados. Recursos adicionais ou mudanças no escopo podem alterar o orçamento, sempre com alinhamento prévio.</p></details>
-      <details><summary>O site funciona no celular?</summary><p>Os layouts são planejados para se adaptar a celulares, tablets e computadores.</p></details>
+      <details><summary>Como faço para solicitar um orçamento?</summary><p>Preencha o formulário desta página com seu contato, serviço desejado e uma descrição do projeto. Também é possível falar conosco pelo WhatsApp.</p></details>
+      <details><summary>O site funciona em celular?</summary><p>Sim. Os projetos são planejados para se adaptar a celulares, tablets e computadores.</p></details>
       <details><summary>O domínio e a hospedagem estão incluídos?</summary><p>Isso precisa ser definido no orçamento. Domínios, hospedagem e serviços pagos de terceiros podem ter custos próprios.</p></details>
       <details><summary>Como funciona o primeiro mês grátis de manutenção?</summary><p>O primeiro mês de manutenção é gratuito. Depois, o serviço custa R$ 49 por mês caso você decida continuar. O que está incluído deve ser combinado antes do início.</p></details>
       <details><summary>Quando meu projeto será entregue?</summary><p>O prazo depende do escopo, dos materiais necessários e da complexidade. A previsão é alinhada antes do desenvolvimento.</p></details>
     </div>
   </div>
-</section>
-
-<section class="budget-section" id="orcamento">
+</section><section class="budget-section" id="orcamento">
   <div class="container budget-grid">
     <div class="budget-copy">
       <span class="eyebrow">Vamos conversar</span>
@@ -644,7 +661,7 @@ footer{border-top:1px solid var(--border);padding:35px 0;background:#08080c}
   <div class="container">
     <div class="footer-grid">
       <a class="brand" href="#inicio">
-        <img src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg" alt="" onerror="this.style.display='none'">
+        <img src="logo-veltronix.png" alt="" onerror="this.style.display='none'">
         <span><span class="brand-name">VELTRONIX</span><span class="brand-tag">Tecnologia que impulsiona negócios.</span></span>
       </a>
       <div class="footer-links">
@@ -709,7 +726,7 @@ const SUPABASE_PUBLIC_KEY = "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
 /*
   O formulário tenta salvar o orçamento na tabela "orcamentos".
   Se o envio falhar, oferece a opção de enviar a mensagem pelo WhatsApp.
-  A chave acima é uma chave pública; nunca coloque uma service_role aqui.
+  Esta é uma chave pública; nunca coloque uma service_role no site.
 */
 
 const form = document.getElementById("budgetForm");
