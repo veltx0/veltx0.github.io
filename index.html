@@ -1,259 +1,558 @@
-
-<style>
-#vx-chat-button {
-  position: fixed;
-  right: 20px;
-  bottom: 92px;
-  z-index: 9998;
-  width: 60px;
-  height: 60px;
-  border: 1px solid #d8b4fe;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #a855f7, #7928ca);
-  color: white;
-  font-size: 27px;
-  cursor: pointer;
-  box-shadow: 0 0 25px #a855f755;
+  .trust-grid{grid-template-columns:1fr;gap:14px}
+  .trust-item{justify-content:flex-start}
+  .cards-grid,.pricing-grid{grid-template-columns:1fr}
+  .about-grid,.budget-grid{grid-template-columns:1fr}
+  .about-visual{min-height:230px}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .footer-grid{align-items:flex-start;flex-direction:column}
+  .footer-links{gap:12px}
 }
-#vx-chat-window {
-  position: fixed;
-  right: 20px;
-  bottom: 164px;
-  z-index: 9999;
-  width: min(370px, calc(100vw - 28px));
-  height: min(510px, calc(100dvh - 190px));
-  min-height: 340px;
-  display: none;
-  flex-direction: column;
-  overflow: hidden;
-  border: 1px solid #a855f766;
-  border-radius: 18px;
-  background: #0d0a14;
-  color: #f7f3ff;
-  box-shadow: 0 15px 55px #000b;
-  font-family: Inter, Arial, sans-serif;
-}
-#vx-chat-window.vx-open {
-  display: flex;
-}
-.vx-chat-header {
-  padding: 16px;
-  background: linear-gradient(120deg, #7928ca, #301044);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-.vx-chat-header strong {
-  display: block;
-  font-size: 15px;
-}
-.vx-chat-header small {
-  display: block;
-  opacity: .8;
-  font-size: 11px;
-}
-#vx-chat-close {
-  background: transparent;
-  color: white;
-  border: 0;
-  font-size: 24px;
-  cursor: pointer;
-}
-#vx-chat-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.vx-chat-message {
-  max-width: 88%;
-  padding: 10px 12px;
-  border-radius: 13px;
-  font-size: 13px;
-  line-height: 1.5;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-.vx-chat-bot {
-  align-self: flex-start;
-  background: #1b1428;
-  border: 1px solid #a855f733;
-}
-.vx-chat-user {
-  align-self: flex-end;
-  background: #7928ca;
-}
-#vx-chat-form {
-  display: flex;
-  gap: 8px;
-  padding: 12px;
-  border-top: 1px solid #a855f733;
-}
-#vx-chat-input {
-  flex: 1;
-  min-width: 0;
-  background: #171123;
-  color: white;
-  border: 1px solid #a855f755;
-  border-radius: 10px;
-  padding: 11px;
-  outline: none;
-}
-#vx-chat-input:focus {
-  border-color: #c084fc;
-}
-#vx-chat-send {
-  background: #a855f7;
-  border: 0;
-  border-radius: 10px;
-  padding: 0 15px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-#vx-chat-send:disabled {
-  opacity: .5;
-  cursor: wait;
-}
-@media (max-width: 480px) {
-  #vx-chat-button {
-    right: 14px;
-    bottom: 84px;
-  }
-  #vx-chat-window {
-    right: 14px;
-    bottom: 153px;
-  }
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
 }
 </style>
+</head>
+<body>
 
-<button id="vx-chat-button" type="button"
-  aria-label="Abrir assistente virtual da VELTRONIX"
-  aria-expanded="false">✦</button>
+<header>
+  <div class="container nav">
+    <a class="brand" href="#inicio" aria-label="VELTRONIX - Início">
+      <img src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg" alt="" onerror="this.style.display='none'">
+      <span>
+        <span class="brand-name">VELTRONIX</span>
+        <span class="brand-tag">Tecnologia que impulsiona negócios.</span>
+      </span>
+    </a>
 
-<section id="vx-chat-window" aria-label="Chat da VELTRONIX">
-  <div class="vx-chat-header">
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
+
+    <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
+      <a href="#servicos">Serviços</a>
+      <a href="#portfolio">Portfólio</a>
+      <a href="#precos">Preços</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#faq">Dúvidas</a>
+      <a class="btn primary" href="#orcamento">Solicitar orçamento ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
     <div>
-      <strong>VELTRONIX AI</strong>
-      <small>Assistente virtual • Tire suas dúvidas</small>
+      <span class="eyebrow">Soluções digitais</span>
+      <h1>Seu negócio merece uma presença <span class="gradient">extraordinária.</span></h1>
+      <p class="hero-copy">Criamos experiências digitais para apresentar sua marca, conquistar clientes e impulsionar o crescimento do seu negócio.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#orcamento">Solicitar orçamento ↗</a>
+        <a class="btn secondary" href="#portfolio">Conhecer projetos</a>
+      </div>
+      <p class="hero-note">✦ Tecnologia, criatividade e foco no seu negócio.</p>
     </div>
-    <button id="vx-chat-close" type="button"
-      aria-label="Fechar chat">×</button>
-  </div>
 
-  <div id="vx-chat-messages" aria-live="polite">
-    <div class="vx-chat-message vx-chat-bot">Olá! 👋 Sou o assistente virtual da VELTRONIX. Como posso ajudar você hoje?</div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="orb-glow"></div>
+      <div class="orb"><div class="orb-core"></div></div>
+      <div class="float-card one"><strong>✦ Presença digital</strong><small>Sua marca em destaque</small></div>
+      <div class="float-card two"><strong>↗ Seu próximo projeto</strong><small>Começa com uma ideia</small></div>
+    </div>
   </div>
-
-  <form id="vx-chat-form">
-    <input id="vx-chat-input" type="text" maxlength="4000"
-      placeholder="Digite sua mensagem..." autocomplete="off"
-      aria-label="Sua mensagem" required>
-    <button id="vx-chat-send" type="submit">Enviar</button>
-  </form>
 </section>
 
+<div class="trust-strip">
+  <div class="container trust-grid">
+    <div class="trust-item"><span class="trust-icon">✦</span><div><strong>Design profissional</strong><small>Visual alinhado à sua marca</small></div></div>
+    <div class="trust-item"><span class="trust-icon">⌘</span><div><strong>Experiência responsiva</strong><small>Para celular, tablet e computador</small></div></div>
+    <div class="trust-item"><span class="trust-icon">↗</span><div><strong>Foco no seu negócio</strong><small>Soluções para suas necessidades</small></div></div>
+  </div>
+</div>
+
+<section id="servicos">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">O que fazemos</span>
+      <h2>Transformamos ideias em <span class="gradient">soluções digitais.</span></h2>
+      <p>Serviços pensados para ajudar sua marca a se apresentar melhor no mundo digital.</p>
+    </div>
+
+    <div class="cards-grid">
+      <article class="card">
+        <div class="card-icon">⌘</div>
+        <h3>Criação de sites</h3>
+        <p>Sites modernos, responsivos e personalizados para apresentar sua empresa, seus serviços e seus contatos.</p>
+        <a class="card-link" href="#precos">Ver planos →</a>
+      </article>
+      <article class="card">
+        <div class="card-icon">✧</div>
+        <h3>Identidade digital</h3>
+        <p>Uma apresentação visual coerente para fortalecer a imagem da sua marca na internet.</p>
+        <a class="card-link" href="#orcamento">Fortalecer minha marca →</a>
+      </article>
+      <article class="card">
+        <div class="card-icon">⚙</div>
+        <h3>Automação de processos</h3>
+        <p>Soluções para organizar tarefas e facilitar processos digitais do dia a dia.</p>
+        <a class="card-link" href="#orcamento">Conhecer soluções →</a>
+      </article>
+      <article class="card">
+        <div class="card-icon">↻</div>
+        <h3>Manutenção de sites</h3>
+        <p>Ajustes visuais e melhorias combinadas para o seu site.</p>
+        <a class="card-link" href="#manutencao">Conhecer manutenção →</a>
+      </article>
+      <article class="card">
+        <div class="card-icon">◈</div>
+        <h3>Melhorias em sites</h3>
+        <p>Ajustes de layout, responsividade, organização das informações e experiência de navegação.</p>
+        <a class="card-link" href="#orcamento">Melhorar meu site →</a>
+      </article>
+      <article class="card">
+        <div class="card-icon">↗</div>
+        <h3>Consultoria digital</h3>
+        <p>Ajuda para entender as necessidades do seu negócio e planejar os próximos passos na internet.</p>
+        <a class="card-link" href="#orcamento">Falar com a VELTRONIX →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Nosso portfólio</span>
+      <h2>Projetos que tiram ideias do <span class="gradient">papel.</span></h2>
+      <p>Conheça um projeto desenvolvido para um negócio real.</p>
+    </div>
+
+    <div class="cards-grid">
+      <article class="card portfolio-card">
+        <a href="https://vffilhoslanches.github.io/vf-filho-lanche/" target="_blank" rel="noopener" aria-label="Visitar site VF FILHOS LANCHES">
+          <div class="project-preview">
+            <span class="project-logo">VF</span>
+            <span class="project-caption">FILHOS LANCHES</span>
+          </div>
+        </a>
+        <div class="project-body">
+          <h3>VF FILHOS LANCHES</h3>
+          <p>Projeto de site para lanchonete, com apresentação de produtos e experiência digital voltada aos clientes.</p>
+          <div class="tags"><span class="tag">Site comercial</span><span class="tag">Cardápio</span><span class="tag">Responsivo</span></div>
+          <a class="card-link" href="https://vffilhoslanches.github.io/vf-filho-lanche/" target="_blank" rel="noopener">Visitar projeto ↗</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="project-cta">
+      <p class="muted">Quer ver seu negócio aqui também?</p>
+      <a href="#orcamento" class="btn primary" style="margin-top:12px">Vamos conversar ↗</a>
+    </div>
+  </div>
+</section>
+
+<section id="processo">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Do primeiro contato à <span class="gradient">entrega.</span></h2>
+      <p>Um processo organizado para entender sua necessidade e desenvolver uma solução adequada.</p>
+    </div>
+    <div class="process-grid">
+      <article class="card"><div class="step-number">01</div><h3>Conversa</h3><p>Entendemos sua ideia, seu público e o que você precisa.</p></article>
+      <article class="card"><div class="step-number">02</div><h3>Planejamento</h3><p>Definimos escopo, prazo e valor antes de iniciar.</p></article>
+      <article class="card"><div class="step-number">03</div><h3>Desenvolvimento</h3><p>Construímos o projeto de acordo com o combinado.</p></article>
+      <article class="card"><div class="step-number">04</div><h3>Entrega</h3><p>Apresentamos o resultado e orientamos os próximos passos.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="precos">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Planos e preços</span>
+      <h2>Escolha o plano para <span class="gradient">começar.</span></h2>
+      <p>Valores iniciais para criação de sites. O escopo final é combinado antes do início do projeto.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <article class="card price-card">
+        <h3>Site Básico</h3>
+        <p class="price-note">Para começar sua presença digital.</p>
+        <div class="price">R$ 150<small>,00</small></div>
+        <p class="price-note">Valor do projeto</p>
+        <ul class="features">
+          <li>Site de apresentação</li>
+          <li>Layout responsivo</li>
+          <li>Informações da empresa</li>
+          <li>Links de contato</li>
+          <li>Design profissional</li>
+        </ul>
+        <a class="btn secondary full quote-plan" data-plan="Site Básico - R$ 150" href="#orcamento">Escolher plano</a>
+      </article>
+
+      <article class="card price-card featured">
+        <span class="popular">Plano profissional</span>
+        <h3>Site Profissional</h3>
+        <p class="price-note">Para apresentar seus serviços com mais detalhes.</p>
+        <div class="price">R$ 210<small>,00</small></div>
+        <p class="price-note">Valor do projeto</p>
+        <ul class="features">
+          <li>Tudo do plano Básico</li>
+          <li>Seções personalizadas</li>
+          <li>Apresentação de serviços</li>
+          <li>Formulário de contato conforme escopo</li>
+          <li>Mais possibilidades de personalização</li>
+        </ul>
+        <a class="btn primary full quote-plan" data-plan="Site Profissional - R$ 210" href="#orcamento">Escolher plano</a>
+      </article>
+
+      <article class="card price-card">
+        <h3>Site Avançado</h3>
+        <p class="price-note">Para projetos com necessidades mais específicas.</p>
+        <div class="price">R$ 300<small>,00</small></div>
+        <p class="price-note">Valor do projeto</p>
+        <ul class="features">
+          <li>Estrutura personalizada</li>
+          <li>Mais seções e conteúdo</li>
+          <li>Recursos definidos no escopo</li>
+          <li>Layout adaptado ao projeto</li>
+          <li>Planejamento individual</li>
+        </ul>
+        <a class="btn secondary full quote-plan" data-plan="Site Avançado - R$ 300" href="#orcamento">Escolher plano</a>
+      </article>
+    </div>
+
+    <p class="pricing-disclaimer">Os recursos, limites, prazo, hospedagem, domínio e eventuais serviços de terceiros devem ser definidos no orçamento. Funcionalidades extras podem alterar o valor.</p>
+
+    <div class="maintenance" id="manutencao">
+      <span class="eyebrow">Cuidado contínuo</span>
+      <h3 style="margin-top:14px">Manutenção de site</h3>
+      <div class="maintenance-price">1º mês grátis · depois R$ 49/mês</div>
+      <p>O primeiro mês é gratuito. Após esse período, a manutenção passa a custar R$ 49 por mês, mediante continuidade do serviço. O escopo das atualizações e do suporte deve ser combinado previamente.</p>
+      <a class="btn primary quote-plan" data-plan="Manutenção de site - primeiro mês grátis, depois R$ 49/mês" href="#orcamento" style="margin-top:18px">Tenho interesse ↗</a>
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="container about-grid">
+    <div class="about-visual"><div class="about-monogram">V.</div></div>
+    <div class="about-content">
+      <span class="eyebrow">Sobre a VELTRONIX</span>
+      <h2>Tecnologia que impulsiona <span class="gradient">negócios.</span></h2>
+      <p>A VELTRONIX é uma marca voltada à criação de soluções digitais para negócios que querem construir ou melhorar sua presença na internet.</p>
+      <p>Nosso objetivo é transformar ideias em experiências digitais funcionais, com atenção ao design, à organização e às necessidades de cada cliente.</p>
+      <div class="about-points">
+        <div class="about-point"><span>✦</span><div><strong>Atendimento próximo</strong><small>Entendimento das necessidades antes de começar.</small></div></div>
+        <div class="about-point"><span>✦</span><div><strong>Projetos personalizados</strong><small>Uma solução planejada para cada objetivo.</small></div></div>
+        <div class="about-point"><span>✦</span><div><strong>Foco em resultados</strong><small>Experiência digital pensada para o negócio.</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Dúvidas frequentes</span>
+      <h2>Vamos esclarecer suas <span class="gradient">dúvidas.</span></h2>
+      <p>Veja algumas respostas antes de solicitar seu orçamento.</p>
+    </div>
+    <div class="faq-list">
+      <details><summary>Quanto custa criar um site?</summary><p>Os planos iniciais estão apresentados na seção de preços. O valor final depende do escopo e das funcionalidades combinadas.</p></details>
+      <details><summary>O site funciona no celular?</summary><p>Sim. Os projetos são planejados para se adaptar a diferentes tamanhos de tela, incluindo celulares, tablets e computadores.</p></details>
+      <details><summary>Quanto tempo demora para ficar pronto?</summary><p>O prazo depende do tamanho do projeto, do conteúdo necessário e dos recursos combinados. O prazo será definido antes do início.</p></details>
+      <details><summary>Posso pedir alterações?</summary><p>Sim. As alterações e seus limites são combinados durante o planejamento do projeto.</p></details>
+      <details><summary>Como faço para solicitar um orçamento?</summary><p>Preencha o formulário nesta página ou entre em contato pelo WhatsApp. Vamos entender sua necessidade e conversar sobre as opções.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="orcamento" class="budget-section">
+  <div class="container budget-grid">
+    <div class="budget-copy">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2>Seu próximo projeto começa <span class="gradient">aqui.</span></h2>
+      <p>Conte um pouco sobre sua ideia. Vamos entender sua necessidade e entrar em contato para conversar sobre as possibilidades.</p>
+      <div class="budget-contact">
+        <a href="https://wa.me/5521974994201" target="_blank" rel="noopener">◉ WhatsApp: falar com a VELTRONIX</a>
+        <a href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener">◎ Instagram: @veltronix_tech</a>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <h3>Solicitar orçamento</h3>
+      <p class="form-intro">Preencha os campos abaixo. Os campos com * são obrigatórios.</p>
+      <form id="budgetForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="nome">Seu nome *</label>
+            <input id="nome" name="nome" maxlength="120" autocomplete="name" placeholder="Como podemos chamar você?" required>
+          </div>
+          <div class="field">
+            <label for="contato">WhatsApp ou e-mail *</label>
+            <input id="contato" name="contato" maxlength="180" autocomplete="email" placeholder="Como podemos entrar em contato?" required>
+          </div>
+          <div class="field full">
+            <label for="servico">Qual serviço você procura? *</label>
+            <select id="servico" name="servico" required>
+              <option value="">Selecione uma opção</option>
+              <option value="Site Básico - R$ 150">Site Básico - R$ 150</option>
+              <option value="Site Profissional - R$ 210">Site Profissional - R$ 210</option>
+              <option value="Site Avançado - R$ 300">Site Avançado - R$ 300</option>
+              <option value="Manutenção de site - primeiro mês grátis, depois R$ 49/mês">Manutenção de site</option>
+              <option value="Identidade digital">Identidade digital</option>
+              <option value="Automação de processos">Automação de processos</option>
+              <option value="Melhorias em sites">Melhorias em sites</option>
+              <option value="Consultoria digital">Consultoria digital</option>
+              <option value="Outro projeto">Outro projeto</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="descricao">Conte sobre seu projeto *</label>
+            <textarea id="descricao" name="descricao" maxlength="3000" placeholder="O que você gostaria de criar ou melhorar?" required></textarea>
+          </div>
+          <div class="field full">
+            <label for="prazo">Prazo desejado</label>
+            <input id="prazo" name="prazo" maxlength="120" placeholder="Ex.: sem data definida">
+          </div>
+        </div>
+
+        <p class="form-privacy">Ao enviar, seus dados serão usados para responder à solicitação de orçamento. Não inclua senhas nem informações confidenciais.</p>
+        <button class="btn primary full" id="submitButton" type="submit">Enviar solicitação ↗</button>
+        <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <a class="brand" href="#inicio">
+        <img src="https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg" alt="" onerror="this.style.display='none'">
+        <span><span class="brand-name">VELTRONIX</span><span class="brand-tag">Tecnologia que impulsiona negócios.</span></span>
+      </a>
+      <div class="footer-links">
+        <a href="#servicos">Serviços</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#precos">Preços</a>
+        <a href="#orcamento">Orçamento</a>
+        <a href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/5521974994201" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> VELTRONIX. Todos os direitos reservados.</span>
+      <a href="#inicio">Voltar ao topo ↑</a>
+    </div>
+  </div>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/5521974994201?text=Ol%C3%A1%2C%20VELTRONIX!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Falar com a VELTRONIX pelo WhatsApp">◉</a>
+
 <script>
-(function () {
-  "use strict";
+"use strict";
 
-  const endpoint =
-    "https://swgrurgztdcyhtrjpotc.supabase.co/functions/v1/smooth-responder";
+/* MENU RESPONSIVO */
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 
-  const button = document.getElementById("vx-chat-button");
-  const windowChat = document.getElementById("vx-chat-window");
-  const closeButton = document.getElementById("vx-chat-close");
-  const messages = document.getElementById("vx-chat-messages");
-  const formChat = document.getElementById("vx-chat-form");
-  const input = document.getElementById("vx-chat-input");
-  const sendButton = document.getElementById("vx-chat-send");
+menuToggle.addEventListener("click", () => {
+  const aberto = navLinks.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", String(aberto));
+  menuToggle.setAttribute("aria-label", aberto ? "Fechar menu" : "Abrir menu");
+  menuToggle.textContent = aberto ? "✕" : "☰";
+});
 
-  const history = [];
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Abrir menu");
+    menuToggle.textContent = "☰";
+  });
+});
 
-  function addMessage(text, type) {
-    const item = document.createElement("div");
-    item.className = "vx-chat-message " +
-      (type === "user" ? "vx-chat-user" : "vx-chat-bot");
-    item.textContent = text;
-    messages.appendChild(item);
-    messages.scrollTop = messages.scrollHeight;
-    return item;
+/* ANO AUTOMÁTICO */
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* PREENCHE O SERVIÇO ESCOLHIDO NO PLANO */
+document.querySelectorAll(".quote-plan").forEach(link => {
+  link.addEventListener("click", () => {
+    const plano = link.dataset.plan;
+    const campo = document.getElementById("servico");
+    const opcoes = Array.from(campo.options);
+    const correspondente = opcoes.find(opcao => opcao.value === plano);
+    if (correspondente) campo.value = correspondente.value;
+  });
+});
+
+/* CONFIGURAÇÃO DO SUPABASE */
+const SUPABASE_URL = "https://swgrurgztdcyhtrjpotc.supabase.co";
+const SUPABASE_PUBLIC_KEY = "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
+
+/*
+  O formulário tenta salvar o orçamento na tabela "orcamentos".
+  Se o envio falhar, oferece a opção de enviar a mensagem pelo WhatsApp.
+  A chave acima é uma chave pública; nunca coloque uma service_role aqui.
+*/
+
+const form = document.getElementById("budgetForm");
+const statusBox = document.getElementById("formStatus");
+const submitButton = document.getElementById("submitButton");
+
+function mostrarStatus(mensagem, linkWhatsApp = null) {
+  statusBox.replaceChildren();
+  statusBox.classList.add("show");
+  statusBox.append(document.createTextNode(mensagem));
+
+  if (linkWhatsApp) {
+    statusBox.append(document.createTextNode(" "));
+    const link = document.createElement("a");
+    link.href = linkWhatsApp;
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = "Continuar pelo WhatsApp";
+    statusBox.append(link);
+  }
+}
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!form.reportValidity()) return;
+
+  const dados = {
+    nome: document.getElementById("nome").value.trim(),
+    contato: document.getElementById("contato").value.trim(),
+    servico: document.getElementById("servico").value,
+    descricao: document.getElementById("descricao").value.trim(),
+    prazo: document.getElementById("prazo").value.trim() || "Não informado",
+    status: "recebido"
+  };
+
+  if (!dados.nome || !dados.contato || !dados.servico || !dados.descricao) {
+    mostrarStatus("Confira os campos obrigatórios e tente novamente.");
+    return;
   }
 
-  function toggleChat(open) {
-    windowChat.classList.toggle("vx-open", open);
-    button.setAttribute("aria-expanded", String(open));
+  const mensagem = [
+    "Olá, VELTRONIX! Quero solicitar um orçamento.",
+    "",
+    "Nome: " + dados.nome,
+    "Contato: " + dados.contato,
+    "Serviço: " + dados.servico,
+    "Prazo: " + dados.prazo,
+    "Descrição: " + dados.descricao
+  ].join("\n");
 
-    if (open) {
-      input.focus();
-    }
-  }
+  const whatsappURL = "https://wa.me/5521974994201?text=" + encodeURIComponent(mensagem);
 
-  button.addEventListener("click", function () {
-    toggleChat(!windowChat.classList.contains("vx-open"));
-  });
+  submitButton.disabled = true;
+  submitButton.textContent = "Enviando...";
+  statusBox.classList.remove("show");
 
-  closeButton.addEventListener("click", function () {
-    toggleChat(false);
-  });
+  try {
+    const resposta = await fetch(SUPABASE_URL + "/rest/v1/orcamentos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_PUBLIC_KEY,
+        "Authorization": "Bearer " + SUPABASE_PUBLIC_KEY,
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify(dados)
+    });
 
-  formChat.addEventListener("submit", async function (event) {
-    event.preventDefault();
+    if (!resposta.ok) {
+      let detalhe = "";
+      try {
+        const erro = await resposta.json();
+        detalhe = erro.message || erro.details || "";
+      } catch (_) {}
 
-    const message = input.value.trim();
-    if (!message || sendButton.disabled) return;
+      console.error("Falha ao salvar orçamento:", resposta.status, detalhe);
 
-    addMessage(message, "user");
-    input.value = "";
-    input.disabled = true;
-    sendButton.disabled = true;
-    sendButton.textContent = "...";
-
-    const waiting = addMessage("Estou pensando...", "bot");
-
-    try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          message: message,
-          history: history.slice(-12)
-        })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || !data.reply) {
-        throw new Error(data.error || "Não foi possível obter uma resposta.");
-      }
-
-      waiting.textContent = data.reply;
-
-      history.push(
-        { role: "user", text: message },
-        { role: "model", text: data.reply }
+      mostrarStatus(
+        "Não foi possível registrar o orçamento automaticamente. Você pode enviar os mesmos dados pelo WhatsApp.",
+        whatsappURL
       );
-
-      if (history.length > 12) {
-        history.splice(0, history.length - 12);
-      }
-    } catch (error) {
-      console.error("Erro no chat VELTRONIX:", error);
-      waiting.textContent =
-        "Não consegui responder agora. Tente novamente em instantes.";
-    } finally {
-      input.disabled = false;
-      sendButton.disabled = false;
-      sendButton.textContent = "Enviar";
-      messages.scrollTop = messages.scrollHeight;
-      input.focus();
+      return;
     }
+
+    mostrarStatus(
+      "Solicitação enviada! Para garantir o acompanhamento, você também pode confirmar os detalhes pelo WhatsApp.",
+      whatsappURL
+    );
+    form.reset();
+
+  } catch (erro) {
+    console.error("Erro de conexão:", erro);
+    mostrarStatus(
+      "Não foi possível conectar ao sistema de orçamento. Tente continuar pelo WhatsApp.",
+      whatsappURL
+    );
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Enviar solicitação ↗";
+  }
+});
+</script>
+
+<style>
+#vx-chat-button{position:fixed;right:20px;bottom:92px;z-index:9998;width:60px;height:60px;border:1px solid #d8b4fe;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7928ca);color:#fff;font-size:27px;cursor:pointer;box-shadow:0 0 25px #a855f755}
+#vx-chat-window{position:fixed;right:20px;bottom:164px;z-index:9999;width:min(370px,calc(100vw - 28px));height:min(510px,calc(100dvh - 190px));min-height:340px;display:none;flex-direction:column;overflow:hidden;border:1px solid #a855f766;border-radius:18px;background:#0d0a14;color:#f7f3ff;box-shadow:0 15px 55px #000b;font-family:Inter,Arial,sans-serif}
+#vx-chat-window.vx-open{display:flex}
+.vx-chat-header{padding:16px;background:linear-gradient(120deg,#7928ca,#301044);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.vx-chat-header strong{display:block;font-size:15px}.vx-chat-header small{display:block;opacity:.8;font-size:11px}
+#vx-chat-close{background:transparent;color:white;border:0;font-size:24px;cursor:pointer}
+#vx-chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.vx-chat-message{max-width:88%;padding:10px 12px;border-radius:13px;font-size:13px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.vx-chat-bot{align-self:flex-start;background:#1b1428;border:1px solid #a855f733}.vx-chat-user{align-self:flex-end;background:#7928ca}
+#vx-chat-form{display:flex;gap:8px;padding:12px;border-top:1px solid #a855f733}
+#vx-chat-input{flex:1;min-width:0;background:#171123;color:white;border:1px solid #a855f755;border-radius:10px;padding:11px;outline:none}
+#vx-chat-input:focus{border-color:#c084fc}#vx-chat-send{background:#a855f7;border:0;border-radius:10px;padding:0 15px;color:white;font-weight:bold;cursor:pointer}
+#vx-chat-send:disabled{opacity:.5;cursor:wait}
+@media(max-width:480px){#vx-chat-button{right:14px;bottom:84px}#vx-chat-window{right:14px;bottom:153px}}
+</style>
+
+<button id="vx-chat-button" type="button" aria-label="Abrir assistente virtual da VELTRONIX" aria-expanded="false">✦</button>
+<section id="vx-chat-window" aria-label="Chat da VELTRONIX">
+  <div class="vx-chat-header"><div><strong>VELTRONIX AI</strong><small>Assistente virtual • Tire suas dúvidas</small></div><button id="vx-chat-close" type="button" aria-label="Fechar chat">×</button></div>
+  <div id="vx-chat-messages" aria-live="polite"><div class="vx-chat-message vx-chat-bot">Olá! 👋 Sou o assistente virtual da VELTRONIX. Como posso ajudar você hoje?</div></div>
+  <form id="vx-chat-form"><input id="vx-chat-input" type="text" maxlength="4000" placeholder="Digite sua mensagem..." autocomplete="off" aria-label="Sua mensagem" required><button id="vx-chat-send" type="submit">Enviar</button></form>
+</section>
+<script>
+(function(){
+  "use strict";
+  const endpoint="https://swgrurgztdcyhtrjpotc.supabase.co/functions/v1/smooth-responder";
+  const button=document.getElementById("vx-chat-button");
+  const windowChat=document.getElementById("vx-chat-window");
+  const closeButton=document.getElementById("vx-chat-close");
+  const messages=document.getElementById("vx-chat-messages");
+  const formChat=document.getElementById("vx-chat-form");
+  const input=document.getElementById("vx-chat-input");
+  const sendButton=document.getElementById("vx-chat-send");
+  const history=[];
+  function addMessage(text,type){const item=document.createElement("div");item.className="vx-chat-message "+(type==="user"?"vx-chat-user":"vx-chat-bot");item.textContent=text;messages.appendChild(item);messages.scrollTop=messages.scrollHeight;return item;}
+  function toggleChat(open){windowChat.classList.toggle("vx-open",open);button.setAttribute("aria-expanded",String(open));if(open)input.focus();}
+  button.addEventListener("click",()=>toggleChat(!windowChat.classList.contains("vx-open")));
+  closeButton.addEventListener("click",()=>toggleChat(false));
+  formChat.addEventListener("submit",async function(event){
+    event.preventDefault();const message=input.value.trim();if(!message||sendButton.disabled)return;
+    addMessage(message,"user");input.value="";input.disabled=true;sendButton.disabled=true;sendButton.textContent="...";
+    const waiting=addMessage("Estou pensando...","bot");
+    try{
+      const response=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:message,history:history.slice(-12)})});
+      const data=await response.json();if(!response.ok||!data.reply)throw new Error(data.error||"Não foi possível obter uma resposta.");
+      waiting.textContent=data.reply;history.push({role:"user",text:message},{role:"model",text:data.reply});if(history.length>12)history.splice(0,history.length-12);
+    }catch(error){console.error("Erro no chat VELTRONIX:",error);waiting.textContent="Não consegui responder agora. Tente novamente em instantes.";}
+    finally{input.disabled=false;sendButton.disabled=false;sendButton.textContent="Enviar";messages.scrollTop=messages.scrollHeight;input.focus();}
   });
 })();
 </script>
+
 </body>
+</html>
