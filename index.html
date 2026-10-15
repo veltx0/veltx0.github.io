@@ -5,9 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#08080c">
-<meta name="description" content="VELTRONIX — Tecnologia que impulsiona negócios. Criação de sites, identidade digital e soluções digitais.">
+<meta name="description" content="VELTRONIX — Tecnologia que impulsiona negócios. Criação de sites e soluções digitais.">
 <title>VELTRONIX | Tecnologia que impulsiona negócios</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -27,17 +26,8 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:85px}
-body{
-  font-family:Inter,Arial,sans-serif;
-  color:var(--text);background:var(--bg);
-  line-height:1.65;overflow-x:hidden
-}
-body::before{
-  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:
-    radial-gradient(ellipse at 10% 5%,#7928ca30,transparent 38%),
-    radial-gradient(ellipse at 90% 45%,#a855f715,transparent 35%)
-}
+body{font-family:Inter,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 10% 5%,#7928ca30,transparent 38%),radial-gradient(ellipse at 90% 45%,#a855f715,transparent 35%)}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit}
 button{color:inherit}
@@ -45,205 +35,85 @@ img{max-width:100%;display:block}
 .container{width:min(var(--max),calc(100% - 40px));margin:auto}
 section{padding:82px 0}
 .muted{color:var(--muted)}
-.gradient{
-  background:linear-gradient(100deg,#fff,#d8b4fe 45%,#a855f7);
-  color:transparent;background-clip:text;-webkit-background-clip:text
-}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:7px 12px;border:1px solid var(--border);
-  background:#a855f712;border-radius:50px;
-  color:var(--light);font-size:.75rem;font-weight:800;
-  letter-spacing:.07em;text-transform:uppercase
-}
-.eyebrow::before{
-  content:"";width:7px;height:7px;border-radius:50%;
-  background:var(--light);box-shadow:0 0 12px var(--purple)
-}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  gap:8px;min-height:48px;padding:12px 18px;
-  border-radius:12px;border:1px solid transparent;
-  font-size:.9rem;font-weight:800;cursor:pointer;
-  transition:transform .2s,border-color .2s
-}
+.gradient{background:linear-gradient(100deg,#fff,#d8b4fe 45%,#a855f7);color:transparent;background-clip:text;-webkit-background-clip:text}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid var(--border);background:#a855f712;border-radius:50px;color:var(--light);font-size:.75rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--light);box-shadow:0 0 12px var(--purple)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 18px;border-radius:12px;border:1px solid transparent;font-size:.9rem;font-weight:800;cursor:pointer;transition:transform .2s,border-color .2s}
 .btn:hover{transform:translateY(-2px)}
-.primary{
-  color:white;
-  background:linear-gradient(115deg,var(--purple),var(--purple2));
-  box-shadow:0 8px 25px #a855f72b
-}
+.primary{color:white;background:linear-gradient(115deg,var(--purple),var(--purple2));box-shadow:0 8px 25px #a855f72b}
 .secondary{border-color:var(--border);background:#ffffff06}
 .full{width:100%}
-
-/* CABEÇALHO */
-header{
-  position:sticky;top:0;z-index:1000;
-  background:#08080cee;backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border)
-}
-.nav{
-  min-height:74px;display:flex;align-items:center;
-  justify-content:space-between;gap:16px
-}
+header{position:sticky;top:0;z-index:1000;background:#08080cee;backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{display:flex;align-items:center;gap:11px;min-width:0}
-.brand-logo{
-  width:44px;height:44px;flex:0 0 44px;
-  display:grid;place-items:center;overflow:hidden;
-  border:1px solid var(--border);border-radius:12px;
-  background:linear-gradient(135deg,#29113e,#0e0b15);
-  color:var(--light);font-weight:900;font-size:1.2rem
-}
+.brand-logo{width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;overflow:hidden;border:1px solid var(--border);border-radius:12px;background:linear-gradient(135deg,#29113e,#0e0b15);color:var(--light);font-weight:900;font-size:1.2rem}
 .brand-logo img{width:100%;height:100%;object-fit:cover}
 .brand-name{font-weight:900;letter-spacing:.1em;font-size:1rem}
 .brand-tag{display:block;color:var(--muted);font-size:.63rem}
-.nav-links{display:flex;align-items:center;gap:18px}
-.nav-links>a:not(.btn){font-size:.83rem;color:#d2c9df}
+.nav-links{display:flex;align-items:center;gap:15px}
+.nav-links>a:not(.btn){font-size:.82rem;color:#d2c9df}
 .nav-links>a:hover{color:var(--light)}
-.menu-toggle{
-  display:none;width:44px;height:44px;
-  border:1px solid var(--border);border-radius:12px;
-  background:var(--surface);font-size:1.3rem;cursor:pointer
-}
-
-/* INÍCIO */
+.menu-toggle{display:none;width:44px;height:44px;border:1px solid var(--border);border-radius:12px;background:var(--surface);font-size:1.3rem;cursor:pointer}
 .hero{padding:80px 0 70px;min-height:540px;display:flex;align-items:center}
-.hero-grid{
-  display:grid;grid-template-columns:1.08fr .92fr;
-  gap:35px;align-items:center
-}
-.hero h1{
-  font-size:clamp(2.6rem,5.7vw,5rem);
-  line-height:1.04;letter-spacing:-.065em;margin:20px 0
-}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:35px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,5.7vw,5rem);line-height:1.04;letter-spacing:-.065em;margin:20px 0}
 .hero-copy{color:var(--muted);font-size:1rem;max-width:570px}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
 .hero-note{margin-top:20px;color:var(--muted);font-size:.82rem}
 .hero-art{min-height:340px;position:relative;display:grid;place-items:center}
-.orb-glow{
-  position:absolute;width:250px;height:250px;border-radius:50%;
-  background:var(--purple2);filter:blur(90px);opacity:.4
-}
-.orb{
-  width:min(270px,65vw);aspect-ratio:1;border-radius:50%;
-  position:relative;
-  background:radial-gradient(circle at 35% 28%,#e9d5ff,#8b35d0 20%,#29123f 52%,#08080c 73%);
-  box-shadow:inset -20px -25px 55px #000b,0 0 55px #a855f72b;
-  animation:float 7s ease-in-out infinite
-}
-.orb::before,.orb::after{
-  content:"";position:absolute;inset:-22px;
-  border:1px solid #c084fc65;border-radius:50%;
-  transform:rotate(-28deg) scaleY(.36)
-}
+.orb-glow{position:absolute;width:250px;height:250px;border-radius:50%;background:var(--purple2);filter:blur(90px);opacity:.4}
+.orb{width:min(270px,65vw);aspect-ratio:1;border-radius:50%;position:relative;background:radial-gradient(circle at 35% 28%,#e9d5ff,#8b35d0 20%,#29123f 52%,#08080c 73%);box-shadow:inset -20px -25px 55px #000b,0 0 55px #a855f72b;animation:float 7s ease-in-out infinite}
+.orb::before,.orb::after{content:"";position:absolute;inset:-22px;border:1px solid #c084fc65;border-radius:50%;transform:rotate(-28deg) scaleY(.36)}
 .orb::after{inset:-42px;transform:rotate(42deg) scaleY(.47)}
-.orb-core{
-  position:absolute;inset:34%;border-radius:50%;
-  background:radial-gradient(circle,#fff,#c084fc 35%,#7928ca 70%,transparent);
-  box-shadow:0 0 50px #a855f7aa
-}
-.float-card{
-  position:absolute;padding:12px 15px;
-  border:1px solid var(--border);border-radius:13px;
-  background:#110c1de8;backdrop-filter:blur(12px);
-  box-shadow:0 12px 35px #0005;font-size:.78rem
-}
+.orb-core{position:absolute;inset:34%;border-radius:50%;background:radial-gradient(circle,#fff,#c084fc 35%,#7928ca 70%,transparent);box-shadow:0 0 50px #a855f7aa}
+.float-card{position:absolute;padding:12px 15px;border:1px solid var(--border);border-radius:13px;background:#110c1de8;backdrop-filter:blur(12px);box-shadow:0 12px 35px #0005;font-size:.78rem}
 .float-card strong{display:block}
 .float-card small{color:var(--muted)}
 .float-card.one{top:28px;left:0}
 .float-card.two{right:0;bottom:30px}
 @keyframes float{50%{transform:translateY(-10px)}}
-
 .trust-strip{border-block:1px solid var(--border);background:#ffffff03}
 .trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:22px 0}
 .trust-item{display:flex;align-items:center;justify-content:center;gap:11px}
-.trust-icon{
-  display:grid;place-items:center;width:42px;height:42px;
-  border:1px solid var(--border);border-radius:12px;background:#a855f719
-}
+.trust-icon{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--border);border-radius:12px;background:#a855f719}
 .trust-item strong{display:block;font-size:.84rem}
 .trust-item small{display:block;color:var(--muted);font-size:.72rem}
-
-/* SEÇÕES E CARTÕES */
 .section-heading{max-width:720px;text-align:center;margin:0 auto 40px}
-.section-heading h2{
-  font-size:clamp(2rem,4.5vw,3rem);line-height:1.15;
-  letter-spacing:-.05em;margin:15px 0
-}
+.section-heading h2{font-size:clamp(2rem,4.5vw,3rem);line-height:1.15;letter-spacing:-.05em;margin:15px 0}
 .section-heading p{color:var(--muted)}
 .cards-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.card{
-  padding:24px;border:1px solid var(--border);
-  border-radius:19px;background:linear-gradient(145deg,#171123e8,#0c0a12e8);
-  transition:transform .2s,border-color .2s;min-width:0
-}
+.card{padding:24px;border:1px solid var(--border);border-radius:19px;background:linear-gradient(145deg,#171123e8,#0c0a12e8);transition:transform .2s,border-color .2s;min-width:0}
 .card:hover{transform:translateY(-4px);border-color:#c084fc70}
-.card-icon{
-  width:49px;height:49px;display:grid;place-items:center;
-  border:1px solid var(--border);border-radius:14px;
-  background:#a855f722;font-size:1.3rem;margin-bottom:17px
-}
+.card-icon{width:49px;height:49px;display:grid;place-items:center;border:1px solid var(--border);border-radius:14px;background:#a855f722;font-size:1.3rem;margin-bottom:17px}
 .card h3{font-size:1.08rem;margin-bottom:9px}
 .card p{color:var(--muted);font-size:.88rem}
 .card-link{display:inline-block;color:var(--light);font-weight:750;font-size:.85rem;margin-top:17px}
-
-.project-preview{
-  min-height:165px;display:grid;place-items:center;
-  border:1px solid var(--border);border-radius:13px;
-  margin-bottom:18px;position:relative;overflow:hidden;
-  background:radial-gradient(circle,#d4af371b,transparent 65%),#09090c
-}
-.project-preview::before{
-  content:"";position:absolute;width:180px;height:180px;
-  border:1px solid #d4af3730;border-radius:50%
-}
+.project-preview{min-height:165px;display:grid;place-items:center;border:1px solid var(--border);border-radius:13px;margin-bottom:18px;position:relative;overflow:hidden;background:radial-gradient(circle,#d4af371b,transparent 65%),#09090c}
+.project-preview::before{content:"";position:absolute;width:180px;height:180px;border:1px solid #d4af3730;border-radius:50%}
 .project-logo{position:relative;color:#d4af37;font-size:2.7rem;font-weight:900}
 .project-caption{position:absolute;right:12px;bottom:8px;color:#d4af37;font-size:.6rem;letter-spacing:.13em}
 .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
 .tag{font-size:.68rem;padding:5px 8px;border:1px solid var(--border);border-radius:7px;color:var(--light)}
 .process-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
 .step-number{font-size:1.9rem;font-weight:900;color:var(--light);margin-bottom:10px}
-
-/* PREÇOS */
 .pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
 .price-card{display:flex;flex-direction:column}
-.price-card.featured{
-  border-color:#c084fc85;
-  background:linear-gradient(160deg,#3f1d5b66,#0c0a12 70%);
-  box-shadow:0 0 30px #a855f719
-}
-.popular{
-  align-self:flex-start;font-size:.68rem;font-weight:800;
-  border:1px solid var(--border);border-radius:50px;
-  background:#a855f728;padding:5px 10px;margin-bottom:12px
-}
+.price-card.featured{border-color:#c084fc85;background:linear-gradient(160deg,#3f1d5b66,#0c0a12 70%);box-shadow:0 0 30px #a855f719}
+.popular{align-self:flex-start;font-size:.68rem;font-weight:800;border:1px solid var(--border);border-radius:50px;background:#a855f728;padding:5px 10px;margin-bottom:12px}
 .price{font-size:2.55rem;letter-spacing:-.06em;font-weight:900;line-height:1.2;margin:16px 0 5px}
 .price small{font-size:.8rem;font-weight:500;letter-spacing:0;color:var(--muted)}
 .price-note{font-size:.8rem;color:var(--muted)}
-.promo{
-  display:inline-block;margin-top:7px;color:#e9d5ff;
-  font-size:.76rem;font-weight:800
-}
+.promo{display:inline-block;margin-top:7px;color:#e9d5ff;font-size:.76rem;font-weight:800}
 .features{list-style:none;display:grid;gap:10px;margin:20px 0;flex:1}
 .features li{font-size:.83rem;color:#d1c9de}
 .features li::before{content:"✓";color:var(--light);font-weight:900;margin-right:8px}
 .pricing-disclaimer{text-align:center;color:var(--muted);font-size:.8rem;max-width:760px;margin:22px auto 0}
-.maintenance{
-  margin:27px auto 0;max-width:750px;
-  border:1px solid var(--border);border-radius:19px;
-  padding:24px;background:linear-gradient(120deg,#a855f719,#100d19)
-}
+.maintenance{margin:27px auto 0;max-width:750px;border:1px solid var(--border);border-radius:19px;padding:24px;background:linear-gradient(120deg,#a855f719,#100d19)}
 .maintenance h3{margin-top:12px}
 .maintenance p{color:var(--muted);font-size:.88rem}
 .maintenance-price{font-size:1.65rem;font-weight:900;color:var(--light);margin:9px 0}
-
-/* SOBRE E PERGUNTAS */
 .about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:35px;align-items:center}
-.about-visual{
-  min-height:270px;display:grid;place-items:center;
-  border:1px solid var(--border);border-radius:22px;
-  background:radial-gradient(circle,#a855f729,transparent 60%),#100d19
-}
+.about-visual{min-height:270px;display:grid;place-items:center;border:1px solid var(--border);border-radius:22px;background:radial-gradient(circle,#a855f729,transparent 60%),#100d19}
 .about-monogram{font-size:7rem;font-weight:900;color:transparent;-webkit-text-stroke:1px #d8b4fe}
 .about-content h2{font-size:clamp(2rem,4vw,3rem);line-height:1.13;letter-spacing:-.05em;margin:15px 0}
 .about-content p{color:var(--muted);margin-bottom:13px}
@@ -255,551 +125,314 @@ header{
 details{border:1px solid var(--border);border-radius:13px;background:#120e1abc;padding:17px}
 summary{cursor:pointer;font-weight:750}
 details p{color:var(--muted);font-size:.88rem;margin-top:10px}
-
-/* ORÇAMENTO */
 .budget-section{background:linear-gradient(180deg,transparent,#7928ca0d,transparent)}
 .budget-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:32px;align-items:start}
 .budget-copy h2{font-size:clamp(2rem,4.5vw,3.3rem);line-height:1.1;letter-spacing:-.055em;margin:17px 0}
 .budget-copy p{color:var(--muted)}
 .budget-contact{display:grid;gap:12px;margin-top:23px}
 .budget-contact a{color:var(--light);overflow-wrap:anywhere}
-.form-card{
-  border:1px solid var(--border);border-radius:21px;
-  padding:clamp(18px,3vw,30px);
-  background:linear-gradient(145deg,#171123f5,#0c0a12f5)
-}
+.form-card{border:1px solid var(--border);border-radius:21px;padding:clamp(18px,3vw,30px);background:linear-gradient(145deg,#171123f5,#0c0a12f5)}
 .form-card h3{font-size:1.3rem;margin-bottom:6px}
 .form-intro{color:var(--muted);font-size:.85rem;margin-bottom:20px}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .field{display:grid;gap:7px;min-width:0}
 .field.full{grid-column:1/-1}
 .field label{font-size:.8rem;font-weight:750;color:#ddd4e9}
-.field input,.field select,.field textarea{
-  width:100%;min-width:0;min-height:46px;
-  background:#0b0911;color:var(--text);
-  border:1px solid #c084fc35;border-radius:10px;padding:11px;
-  outline:none
-}
+.field input,.field select,.field textarea{width:100%;min-width:0;min-height:46px;background:#0b0911;color:var(--text);border:1px solid #c084fc35;border-radius:10px;padding:11px;outline:none}
 .field textarea{min-height:105px;resize:vertical}
-.field input:focus,.field select:focus,.field textarea:focus{
-  border-color:var(--purple);box-shadow:0 0 0 3px #a855f720
-}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px #a855f720}
 .field option{background:#100d19}
 .form-privacy{color:var(--muted);font-size:.73rem;margin:13px 0 16px}
-.form-status{
-  display:none;margin-top:13px;padding:12px;
-  border:1px solid var(--border);border-radius:10px;
-  font-size:.83rem;overflow-wrap:anywhere
-}
+.form-status{display:none;margin-top:13px;padding:12px;border:1px solid var(--border);border-radius:10px;font-size:.83rem;overflow-wrap:anywhere}
 .form-status.show{display:block}
 .form-status a{text-decoration:underline;font-weight:800}
-
-/* RODAPÉ */
 footer{border-top:1px solid var(--border);padding:32px 0;background:#08080c}
 .footer-grid{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .footer-links{display:flex;flex-wrap:wrap;gap:15px;color:var(--muted);font-size:.8rem}
-.footer-bottom{
-  border-top:1px solid var(--border);margin-top:23px;padding-top:18px;
-  color:var(--muted);font-size:.74rem;
-  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap
-}
-.whatsapp-float{
-  position:fixed;right:17px;bottom:17px;z-index:900;
-  display:grid;place-items:center;width:54px;height:54px;
-  border-radius:50%;background:#25d366;color:#fff;
-  box-shadow:0 8px 25px #25d36645;font-size:1.4rem
-}
-
-/* CHAT VELTRONIX */
-.chat-launcher{
-  position:fixed;right:17px;bottom:83px;z-index:1100;
-  display:flex;align-items:center;gap:9px;
-  border:1px solid #d8b4fe66;border-radius:50px;
-  padding:12px 16px;background:linear-gradient(120deg,#a855f7,#6421a4);
-  color:white;font-weight:800;box-shadow:0 8px 28px #0008;cursor:pointer
-}
-.chat-launcher .chat-dot{width:9px;height:9px;border-radius:50%;background:#9cffc3;box-shadow:0 0 9px #9cffc3}
-.chat-panel{
-  position:fixed;right:17px;bottom:145px;z-index:1101;
-  width:min(390px,calc(100vw - 24px));height:min(560px,calc(100dvh - 175px));
-  display:none;flex-direction:column;overflow:hidden;
-  background:#0c0913;border:1px solid #c084fc65;border-radius:20px;
-  box-shadow:0 20px 70px #000b
-}
+.footer-bottom{border-top:1px solid var(--border);margin-top:23px;padding-top:18px;color:var(--muted);font-size:.74rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.whatsapp-float{position:fixed;right:17px;bottom:17px;z-index:900;display:grid;place-items:center;width:54px;height:54px;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 8px 25px #25d36645;font-size:1.4rem}
+.chat-launcher{position:fixed;right:17px;bottom:83px;z-index:1100;display:flex;align-items:center;gap:9px;border:1px solid #d8b4fe66;border-radius:50px;padding:12px 16px;background:linear-gradient(120deg,#a855f7,#6421a4);color:white;font-weight:800;box-shadow:0 8px 28px #0008;cursor:pointer}
+.chat-dot{width:9px;height:9px;border-radius:50%;background:#9cffc3;box-shadow:0 0 9px #9cffc3}
+.chat-panel{position:fixed;right:17px;bottom:145px;z-index:1101;width:min(390px,calc(100vw - 24px));height:min(560px,calc(100dvh - 175px));display:none;flex-direction:column;overflow:hidden;background:#0c0913;border:1px solid #c084fc65;border-radius:20px;box-shadow:0 20px 70px #000b}
 .chat-panel.open{display:flex}
-.chat-header{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:15px;background:linear-gradient(120deg,#29113e,#120b1e);
-  border-bottom:1px solid var(--border)
-}
+.chat-header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px;background:linear-gradient(120deg,#29113e,#120b1e);border-bottom:1px solid var(--border)}
 .chat-brand{display:flex;align-items:center;gap:10px;min-width:0}
-.chat-avatar{
-  width:39px;height:39px;flex:0 0 39px;border-radius:12px;
-  display:grid;place-items:center;background:linear-gradient(135deg,#a855f7,#54208c);
-  font-weight:900
-}
+.chat-avatar{width:39px;height:39px;flex:0 0 39px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#a855f7,#54208c);font-weight:900}
 .chat-title{font-weight:850;font-size:.9rem}
 .chat-subtitle{font-size:.7rem;color:#c4b3d9}
-.chat-close{
-  width:35px;height:35px;border-radius:10px;
-  border:1px solid var(--border);background:#ffffff09;cursor:pointer
-}
-.chat-messages{
-  flex:1;min-height:0;overflow-y:auto;padding:15px;
-  display:flex;flex-direction:column;gap:12px;overscroll-behavior:contain
-}
-.chat-message{
-  max-width:91%;padding:11px 12px;border-radius:14px;
-  font-size:.84rem;line-height:1.55;overflow-wrap:anywhere;
-  white-space:pre-wrap
-}
-.chat-message.bot{
-  align-self:flex-start;background:#1a1325;
-  border:1px solid var(--border);border-top-left-radius:4px
-}
-.chat-message.user{
-  align-self:flex-end;background:linear-gradient(135deg,#7928ca,#54208c);
-  border-top-right-radius:4px
-}
-.chat-message .audio-button{
-  display:inline-flex;align-items:center;gap:5px;margin-top:9px;
-  padding:6px 9px;border-radius:9px;border:1px solid #c084fc55;
-  background:#a855f71a;color:#e9d5ff;font-size:.74rem;cursor:pointer
-}
-.chat-message .audio-button:disabled{opacity:.6}
-.chat-status{font-size:.73rem;color:var(--muted);padding:0 15px 7px}
-.chat-form{
-  padding:12px;border-top:1px solid var(--border);
-  display:flex;align-items:flex-end;gap:8px;background:#100d19
-}
-.chat-input{
-  flex:1;min-width:0;max-height:100px;min-height:43px;resize:none;
-  border:1px solid #c084fc40;border-radius:12px;
-  background:#08070d;color:var(--text);padding:11px;
-  outline:none;font-size:.85rem
-}
+.chat-close{width:35px;height:35px;border-radius:10px;border:1px solid var(--border);background:#ffffff09;cursor:pointer}
+.chat-messages{flex:1;min-height:0;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:12px;overscroll-behavior:contain}
+.chat-message{max-width:91%;padding:11px 12px;border-radius:14px;font-size:.84rem;line-height:1.55;overflow-wrap:anywhere;white-space:pre-wrap}
+.chat-message.bot{align-self:flex-start;background:#1a1325;border:1px solid var(--border);border-top-left-radius:4px}
+.chat-message.user{align-self:flex-end;background:linear-gradient(135deg,#7928ca,#54208c);border-top-right-radius:4px}
+.audio-button{display:inline-flex;align-items:center;gap:5px;margin-top:9px;padding:6px 9px;border-radius:9px;border:1px solid #c084fc55;background:#a855f71a;color:#e9d5ff;font-size:.74rem;cursor:pointer}
+.audio-button:disabled{opacity:.6}
+.chat-status{font-size:.73rem;color:var(--muted);padding:0 15px 7px;overflow-wrap:anywhere}
+.chat-form{padding:12px;border-top:1px solid var(--border);display:flex;align-items:flex-end;gap:8px;background:#100d19}
+.chat-input{flex:1;min-width:0;max-height:100px;min-height:43px;resize:none;border:1px solid #c084fc40;border-radius:12px;background:#08070d;color:var(--text);padding:11px;outline:none;font-size:.85rem}
 .chat-input:focus{border-color:var(--purple)}
-.chat-send{
-  width:44px;height:44px;flex:0 0 44px;border:0;border-radius:12px;
-  background:linear-gradient(120deg,#a855f7,#7928ca);
-  font-size:1.15rem;cursor:pointer
-}
+.chat-send{width:44px;height:44px;flex:0 0 44px;border:0;border-radius:12px;background:linear-gradient(120deg,#a855f7,#7928ca);font-size:1.15rem;cursor:pointer}
 .chat-send:disabled{opacity:.5;cursor:not-allowed}
 .chat-footnote{text-align:center;color:#8f849f;font-size:.65rem;padding:0 10px 9px;background:#100d19}
-
 @media(max-width:950px){
-  .nav-links{gap:11px}
-  .nav-links>a:not(.btn){font-size:.77rem}
-  .cards-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .nav-links{gap:10px}
+ .nav-links>a:not(.btn){font-size:.75rem}
+ .cards-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:760px){
-  section{padding:62px 0}
-  .container{width:calc(100% - 30px)}
-  .nav{min-height:66px}
-  .menu-toggle{display:block}
-  .nav-links{
-    display:none;position:absolute;top:66px;left:0;right:0;
-    padding:15px;background:#0b0912;
-    border-bottom:1px solid var(--border);
-    flex-direction:column;align-items:stretch;gap:3px
-  }
-  .nav-links.open{display:flex}
-  .nav-links>a:not(.btn){padding:10px 6px;font-size:.88rem}
-  .nav-links .btn{margin-top:7px}
-  .hero{padding:55px 0 40px;min-height:auto}
-  .hero-grid{grid-template-columns:1fr;gap:15px}
-  .hero h1{font-size:clamp(2.55rem,10.5vw,4rem)}
-  .hero-art{min-height:285px}
-  .orb{width:205px}
-  .orb-glow{width:190px;height:190px}
-  .float-card.one{top:8px;left:0}
-  .float-card.two{right:0;bottom:13px}
-  .trust-grid{grid-template-columns:1fr;gap:13px}
-  .trust-item{justify-content:flex-start}
-  .pricing-grid,.cards-grid{grid-template-columns:1fr}
-  .about-grid,.budget-grid{grid-template-columns:1fr}
-  .about-visual{min-height:190px}
-  .about-monogram{font-size:5.5rem}
-  .form-grid{grid-template-columns:1fr}
-  .field.full{grid-column:auto}
-  .footer-grid{align-items:flex-start;flex-direction:column}
-  .chat-launcher{right:12px;bottom:77px;padding:11px 13px;font-size:.82rem}
-  .chat-panel{
-    right:8px;bottom:135px;
-    width:calc(100vw - 16px);
-    height:min(560px,calc(100dvh - 155px));
-    border-radius:17px
-  }
-  .whatsapp-float{right:13px;bottom:13px;width:49px;height:49px}
+ section{padding:62px 0}
+ .container{width:calc(100% - 30px)}
+ .nav{min-height:66px}
+ .menu-toggle{display:block}
+ .nav-links{display:none;position:absolute;top:66px;left:0;right:0;padding:15px;background:#0b0912;border-bottom:1px solid var(--border);flex-direction:column;align-items:stretch;gap:3px}
+ .nav-links.open{display:flex}
+ .nav-links>a:not(.btn){padding:10px 6px;font-size:.88rem}
+ .nav-links .btn{margin-top:7px}
+ .hero{padding:55px 0 40px;min-height:auto}
+ .hero-grid{grid-template-columns:1fr;gap:15px}
+ .hero h1{font-size:clamp(2.55rem,10.5vw,4rem)}
+ .hero-art{min-height:285px}
+ .orb{width:205px}
+ .orb-glow{width:190px;height:190px}
+ .float-card.one{top:8px;left:0}
+ .float-card.two{right:0;bottom:13px}
+ .trust-grid{grid-template-columns:1fr;gap:13px}
+ .trust-item{justify-content:flex-start}
+ .pricing-grid,.cards-grid{grid-template-columns:1fr}
+ .about-grid,.budget-grid{grid-template-columns:1fr}
+ .about-visual{min-height:190px}
+ .about-monogram{font-size:5.5rem}
+ .form-grid{grid-template-columns:1fr}
+ .field.full{grid-column:auto}
+ .footer-grid{align-items:flex-start;flex-direction:column}
+ .chat-launcher{right:12px;bottom:77px;padding:11px 13px;font-size:.82rem}
+ .chat-panel{right:8px;bottom:135px;width:calc(100vw - 16px);height:min(560px,calc(100dvh - 155px));border-radius:17px}
+ .whatsapp-float{right:13px;bottom:13px;width:49px;height:49px}
 }
 @media(max-width:420px){
-  .brand-name{font-size:.9rem}
-  .brand-tag{font-size:.57rem}
-  .brand-logo{width:40px;height:40px;flex-basis:40px}
-  .hero-actions .btn{width:100%}
-  .process-grid{grid-template-columns:1fr}
-  .float-card{padding:9px 11px;font-size:.69rem}
-  .card{padding:21px}
-  .price{font-size:2.35rem}
-  .footer-links{gap:12px}
+ .brand-name{font-size:.9rem}
+ .brand-tag{font-size:.57rem}
+ .brand-logo{width:40px;height:40px;flex-basis:40px}
+ .hero-actions .btn{width:100%}
+ .process-grid{grid-template-columns:1fr}
+ .float-card{padding:9px 11px;font-size:.69rem}
+ .card{padding:21px}
+ .price{font-size:2.35rem}
+ .footer-links{gap:12px}
 }
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+ *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
 }
 </style>
 </head>
 
 <body>
 <header>
-  <div class="container nav">
-    <a class="brand" href="#inicio" aria-label="VELTRONIX - início">
-      <span class="brand-logo" id="brandLogo">V.</span>
-      <span>
-        <span class="brand-name">VELTRONIX</span>
-        <span class="brand-tag">Tecnologia que impulsiona negócios.</span>
-      </span>
-    </a>
-
-    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
-
-    <nav class="nav-links" id="navLinks">
-      <a href="#inicio">Início</a>
-      <a href="#servicos">Serviços</a>
-      <a href="#portfolio">Portfólio</a>
-      <a href="#precos">Preços</a>
-      <a href="#sobre">Sobre</a>
-      <a href="#orcamento" class="btn primary">Solicitar orçamento ↗</a>
-      <a href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://wa.me/5521974994201" target="_blank" rel="noopener">WhatsApp</a>
-    </nav>
-  </div>
+ <div class="container nav">
+  <a class="brand" href="#inicio" aria-label="VELTRONIX - início">
+   <span class="brand-logo" id="brandLogo">V.</span>
+   <span><span class="brand-name">VELTRONIX</span><span class="brand-tag">Tecnologia que impulsiona negócios.</span></span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+  <nav class="nav-links" id="navLinks">
+   <a href="#inicio">Início</a>
+   <a href="#servicos">Serviços</a>
+   <a href="#portfolio">Portfólio</a>
+   <a href="#precos">Preços</a>
+   <a href="#sobre">Sobre</a>
+   <a href="#orcamento" class="btn primary">Solicitar orçamento ↗</a>
+   <a href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener">Instagram</a>
+   <a href="https://wa.me/5521974994201" target="_blank" rel="noopener">WhatsApp</a>
+  </nav>
+ </div>
 </header>
 
 <main>
 <section class="hero" id="inicio">
-  <div class="container hero-grid">
-    <div>
-      <span class="eyebrow">Soluções digitais</span>
-      <h1>Seu negócio merece uma presença <span class="gradient">extraordinária.</span></h1>
-      <p class="hero-copy">Criamos experiências digitais para apresentar sua marca, conquistar clientes e impulsionar o crescimento do seu negócio.</p>
-      <div class="hero-actions">
-        <a class="btn primary" href="#orcamento">Solicitar orçamento ↗</a>
-        <a class="btn secondary" href="#portfolio">Conhecer projetos</a>
-      </div>
-      <p class="hero-note">✦ Tecnologia, criatividade e foco no seu negócio.</p>
-    </div>
-    <div class="hero-art" aria-hidden="true">
-      <div class="orb-glow"></div>
-      <div class="orb"><div class="orb-core"></div></div>
-      <div class="float-card one"><strong>✦ Presença digital</strong><small>Sua marca em destaque</small></div>
-      <div class="float-card two"><strong>↗ Seu próximo projeto</strong><small>Começa com uma ideia</small></div>
-    </div>
+ <div class="container hero-grid">
+  <div>
+   <span class="eyebrow">Soluções digitais</span>
+   <h1>Seu negócio merece uma presença <span class="gradient">extraordinária.</span></h1>
+   <p class="hero-copy">Criamos experiências digitais para apresentar sua marca, conquistar clientes e impulsionar o crescimento do seu negócio.</p>
+   <div class="hero-actions">
+    <a class="btn primary" href="#orcamento">Solicitar orçamento ↗</a>
+    <a class="btn secondary" href="#portfolio">Conhecer projetos</a>
+   </div>
+   <p class="hero-note">✦ Tecnologia, criatividade e foco no seu negócio.</p>
   </div>
+  <div class="hero-art" aria-hidden="true">
+   <div class="orb-glow"></div><div class="orb"><div class="orb-core"></div></div>
+   <div class="float-card one"><strong>✦ Presença digital</strong><small>Sua marca em destaque</small></div>
+   <div class="float-card two"><strong>↗ Seu próximo projeto</strong><small>Começa com uma ideia</small></div>
+  </div>
+ </div>
 </section>
 
-<div class="trust-strip">
-  <div class="container trust-grid">
-    <div class="trust-item"><span class="trust-icon">✦</span><div><strong>Design profissional</strong><small>Visual alinhado à sua marca</small></div></div>
-    <div class="trust-item"><span class="trust-icon">⌘</span><div><strong>Experiência responsiva</strong><small>Celular, tablet e computador</small></div></div>
-    <div class="trust-item"><span class="trust-icon">↗</span><div><strong>Foco no seu negócio</strong><small>Soluções para suas necessidades</small></div></div>
+<div class="trust-strip"><div class="container trust-grid">
+ <div class="trust-item"><span class="trust-icon">✦</span><div><strong>Design profissional</strong><small>Visual alinhado à sua marca</small></div></div>
+ <div class="trust-item"><span class="trust-icon">⌘</span><div><strong>Experiência responsiva</strong><small>Celular, tablet e computador</small></div></div>
+ <div class="trust-item"><span class="trust-icon">↗</span><div><strong>Foco no seu negócio</strong><small>Soluções para suas necessidades</small></div></div>
+</div></div>
+
+<section id="servicos"><div class="container">
+ <div class="section-heading"><span class="eyebrow">O que fazemos</span><h2>Transformamos ideias em <span class="gradient">soluções digitais.</span></h2><p>Serviços pensados para ajudar sua marca a se apresentar melhor no mundo digital.</p></div>
+ <div class="cards-grid">
+  <article class="card"><div class="card-icon">⌘</div><h3>Criação de sites</h3><p>Sites modernos, responsivos e personalizados para apresentar sua empresa, seus serviços e seus contatos.</p><a class="card-link" href="#precos">Ver planos →</a></article>
+  <article class="card"><div class="card-icon">✧</div><h3>Identidade digital</h3><p>Uma apresentação visual coerente para fortalecer a imagem da sua marca na internet.</p><a class="card-link" href="#orcamento">Conversar sobre o projeto →</a></article>
+  <article class="card"><div class="card-icon">⚙</div><h3>Automação de processos</h3><p>Organização de tarefas repetitivas com soluções digitais adequadas à necessidade do seu negócio.</p><a class="card-link" href="#orcamento">Solicitar orçamento →</a></article>
+  <article class="card"><div class="card-icon">✦</div><h3>Manutenção de sites</h3><p>Suporte para atualizações de conteúdo, ajustes visuais e melhorias combinadas para seu site.</p><a class="card-link" href="#manutencao">Conhecer manutenção →</a></article>
+  <article class="card"><div class="card-icon">◈</div><h3>Melhorias em sites</h3><p>Ajustes de layout, responsividade, organização das informações e experiência de navegação.</p><a class="card-link" href="#orcamento">Melhorar meu site →</a></article>
+  <article class="card"><div class="card-icon">↗</div><h3>Consultoria digital</h3><p>Ajuda para entender as necessidades do seu negócio e planejar os próximos passos na internet.</p><a class="card-link" href="#orcamento">Falar com a VELTRONIX →</a></article>
+ </div>
+</div></section>
+
+<section id="portfolio"><div class="container">
+ <div class="section-heading"><span class="eyebrow">Nosso portfólio</span><h2>Projetos que tiram ideias do <span class="gradient">papel.</span></h2><p>Conheça um projeto desenvolvido para um negócio real.</p></div>
+ <div class="cards-grid">
+  <article class="card">
+   <a href="https://vffilhoslanches.github.io/vf-filho-lanche/" target="_blank" rel="noopener" aria-label="Visitar VF FILHOS LANCHES"><div class="project-preview"><span class="project-logo">VF</span><span class="project-caption">FILHOS LANCHES</span></div></a>
+   <h3>VF FILHOS LANCHES</h3><p>Projeto de site para lanchonete, com apresentação de produtos e experiência digital voltada aos clientes.</p>
+   <div class="tags"><span class="tag">Site comercial</span><span class="tag">Cardápio</span><span class="tag">Responsivo</span></div>
+   <a class="card-link" href="https://vffilhoslanches.github.io/vf-filho-lanche/" target="_blank" rel="noopener">Visitar projeto ↗</a>
+  </article>
+ </div>
+ <div style="text-align:center;margin-top:25px"><p class="muted">Quer ver seu negócio aqui também?</p><a href="#orcamento" class="btn primary" style="margin-top:12px">Vamos conversar ↗</a></div>
+</div></section>
+
+<section id="processo"><div class="container">
+ <div class="section-heading"><span class="eyebrow">Como funciona</span><h2>Do primeiro contato à <span class="gradient">entrega.</span></h2><p>Um processo organizado para entender sua necessidade e desenvolver uma solução adequada.</p></div>
+ <div class="process-grid">
+  <article class="card"><div class="step-number">01</div><h3>Conversa</h3><p>Entendemos sua ideia, seu público e o que você precisa.</p></article>
+  <article class="card"><div class="step-number">02</div><h3>Planejamento</h3><p>Definimos escopo, prazo e valor antes de iniciar.</p></article>
+  <article class="card"><div class="step-number">03</div><h3>Desenvolvimento</h3><p>Construímos o projeto de acordo com o combinado.</p></article>
+  <article class="card"><div class="step-number">04</div><h3>Entrega</h3><p>Apresentamos o resultado e orientamos os próximos passos.</p></article>
+ </div>
+</div></section>
+
+<section id="precos"><div class="container">
+ <div class="section-heading"><span class="eyebrow">Planos e preços</span><h2>Escolha o plano para <span class="gradient">começar.</span></h2><p>Valores iniciais para criação de sites. O escopo final é combinado antes do início do projeto.</p></div>
+ <div class="pricing-grid">
+  <article class="card price-card">
+   <h3>Site Básico</h3><p class="price-note">Para começar sua presença digital.</p><div class="price">R$ 100<small>,00</small></div><span class="promo">Preço promocional</span><p class="price-note" style="margin-top:7px">Valor do projeto</p>
+   <ul class="features"><li>Site de apresentação</li><li>Layout responsivo</li><li>Informações da empresa</li><li>Links de contato</li><li>Design profissional</li></ul>
+   <a class="btn secondary full quote-plan" data-plan="Site Básico - R$ 100 promocional" href="#orcamento">Escolher plano</a>
+  </article>
+  <article class="card price-card featured">
+   <span class="popular">Plano profissional</span><h3>Site Profissional</h3><p class="price-note">Para apresentar seus serviços com mais detalhes.</p><div class="price">R$ 250<small>,00</small></div><p class="price-note">Valor do projeto</p>
+   <ul class="features"><li>Tudo do plano Básico</li><li>Seções personalizadas</li><li>Apresentação de serviços</li><li>Formulário conforme escopo</li><li>Mais possibilidades de personalização</li></ul>
+   <a class="btn primary full quote-plan" data-plan="Site Profissional - R$ 250" href="#orcamento">Escolher plano</a>
+  </article>
+  <article class="card price-card">
+   <h3>Site Avançado</h3><p class="price-note">Para projetos com necessidades mais específicas.</p><div class="price">R$ 310<small>,00</small></div><p class="price-note">Valor do projeto</p>
+   <ul class="features"><li>Estrutura personalizada</li><li>Mais seções e conteúdo</li><li>Recursos definidos no escopo</li><li>Layout adaptado ao projeto</li><li>Planejamento individual</li></ul>
+   <a class="btn secondary full quote-plan" data-plan="Site Avançado - R$ 310" href="#orcamento">Escolher plano</a>
+  </article>
+ </div>
+ <p class="pricing-disclaimer">Os recursos, limites, prazo, hospedagem, domínio e eventuais serviços de terceiros devem ser definidos no orçamento. Funcionalidades extras podem alterar o valor.</p>
+ <div class="maintenance" id="manutencao"><span class="eyebrow">Cuidado contínuo</span><h3>Manutenção de site</h3><div class="maintenance-price">1º mês grátis · depois R$ 49/mês</div><p>O primeiro mês é gratuito. Após esse período, a manutenção passa a custar R$ 49 por mês, caso você decida continuar. O escopo das atualizações e do suporte deve ser combinado previamente.</p><a class="btn primary quote-plan" data-plan="Manutenção de site - primeiro mês grátis, depois R$ 49/mês" href="#orcamento" style="margin-top:16px">Tenho interesse ↗</a></div>
+</div></section>
+
+<section id="sobre"><div class="container about-grid">
+ <div class="about-visual"><div class="about-monogram">V.</div></div>
+ <div class="about-content"><span class="eyebrow">Sobre a VELTRONIX</span><h2>Tecnologia que impulsiona <span class="gradient">negócios.</span></h2>
+  <p>A VELTRONIX é uma marca voltada à criação de soluções digitais para negócios que querem construir ou melhorar sua presença na internet.</p>
+  <p>Nosso objetivo é desenvolver projetos com identidade visual consistente, navegação clara e recursos alinhados às necessidades de cada cliente.</p>
+  <div class="about-points">
+   <div class="about-point"><span>✦</span><div><strong>Projetos personalizados</strong><small>Cada orçamento considera as necessidades do cliente.</small></div></div>
+   <div class="about-point"><span>✦</span><div><strong>Comunicação direta</strong><small>Alinhamento do escopo e das expectativas.</small></div></div>
+   <div class="about-point"><span>✦</span><div><strong>Foco em usabilidade</strong><small>Experiências pensadas para diferentes telas.</small></div></div>
   </div>
-</div>
+ </div>
+</div></section>
 
-<section id="servicos">
-  <div class="container">
-    <div class="section-heading">
-      <span class="eyebrow">O que fazemos</span>
-      <h2>Transformamos ideias em <span class="gradient">soluções digitais.</span></h2>
-      <p>Serviços pensados para ajudar sua marca a se apresentar melhor no mundo digital.</p>
-    </div>
-    <div class="cards-grid">
-      <article class="card"><div class="card-icon">⌘</div><h3>Criação de sites</h3><p>Sites modernos, responsivos e personalizados para apresentar sua empresa, seus serviços e seus contatos.</p><a class="card-link" href="#precos">Ver planos →</a></article>
-      <article class="card"><div class="card-icon">✧</div><h3>Identidade digital</h3><p>Uma apresentação visual coerente para fortalecer a imagem da sua marca na internet.</p><a class="card-link" href="#orcamento">Conversar sobre o projeto →</a></article>
-      <article class="card"><div class="card-icon">⚙</div><h3>Automação de processos</h3><p>Organização de tarefas repetitivas com soluções digitais adequadas à necessidade do seu negócio.</p><a class="card-link" href="#orcamento">Solicitar orçamento →</a></article>
-      <article class="card"><div class="card-icon">✦</div><h3>Manutenção de sites</h3><p>Suporte para atualizações de conteúdo, ajustes visuais e melhorias combinadas para seu site.</p><a class="card-link" href="#manutencao">Conhecer manutenção →</a></article>
-      <article class="card"><div class="card-icon">◈</div><h3>Melhorias em sites</h3><p>Ajustes de layout, responsividade, organização das informações e experiência de navegação.</p><a class="card-link" href="#orcamento">Melhorar meu site →</a></article>
-      <article class="card"><div class="card-icon">↗</div><h3>Consultoria digital</h3><p>Ajuda para entender as necessidades do seu negócio e planejar os próximos passos na internet.</p><a class="card-link" href="#orcamento">Falar com a VELTRONIX →</a></article>
-    </div>
+<section id="faq"><div class="container">
+ <div class="section-heading"><span class="eyebrow">Dúvidas frequentes</span><h2>Antes de começar, <span class="gradient">saiba mais.</span></h2></div>
+ <div class="faq-list">
+  <details><summary>Como faço para solicitar um orçamento?</summary><p>Preencha o formulário desta página ou entre em contato pelo WhatsApp. Descreva sua ideia para podermos entender o projeto.</p></details>
+  <details><summary>Os valores são fixos para qualquer projeto?</summary><p>Os preços exibidos são valores iniciais dos planos apresentados. Recursos adicionais ou mudanças no escopo podem alterar o orçamento, sempre com alinhamento prévio.</p></details>
+  <details><summary>O site funciona no celular?</summary><p>Os layouts são planejados para se adaptar a celulares, tablets e computadores.</p></details>
+  <details><summary>O domínio e a hospedagem estão incluídos?</summary><p>Isso precisa ser definido no orçamento. Domínios, hospedagem e serviços pagos de terceiros podem ter custos próprios.</p></details>
+  <details><summary>Como funciona a manutenção grátis?</summary><p>O primeiro mês de manutenção é gratuito. Depois, o serviço custa R$ 49 por mês caso você decida continuar. O que está incluído deve ser combinado antes do início.</p></details>
+  <details><summary>Quando meu projeto será entregue?</summary><p>O prazo depende do escopo, dos materiais necessários e da complexidade. A previsão é alinhada antes do desenvolvimento.</p></details>
+ </div>
+</div></section>
+
+<section class="budget-section" id="orcamento"><div class="container budget-grid">
+ <div class="budget-copy"><span class="eyebrow">Vamos conversar</span><h2>Seu próximo projeto começa <span class="gradient">aqui.</span></h2><p>Conte o que você precisa. Vamos analisar sua ideia e conversar sobre o escopo, o prazo e o orçamento.</p>
+  <div class="budget-contact">
+   <p>✉ <a href="mailto:contato.veltronix@gmail.com">contato.veltronix@gmail.com</a></p>
+   <p>◉ <a href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener">@veltronix_tech</a></p>
+   <p>☏ <a href="https://wa.me/5521974994201" target="_blank" rel="noopener">(21) 97499-4201</a></p>
   </div>
-</section>
-
-<section id="portfolio">
-  <div class="container">
-    <div class="section-heading">
-      <span class="eyebrow">Nosso portfólio</span>
-      <h2>Projetos que tiram ideias do <span class="gradient">papel.</span></h2>
-      <p>Conheça um projeto desenvolvido para um negócio real.</p>
+ </div>
+ <div class="form-card">
+  <h3>Solicitar orçamento</h3><p class="form-intro">Preencha os dados para apresentar seu projeto.</p>
+  <form id="budgetForm">
+   <div class="form-grid">
+    <div class="field"><label for="nome">Seu nome *</label><input id="nome" name="nome" required maxlength="120" autocomplete="name" placeholder="Como podemos chamar você?"></div>
+    <div class="field"><label for="contato">WhatsApp ou e-mail *</label><input id="contato" name="contato" required maxlength="180" autocomplete="email" placeholder="Seu contato"></div>
+    <div class="field full"><label for="servico">Qual serviço você procura? *</label>
+     <select id="servico" name="servico" required>
+      <option value="">Selecione uma opção</option>
+      <option value="Site Básico - R$ 100 promocional">Site Básico — R$ 100 (promocional)</option>
+      <option value="Site Profissional - R$ 250">Site Profissional — R$ 250</option>
+      <option value="Site Avançado - R$ 310">Site Avançado — R$ 310</option>
+      <option value="Manutenção de site - primeiro mês grátis, depois R$ 49/mês">Manutenção — primeiro mês grátis, depois R$ 49/mês</option>
+      <option value="Identidade digital">Identidade digital</option>
+      <option value="Automação de processos">Automação de processos</option>
+      <option value="Melhorias em site existente">Melhorias em site existente</option>
+      <option value="Consultoria digital">Consultoria digital</option>
+      <option value="Outro projeto">Outro projeto</option>
+     </select>
     </div>
-    <div class="cards-grid">
-      <article class="card">
-        <a href="https://vffilhoslanches.github.io/vf-filho-lanche/" target="_blank" rel="noopener" aria-label="Visitar VF FILHOS LANCHES">
-          <div class="project-preview"><span class="project-logo">VF</span><span class="project-caption">FILHOS LANCHES</span></div>
-        </a>
-        <h3>VF FILHOS LANCHES</h3>
-        <p>Projeto de site para lanchonete, com apresentação de produtos e experiência digital voltada aos clientes.</p>
-        <div class="tags"><span class="tag">Site comercial</span><span class="tag">Cardápio</span><span class="tag">Responsivo</span></div>
-        <a class="card-link" href="https://vffilhoslanches.github.io/vf-filho-lanche/" target="_blank" rel="noopener">Visitar projeto ↗</a>
-      </article>
-    </div>
-    <div style="text-align:center;margin-top:25px">
-      <p class="muted">Quer ver seu negócio aqui também?</p>
-      <a href="#orcamento" class="btn primary" style="margin-top:12px">Vamos conversar ↗</a>
-    </div>
-  </div>
-</section>
-
-<section id="processo">
-  <div class="container">
-    <div class="section-heading">
-      <span class="eyebrow">Como funciona</span>
-      <h2>Do primeiro contato à <span class="gradient">entrega.</span></h2>
-      <p>Um processo organizado para entender sua necessidade e desenvolver uma solução adequada.</p>
-    </div>
-    <div class="process-grid">
-      <article class="card"><div class="step-number">01</div><h3>Conversa</h3><p>Entendemos sua ideia, seu público e o que você precisa.</p></article>
-      <article class="card"><div class="step-number">02</div><h3>Planejamento</h3><p>Definimos escopo, prazo e valor antes de iniciar.</p></article>
-      <article class="card"><div class="step-number">03</div><h3>Desenvolvimento</h3><p>Construímos o projeto de acordo com o combinado.</p></article>
-      <article class="card"><div class="step-number">04</div><h3>Entrega</h3><p>Apresentamos o resultado e orientamos os próximos passos.</p></article>
-    </div>
-  </div>
-</section>
-
-<section id="precos">
-  <div class="container">
-    <div class="section-heading">
-      <span class="eyebrow">Planos e preços</span>
-      <h2>Escolha o plano para <span class="gradient">começar.</span></h2>
-      <p>Valores iniciais para criação de sites. O escopo final é combinado antes do início do projeto.</p>
-    </div>
-
-    <div class="pricing-grid">
-      <article class="card price-card">
-        <h3>Site Básico</h3>
-        <p class="price-note">Para começar sua presença digital.</p>
-        <div class="price">R$ 100<small>,00</small></div>
-        <span class="promo">Preço promocional</span>
-        <p class="price-note" style="margin-top:7px">Valor do projeto</p>
-        <ul class="features">
-          <li>Site de apresentação</li>
-          <li>Layout responsivo</li>
-          <li>Informações da empresa</li>
-          <li>Links de contato</li>
-          <li>Design profissional</li>
-        </ul>
-        <a class="btn secondary full quote-plan" data-plan="Site Básico - R$ 100 promocional" href="#orcamento">Escolher plano</a>
-      </article>
-
-      <article class="card price-card featured">
-        <span class="popular">Plano profissional</span>
-        <h3>Site Profissional</h3>
-        <p class="price-note">Para apresentar seus serviços com mais detalhes.</p>
-        <div class="price">R$ 250<small>,00</small></div>
-        <p class="price-note">Valor do projeto</p>
-        <ul class="features">
-          <li>Tudo do plano Básico</li>
-          <li>Seções personalizadas</li>
-          <li>Apresentação de serviços</li>
-          <li>Formulário conforme escopo</li>
-          <li>Mais possibilidades de personalização</li>
-        </ul>
-        <a class="btn primary full quote-plan" data-plan="Site Profissional - R$ 250" href="#orcamento">Escolher plano</a>
-      </article>
-
-      <article class="card price-card">
-        <h3>Site Avançado</h3>
-        <p class="price-note">Para projetos com necessidades mais específicas.</p>
-        <div class="price">R$ 310<small>,00</small></div>
-        <p class="price-note">Valor do projeto</p>
-        <ul class="features">
-          <li>Estrutura personalizada</li>
-          <li>Mais seções e conteúdo</li>
-          <li>Recursos definidos no escopo</li>
-          <li>Layout adaptado ao projeto</li>
-          <li>Planejamento individual</li>
-        </ul>
-        <a class="btn secondary full quote-plan" data-plan="Site Avançado - R$ 310" href="#orcamento">Escolher plano</a>
-      </article>
-    </div>
-
-    <p class="pricing-disclaimer">Os recursos, limites, prazo, hospedagem, domínio e eventuais serviços de terceiros devem ser definidos no orçamento. Funcionalidades extras podem alterar o valor.</p>
-
-    <div class="maintenance" id="manutencao">
-      <span class="eyebrow">Cuidado contínuo</span>
-      <h3>Manutenção de site</h3>
-      <div class="maintenance-price">1º mês grátis · depois R$ 49/mês</div>
-      <p>O primeiro mês é gratuito. Após esse período, a manutenção passa a custar R$ 49 por mês, caso você decida continuar. O escopo das atualizações e do suporte deve ser combinado previamente.</p>
-      <a class="btn primary quote-plan" data-plan="Manutenção de site - primeiro mês grátis, depois R$ 49/mês" href="#orcamento" style="margin-top:16px">Tenho interesse ↗</a>
-    </div>
-  </div>
-</section>
-
-<section id="sobre">
-  <div class="container about-grid">
-    <div class="about-visual"><div class="about-monogram">V.</div></div>
-    <div class="about-content">
-      <span class="eyebrow">Sobre a VELTRONIX</span>
-      <h2>Tecnologia que impulsiona <span class="gradient">negócios.</span></h2>
-      <p>A VELTRONIX é uma marca voltada à criação de soluções digitais para negócios que querem construir ou melhorar sua presença na internet.</p>
-      <p>Nosso objetivo é desenvolver projetos com identidade visual consistente, navegação clara e recursos alinhados às necessidades de cada cliente.</p>
-      <div class="about-points">
-        <div class="about-point"><span>✦</span><div><strong>Projetos personalizados</strong><small>Cada orçamento considera as necessidades do cliente.</small></div></div>
-        <div class="about-point"><span>✦</span><div><strong>Comunicação direta</strong><small>Alinhamento do escopo e das expectativas.</small></div></div>
-        <div class="about-point"><span>✦</span><div><strong>Foco em usabilidade</strong><small>Experiências pensadas para diferentes telas.</small></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="faq">
-  <div class="container">
-    <div class="section-heading">
-      <span class="eyebrow">Dúvidas frequentes</span>
-      <h2>Antes de começar, <span class="gradient">saiba mais.</span></h2>
-    </div>
-    <div class="faq-list">
-      <details><summary>Como faço para solicitar um orçamento?</summary><p>Preencha o formulário desta página ou entre em contato pelo WhatsApp. Descreva sua ideia para podermos entender o projeto.</p></details>
-      <details><summary>Os valores são fixos para qualquer projeto?</summary><p>Os preços exibidos são valores iniciais dos planos apresentados. Recursos adicionais ou mudanças no escopo podem alterar o orçamento, sempre com alinhamento prévio.</p></details>
-      <details><summary>O site funciona no celular?</summary><p>Os layouts são planejados para se adaptar a celulares, tablets e computadores.</p></details>
-      <details><summary>O domínio e a hospedagem estão incluídos?</summary><p>Isso precisa ser definido no orçamento. Domínios, hospedagem e serviços pagos de terceiros podem ter custos próprios.</p></details>
-      <details><summary>Como funciona a manutenção grátis?</summary><p>O primeiro mês de manutenção é gratuito. Depois, o serviço custa R$ 49 por mês caso você decida continuar. O que está incluído deve ser combinado antes do início.</p></details>
-      <details><summary>Quando meu projeto será entregue?</summary><p>O prazo depende do escopo, dos materiais necessários e da complexidade. A previsão é alinhada antes do desenvolvimento.</p></details>
-    </div>
-  </div>
-</section>
-
-<section class="budget-section" id="orcamento">
-  <div class="container budget-grid">
-    <div class="budget-copy">
-      <span class="eyebrow">Vamos conversar</span>
-      <h2>Seu próximo projeto começa <span class="gradient">aqui.</span></h2>
-      <p>Conte o que você precisa. Vamos analisar sua ideia e conversar sobre o escopo, o prazo e o orçamento.</p>
-      <div class="budget-contact">
-        <p>✉ <a href="mailto:contato.veltronix@gmail.com">contato.veltronix@gmail.com</a></p>
-        <p>◉ <a href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener">@veltronix_tech</a></p>
-        <p>☏ <a href="https://wa.me/5521974994201" target="_blank" rel="noopener">(21) 97499-4201</a></p>
-      </div>
-    </div>
-
-    <div class="form-card">
-      <h3>Solicitar orçamento</h3>
-      <p class="form-intro">Preencha os dados para apresentar seu projeto.</p>
-      <form id="budgetForm">
-        <div class="form-grid">
-          <div class="field">
-            <label for="nome">Seu nome *</label>
-            <input id="nome" name="nome" required maxlength="120" autocomplete="name" placeholder="Como podemos chamar você?">
-          </div>
-          <div class="field">
-            <label for="contato">WhatsApp ou e-mail *</label>
-            <input id="contato" name="contato" required maxlength="180" autocomplete="email" placeholder="Seu contato">
-          </div>
-          <div class="field full">
-            <label for="servico">Qual serviço você procura? *</label>
-            <select id="servico" name="servico" required>
-              <option value="">Selecione uma opção</option>
-              <option value="Site Básico - R$ 100 promocional">Site Básico — R$ 100 (promocional)</option>
-              <option value="Site Profissional - R$ 250">Site Profissional — R$ 250</option>
-              <option value="Site Avançado - R$ 310">Site Avançado — R$ 310</option>
-              <option value="Manutenção de site - R$ 49/mês após primeiro mês grátis">Manutenção — primeiro mês grátis, depois R$ 49/mês</option>
-              <option value="Identidade digital">Identidade digital</option>
-              <option value="Automação de processos">Automação de processos</option>
-              <option value="Melhorias em site existente">Melhorias em site existente</option>
-              <option value="Consultoria digital">Consultoria digital</option>
-              <option value="Outro projeto">Outro projeto</option>
-            </select>
-          </div>
-          <div class="field full">
-            <label for="descricao">Conte um pouco sobre o projeto *</label>
-            <textarea id="descricao" name="descricao" required maxlength="3000" placeholder="O que você deseja criar ou melhorar?"></textarea>
-          </div>
-          <div class="field full">
-            <label for="prazo">Prazo desejado</label>
-            <input id="prazo" name="prazo" maxlength="120" placeholder="Ex.: sem data definida">
-          </div>
-        </div>
-        <p class="form-privacy">Seus dados serão usados para responder à solicitação de orçamento. Não inclua senhas nem informações confidenciais.</p>
-        <button class="btn primary full" id="submitButton" type="submit">Enviar solicitação ↗</button>
-        <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
-      </form>
-    </div>
-  </div>
-</section>
+    <div class="field full"><label for="descricao">Conte um pouco sobre o projeto *</label><textarea id="descricao" name="descricao" required maxlength="3000" placeholder="O que você deseja criar ou melhorar?"></textarea></div>
+    <div class="field full"><label for="prazo">Prazo desejado</label><input id="prazo" name="prazo" maxlength="120" placeholder="Ex.: sem data definida"></div>
+   </div>
+   <p class="form-privacy">Seus dados serão usados para responder à solicitação de orçamento. Não inclua senhas nem informações confidenciais.</p>
+   <button class="btn primary full" id="submitButton" type="submit">Enviar solicitação ↗</button>
+   <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+  </form>
+ </div>
+</div></section>
 </main>
 
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <a class="brand" href="#inicio">
-        <span class="brand-logo">V.</span>
-        <span><span class="brand-name">VELTRONIX</span><span class="brand-tag">Tecnologia que impulsiona negócios.</span></span>
-      </a>
-      <div class="footer-links">
-        <a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a>
-        <a href="#precos">Preços</a><a href="#orcamento">Orçamento</a>
-        <a href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://wa.me/5521974994201" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> VELTRONIX. Todos os direitos reservados.</span>
-      <a href="#inicio">Voltar ao topo ↑</a>
-    </div>
-  </div>
-</footer>
+<footer><div class="container">
+ <div class="footer-grid">
+  <a class="brand" href="#inicio"><span class="brand-logo">V.</span><span><span class="brand-name">VELTRONIX</span><span class="brand-tag">Tecnologia que impulsiona negócios.</span></span></a>
+  <div class="footer-links"><a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a><a href="#precos">Preços</a><a href="#orcamento">Orçamento</a><a href="https://www.instagram.com/veltronix_tech/" target="_blank" rel="noopener">Instagram</a><a href="https://wa.me/5521974994201" target="_blank" rel="noopener">WhatsApp</a></div>
+ </div>
+ <div class="footer-bottom"><span>© <span id="year"></span> VELTRONIX. Todos os direitos reservados.</span><a href="#inicio">Voltar ao topo ↑</a></div>
+</div></footer>
 
 <a class="whatsapp-float" href="https://wa.me/5521974994201?text=Ol%C3%A1%2C%20VELTRONIX!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Falar com a VELTRONIX pelo WhatsApp">◉</a>
 
-<!-- BOTÃO E JANELA DO CHAT -->
-<button class="chat-launcher" id="chatLauncher" aria-expanded="false" aria-controls="chatPanel">
-  <span class="chat-dot"></span> Falar com a IA
-</button>
-
+<button class="chat-launcher" id="chatLauncher" aria-expanded="false" aria-controls="chatPanel"><span class="chat-dot"></span> Falar com a IA</button>
 <section class="chat-panel" id="chatPanel" aria-label="Assistente virtual VELTRONIX">
-  <div class="chat-header">
-    <div class="chat-brand">
-      <div class="chat-avatar">V.</div>
-      <div>
-        <div class="chat-title">Assistente VELTRONIX</div>
-        <div class="chat-subtitle">Tire dúvidas sobre nossos serviços</div>
-      </div>
-    </div>
-    <button class="chat-close" id="chatClose" aria-label="Fechar chat">✕</button>
-  </div>
-  <div class="chat-messages" id="chatMessages" aria-live="polite">
-    <div class="chat-message bot">
-      Olá! 👋 Sou o assistente virtual da VELTRONIX. Posso explicar nossos serviços, os planos e como solicitar um orçamento.
-      <br><button class="audio-button" type="button" data-speak="Olá! Sou o assistente virtual da VELTRONIX. Posso explicar nossos serviços, os planos e como solicitar um orçamento.">🔊 Ouvir mensagem</button>
-    </div>
-  </div>
-  <div class="chat-status" id="chatStatus" aria-live="polite"></div>
-  <form class="chat-form" id="chatForm">
-    <textarea class="chat-input" id="chatInput" rows="1" maxlength="1500" placeholder="Digite sua mensagem..." aria-label="Sua mensagem" required></textarea>
-    <button class="chat-send" id="chatSend" type="submit" aria-label="Enviar mensagem">➤</button>
-  </form>
-  <div class="chat-footnote">Não envie senhas ou informações pessoais sensíveis.</div>
+ <div class="chat-header">
+  <div class="chat-brand"><div class="chat-avatar">V.</div><div><div class="chat-title">Assistente VELTRONIX</div><div class="chat-subtitle">Tire dúvidas sobre nossos serviços</div></div></div>
+  <button class="chat-close" id="chatClose" aria-label="Fechar chat">✕</button>
+ </div>
+ <div class="chat-messages" id="chatMessages" aria-live="polite">
+  <div class="chat-message bot">Olá! 👋 Sou o assistente virtual da VELTRONIX. Posso explicar nossos serviços, os planos e como solicitar um orçamento.<br><button class="audio-button" type="button" data-speak="Olá! Sou o assistente virtual da VELTRONIX. Posso explicar nossos serviços, os planos e como solicitar um orçamento.">🔊 Ouvir mensagem</button></div>
+ </div>
+ <div class="chat-status" id="chatStatus" aria-live="polite"></div>
+ <form class="chat-form" id="chatForm"><textarea class="chat-input" id="chatInput" rows="1" maxlength="1500" placeholder="Digite sua mensagem..." aria-label="Sua mensagem" required></textarea><button class="chat-send" id="chatSend" type="submit" aria-label="Enviar mensagem">➤</button></form>
+ <div class="chat-footnote">Não envie senhas ou informações pessoais sensíveis.</div>
 </section>
 
 <script>
 "use strict";
 
-/* ANO AUTOMÁTICO */
 document.getElementById("year").textContent = new Date().getFullYear();
 
-/* LOGO OPCIONAL
-   Se o arquivo estiver no repositório, use o nome exato dele.
-   Sem a imagem, o monograma V. permanece visível.
-*/
+/* LOGO: troque o endereço caso o arquivo tenha outro nome */
 const logo = document.getElementById("brandLogo");
 const logoImg = new Image();
 logoImg.alt = "Logo VELTRONIX";
 logoImg.src = "https://raw.githubusercontent.com/veltx0/veltx0.github.io/main/logo-veltronix.jpeg";
-logoImg.onload = () => {
-  logo.replaceChildren(logoImg);
-};
-logoImg.onerror = () => {
-  logo.textContent = "V.";
-};
+logoImg.onload = () => logo.replaceChildren(logoImg);
+logoImg.onerror = () => { logo.textContent = "V."; };
 
 /* MENU RESPONSIVO */
 const menuToggle = document.getElementById("menuToggle");
@@ -821,7 +454,7 @@ navLinks.querySelectorAll("a").forEach(link => {
   });
 });
 
-/* ESCOLHER UM PLANO PREENCHE O FORMULÁRIO */
+/* PLANOS PREENCHEM O FORMULÁRIO */
 document.querySelectorAll(".quote-plan").forEach(link => {
   link.addEventListener("click", () => {
     const campo = document.getElementById("servico");
@@ -831,7 +464,7 @@ document.querySelectorAll(".quote-plan").forEach(link => {
   });
 });
 
-/* CONFIGURAÇÃO DO SUPABASE */
+/* CONFIGURAÇÃO SUPABASE */
 const SUPABASE_URL = "https://swgrurgztdcyhtrjpotc.supabase.co";
 const SUPABASE_PUBLIC_KEY = "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
 
@@ -843,7 +476,6 @@ function mostrarStatus(mensagem, linkWhatsApp = null) {
   statusBox.replaceChildren();
   statusBox.classList.add("show");
   statusBox.append(document.createTextNode(mensagem));
-
   if (linkWhatsApp) {
     statusBox.append(document.createTextNode(" "));
     const link = document.createElement("a");
@@ -855,6 +487,7 @@ function mostrarStatus(mensagem, linkWhatsApp = null) {
   }
 }
 
+/* FORMULÁRIO DE ORÇAMENTO */
 form.addEventListener("submit", async event => {
   event.preventDefault();
   if (!form.reportValidity()) return;
@@ -909,31 +542,22 @@ form.addEventListener("submit", async event => {
       } catch (_) {}
 
       console.error("Falha ao salvar orçamento:", resposta.status, detalhe);
-      mostrarStatus(
-        "Não foi possível registrar o orçamento automaticamente. Você pode enviar os mesmos dados pelo WhatsApp.",
-        whatsappURL
-      );
+      mostrarStatus("Não foi possível registrar o orçamento automaticamente. Você pode enviar os dados pelo WhatsApp.", whatsappURL);
       return;
     }
 
-    mostrarStatus(
-      "Solicitação enviada! Você também pode confirmar os detalhes pelo WhatsApp.",
-      whatsappURL
-    );
+    mostrarStatus("Solicitação enviada! Você também pode confirmar os detalhes pelo WhatsApp.", whatsappURL);
     form.reset();
   } catch (erro) {
-    console.error("Erro de conexão:", erro);
-    mostrarStatus(
-      "Não foi possível conectar ao sistema de orçamento. Tente continuar pelo WhatsApp.",
-      whatsappURL
-    );
+    console.error("Erro de conexão no orçamento:", erro);
+    mostrarStatus("Não foi possível conectar ao sistema de orçamento. Tente continuar pelo WhatsApp.", whatsappURL);
   } finally {
     submitButton.disabled = false;
     submitButton.textContent = "Enviar solicitação ↗";
   }
 });
 
-/* CHAT: ABRIR E FECHAR */
+/* CHAT */
 const chatLauncher = document.getElementById("chatLauncher");
 const chatPanel = document.getElementById("chatPanel");
 const chatClose = document.getElementById("chatClose");
@@ -956,14 +580,11 @@ function fecharChat() {
   chatLauncher.setAttribute("aria-expanded", "false");
 }
 chatLauncher.addEventListener("click", () => {
-  if (chatPanel.classList.contains("open")) fecharChat();
-  else abrirChat();
+  chatPanel.classList.contains("open") ? fecharChat() : abrirChat();
 });
 chatClose.addEventListener("click", fecharChat);
 
-/* ÁUDIO DAS RESPOSTAS
-   Usa a voz do navegador. Não precisa de outra API.
-*/
+/* VOZ DO NAVEGADOR */
 function falarTexto(texto, botao) {
   if (!("speechSynthesis" in window)) {
     chatStatus.textContent = "Este navegador não oferece leitura de voz.";
@@ -971,15 +592,14 @@ function falarTexto(texto, botao) {
   }
 
   window.speechSynthesis.cancel();
-
   const fala = new SpeechSynthesisUtterance(texto);
   fala.lang = "pt-BR";
   fala.rate = 1;
   fala.pitch = 1;
 
   if (botao) {
-    botao.disabled = true;
     const original = botao.textContent;
+    botao.disabled = true;
     botao.textContent = "🔊 Reproduzindo...";
     fala.onend = () => {
       botao.disabled = false;
@@ -992,6 +612,10 @@ function falarTexto(texto, botao) {
   }
   window.speechSynthesis.speak(fala);
 }
+
+document.querySelectorAll("[data-speak]").forEach(botao => {
+  botao.addEventListener("click", () => falarTexto(botao.dataset.speak, botao));
+});
 
 function adicionarMensagem(texto, tipo, comAudio = false) {
   const mensagem = document.createElement("div");
@@ -1013,11 +637,12 @@ function adicionarMensagem(texto, tipo, comAudio = false) {
   return mensagem;
 }
 
-/* CONEXÃO COM A EDGE FUNCTION NO SUPABASE */
-const CHAT_ENDPOINT = "https://swgrurgztdcyhtrjpotc.supabase.co/functions/v1/smooth-responder";
+/* EDGE FUNCTION: AUTENTICAÇÃO E HISTÓRICO CORRIGIDOS */
+const CHAT_ENDPOINT = SUPABASE_URL + "/functions/v1/smooth-responder";
 
 chatForm.addEventListener("submit", async event => {
   event.preventDefault();
+
   const message = chatInput.value.trim();
   if (!message || busy) return;
 
@@ -1025,6 +650,7 @@ chatForm.addEventListener("submit", async event => {
   chatSend.disabled = true;
   chatInput.disabled = true;
   chatStatus.textContent = "A IA está preparando uma resposta...";
+
   adicionarMensagem(message, "user");
   chatInput.value = "";
   chatInput.style.height = "auto";
@@ -1035,7 +661,9 @@ chatForm.addEventListener("submit", async event => {
     const response = await fetch(CHAT_ENDPOINT, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_PUBLIC_KEY,
+        "Authorization": "Bearer " + SUPABASE_PUBLIC_KEY
       },
       body: JSON.stringify({
         message: message,
@@ -1043,35 +671,41 @@ chatForm.addEventListener("submit", async event => {
       })
     });
 
-    let data = {};
+    let data;
     try {
       data = await response.json();
     } catch (_) {
-      throw new Error("A função retornou uma resposta que não é JSON.");
+      throw new Error("Resposta inválida do servidor (HTTP " + response.status + ").");
     }
 
     if (!response.ok) {
-      throw new Error(data.error || data.message || ("Erro HTTP " + response.status));
+      console.error("Erro da Edge Function:", {
+        status: response.status,
+        response: data
+      });
+      throw new Error(data.details || data.error || "Erro HTTP " + response.status);
     }
 
     const reply = typeof data.reply === "string" ? data.reply.trim() : "";
-    if (!reply) {
-      throw new Error("A função não retornou o campo reply.");
-    }
+    if (!reply) throw new Error("A função não retornou uma resposta válida.");
 
     esperando.remove();
     adicionarMensagem(reply, "bot", true);
 
+    /* O index.ts espera role user/model e o campo text */
     history.push(
-      { role: "user", content: message },
-      { role: "assistant", content: reply }
+      { role: "user", text: message },
+      { role: "model", text: reply }
     );
     history = history.slice(-12);
     chatStatus.textContent = "";
+
   } catch (error) {
     console.error("Erro no chat VELTRONIX:", error);
     esperando.textContent = "Não consegui responder agora. Tente novamente em instantes.";
-    chatStatus.textContent = "Falha de conexão com a IA.";
+    chatStatus.textContent = error instanceof Error
+      ? error.message
+      : "Falha de conexão com a IA.";
   } finally {
     busy = false;
     chatSend.disabled = false;
@@ -1080,7 +714,7 @@ chatForm.addEventListener("submit", async event => {
   }
 });
 
-/* ENTER ENVIA; SHIFT + ENTER PULA LINHA */
+/* ENTER ENVIA; SHIFT + ENTER INSERE NOVA LINHA */
 chatInput.addEventListener("keydown", event => {
   if (event.key === "Enter" && !event.shiftKey) {
     event.preventDefault();
@@ -1088,13 +722,13 @@ chatInput.addEventListener("keydown", event => {
   }
 });
 
-/* AUMENTA A CAIXA DE TEXTO CONFORME DIGITA */
+/* AJUSTA ALTURA DA CAIXA */
 chatInput.addEventListener("input", () => {
   chatInput.style.height = "auto";
   chatInput.style.height = Math.min(chatInput.scrollHeight, 100) + "px";
 });
 
-/* PARA A FALA QUANDO O USUÁRIO FECHA O CHAT */
+/* INTERROMPE A VOZ AO FECHAR OU SAIR DA PÁGINA */
 chatClose.addEventListener("click", () => {
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
 });
