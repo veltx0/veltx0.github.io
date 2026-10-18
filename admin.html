@@ -1,287 +1,189 @@
-```html
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#08060d">
-<meta name="description" content="Painel administrativo da VELTRONIX.">
+<meta name="description" content="Painel administrativo da VELTRONIX">
 <title>Painel Administrativo | VELTRONIX</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-:root{
-  --bg:#08060d;
-  --panel:#110d19;
-  --purple:#b65cff;
-  --purple-dark:#7624bd;
-  --border:#30213e;
-  --text:#fff;
-  --muted:#aaa2b5;
-  --success:#5ee6a8;
-  --warning:#ffd166;
+:root {
+  --bg:#08060d; --panel:#110d19; --purple:#b65cff;
+  --purple-dark:#7624bd; --border:#30213e; --text:#fff;
+  --muted:#aaa2b5; --success:#5ee6a8; --warning:#ffd166;
   --danger:#ff758f;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  background:radial-gradient(ellipse at top,#171026 0%,var(--bg) 50%);
-  color:var(--text);
-  font-family:Arial,sans-serif;
-  min-height:100vh;
+  background:radial-gradient(ellipse at top,#171026 0%,var(--bg) 55%);
+  color:var(--text);font-family:Arial,sans-serif;min-height:100vh
 }
-button,input,select{font:inherit}
+button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-button:disabled{opacity:.55;cursor:wait}
-button:focus-visible,input:focus-visible,select:focus-visible{
-  outline:2px solid #d6a7ff;
-  outline-offset:3px;
-}
+button:disabled{opacity:.5;cursor:wait}
 header{
-  padding:22px 5%;
-  border-bottom:1px solid #282033;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  background:rgba(8,6,13,.88);
+  padding:20px 4%;border-bottom:1px solid #282033;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:15px;background:#08060dee;flex-wrap:wrap
 }
 .brand{font-size:25px;font-weight:900;letter-spacing:-1px}
 .brand span{color:var(--purple)}
-.header-label{color:var(--muted);font-size:12px;letter-spacing:2px}
-.container{width:min(1100px,92%);margin:38px auto}
-h1{font-size:30px;margin-bottom:12px}
-h2{font-size:21px;margin-bottom:10px}
-h3{font-size:19px}
+.header-label{font-size:12px;letter-spacing:2px;color:var(--muted)}
+.container{width:min(1200px,94%);margin:30px auto}
+h1{font-size:28px;margin-bottom:9px}
+h2{font-size:20px;margin-bottom:14px}
+h3{font-size:17px}
 p{overflow-wrap:anywhere}
 .muted{color:var(--muted);line-height:1.6}
 .card{
-  background:linear-gradient(145deg,rgba(25,17,36,.97),rgba(13,9,19,.98));
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:24px;
-  margin:22px 0;
-  box-shadow:0 12px 40px rgba(0,0,0,.15);
+  background:linear-gradient(145deg,#191124f7,#0d0913fa);
+  border:1px solid var(--border);border-radius:15px;
+  padding:21px;margin:18px 0
 }
-input,select{
-  width:100%;
-  padding:13px 14px;
-  margin:9px 0 17px;
-  border:1px solid #42304f;
-  border-radius:9px;
-  background:#09070e;
-  color:#fff;
-  outline:none;
+label{display:block;color:#d6c8e2;font-size:13px;margin:10px 0 6px}
+input,select,textarea{
+  width:100%;padding:12px;border:1px solid #42304f;
+  border-radius:9px;background:#09070e;color:white;margin-bottom:9px
 }
-input:focus,select:focus{border-color:var(--purple)}
-label{display:block;color:#d6c8e2;margin-top:8px;font-size:14px}
+textarea{min-height:90px;resize:vertical}
 button{
-  border:1px solid transparent;
-  padding:12px 17px;
-  border-radius:9px;
-  color:white;
-  font-weight:bold;
-  background:linear-gradient(100deg,var(--purple-dark),var(--purple));
-  transition:transform .2s,border-color .2s,opacity .2s;
+  border:1px solid transparent;padding:11px 15px;border-radius:9px;
+  color:white;font-weight:bold;background:linear-gradient(100deg,var(--purple-dark),var(--purple))
 }
-button:hover:not(:disabled){transform:translateY(-1px)}
-.secondary,.logout{
-  background:#30213d;
-  border-color:#493258;
-}
-.whatsapp-button{
-  background:#123d30;
-  border-color:#1d664c;
-  color:#8af0bb;
-}
-.login{width:min(430px,92%);margin:70px auto}
-.login .card{padding:28px}
-#loginStatus,#status,#actionStatus{
-  margin-top:14px;
-  color:#d1a1ff;
-  line-height:1.6;
-  overflow-wrap:anywhere;
-}
-#actionStatus:empty{display:none}
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:16px;
-}
-.stats .card{margin:22px 0}
-.stat strong{
-  display:block;
-  color:#bd73ff;
-  font-size:38px;
-  margin-top:13px;
-}
-.stat .stat-caption{font-size:13px;color:var(--muted);margin-top:5px}
-.toolbar{
-  display:grid;
-  grid-template-columns:minmax(0,2fr) minmax(0,1fr);
-  gap:15px;
-  margin-top:20px;
-}
-.toolbar input,.toolbar select{margin-bottom:10px}
-.quote{
-  border:1px solid #352443;
-  background:rgba(12,9,17,.9);
-  border-radius:13px;
-  padding:20px;
-  margin:15px 0;
-  min-width:0;
-}
-.quote h3{color:#d1a1ff;margin-bottom:12px;overflow-wrap:anywhere}
-.quote-details{margin-top:12px}
-.quote-details p{
-  color:#d5d0dc;
-  line-height:1.75;
-  overflow-wrap:anywhere;
-}
-.quote-details strong{color:#fff}
-.quote-top{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.pill{
-  display:inline-flex;
-  align-items:center;
-  padding:6px 10px;
-  border-radius:30px;
-  background:#352443;
-  color:#e5c8ff;
-  font-size:12px;
-  font-weight:bold;
-}
-.pill[data-status="Aprovado"]{background:#123d30;color:var(--success)}
-.pill[data-status="Recusado"]{background:#451d2b;color:#ff9caf}
-.pill[data-status="Em negociação"]{background:#44351a;color:var(--warning)}
-.quote-actions{
-  display:flex;
-  align-items:flex-end;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:18px;
-}
-.status-control{flex:1;min-width:180px}
-.status-control label{margin-top:0}
-.status-control select{margin:8px 0 0}
-.empty{
-  padding:28px 16px;
-  text-align:center;
-  color:var(--muted);
-  border:1px dashed #42304f;
-  border-radius:12px;
-  margin-top:16px;
-}
+button:hover{filter:brightness(1.12)}
+.secondary{background:#30213d;border-color:#493258}
+.green{background:#123d30;border-color:#1d664c;color:#8af0bb}
+.red{background:#451d2b;border-color:#6e2b40}
+.login{width:min(430px,92%);margin:65px auto}
 .hidden{display:none!important}
-.section-heading{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  flex-wrap:wrap;
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.stat{margin:0}
+.stat strong{display:block;font-size:32px;color:#bd73ff;margin:12px 0 5px}
+.stat small{color:var(--muted);line-height:1.5}
+.toolbar{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.actions button{flex:1}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}
+.tabs button.active{outline:2px solid #d6a7ff}
+.item{
+  background:#0c0911;border:1px solid #352443;border-radius:12px;
+  padding:17px;margin-top:13px;overflow-wrap:anywhere
 }
-.count-label{color:var(--muted);font-size:13px}
-#refreshButton{margin-left:8px}
-.dashboard-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.item h3{color:#d1a1ff;margin-bottom:8px}
+.item p{line-height:1.75;color:#d5d0dc}
+.pill{display:inline-block;padding:6px 9px;border-radius:20px;background:#352443;color:#e5c8ff;font-size:12px}
+.pill[data-status="Finalizado"],.pill[data-status="Entregue"],.pill[data-status="Aprovado"]{background:#123d30;color:var(--success)}
+.pill[data-status="Cancelado"],.pill[data-status="Recusado"]{background:#451d2b;color:#ff9caf}
+.pill[data-status="Em negociação"],.pill[data-status="Em análise"]{background:#44351a;color:var(--warning)}
+.empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed #42304f;border-radius:10px;margin-top:12px}
+.notice{margin-top:12px;color:#d1a1ff;line-height:1.6;overflow-wrap:anywhere}
+#loginStatus{margin-top:12px;color:#d1a1ff;line-height:1.6}
 @media(max-width:700px){
-  header{padding:18px 4%}
-  .header-label{font-size:10px;letter-spacing:1px}
-  .container{margin:25px auto}
-  h1{font-size:25px}
-  .card{padding:18px}
-  .stats{grid-template-columns:1fr;gap:0}
-  .stats .card{margin:10px 0}
-  .stat strong{font-size:32px}
-  .toolbar{grid-template-columns:1fr;gap:0}
-  .quote-actions{align-items:stretch}
-  .quote-actions>button{width:100%}
-  .status-control{flex-basis:100%}
-  #refreshButton{margin:0}
-  .dashboard-buttons{flex-direction:column;align-items:stretch}
+ .container{margin:20px auto}h1{font-size:24px}
+ .stats{grid-template-columns:1fr 1fr}
+ .stats .card:last-child{grid-column:1/-1}
+ .toolbar,.grid2{grid-template-columns:1fr}
+ .card{padding:16px}.stat strong{font-size:27px}
+ .actions{flex-direction:column}.actions button{width:100%}
 }
 </style>
 </head>
-
 <body>
 <header>
   <div class="brand">VELTRONI<span>X</span></div>
-  <span class="header-label">ADMINISTRAÇÃO</span>
+  <span class="header-label">PAINEL ADMINISTRATIVO</span>
 </header>
 
 <section id="loginArea" class="login">
   <div class="card">
     <h1>Acessar painel</h1>
     <p class="muted">Entre com sua conta administrativa.</p>
-
     <form id="loginForm">
       <label for="email">E-mail</label>
-      <input id="email" type="email" autocomplete="username"
-        placeholder="Seu e-mail" required>
-
+      <input id="email" type="email" autocomplete="username" required>
       <label for="password">Senha</label>
-      <input id="password" type="password"
-        autocomplete="current-password"
-        placeholder="Sua senha" required>
-
-      <button id="loginButton" type="submit" style="width:100%">
-        Entrar no painel
-      </button>
+      <input id="password" type="password" autocomplete="current-password" required>
+      <button id="loginButton" style="width:100%">Entrar no painel</button>
     </form>
-    <p id="loginStatus" role="status" aria-live="polite"></p>
+    <p id="loginStatus" role="status"></p>
   </div>
 </section>
 
 <main id="dashboard" class="container hidden">
-  <h1>Painel VELTRONIX</h1>
+  <h1>Visão geral</h1>
   <p class="muted">Conectado como <span id="userEmail"></span></p>
 
-  <div class="dashboard-buttons" style="margin-top:22px">
-    <button class="logout" id="logoutButton">Sair da conta</button>
+  <div class="actions">
     <button id="refreshButton">Atualizar dados</button>
+    <button id="logoutButton" class="secondary">Sair da conta</button>
   </div>
 
   <section class="stats" aria-label="Indicadores">
     <div class="card stat">
-      <p class="muted">Total de orçamentos</p>
+      <p class="muted">Orçamentos</p>
       <strong id="totalQuotes">0</strong>
-      <p class="stat-caption">Solicitações recebidas</p>
+      <small>Total de solicitações</small>
     </div>
     <div class="card stat">
-      <p class="muted">Clientes por contato</p>
+      <p class="muted">Clientes cadastrados</p>
       <strong id="totalClients">0</strong>
-      <p class="stat-caption">Contatos únicos</p>
+      <small>Registros na tabela clientes</small>
     </div>
     <div class="card stat">
-      <p class="muted">Serviços diferentes</p>
-      <strong id="totalServices">0</strong>
-      <p class="stat-caption">Tipos de serviço solicitados</p>
+      <p class="muted">Projetos em andamento</p>
+      <strong id="activeProjects">0</strong>
+      <small>Projetos não finalizados ou cancelados</small>
+    </div>
+    <div class="card stat">
+      <p class="muted">Projetos finalizados</p>
+      <strong id="finishedProjects">0</strong>
+      <small>Finalizados ou entregues</small>
+    </div>
+    <div class="card stat">
+      <p class="muted">Orçamentos aguardando</p>
+      <strong id="pendingQuotes">0</strong>
+      <small>Recebidos, em análise ou enviados</small>
+    </div>
+    <div class="card stat">
+      <p class="muted">Valor de projetos cadastrados</p>
+      <strong id="projectValue">R$ 0,00</strong>
+      <small>Valor total dos projetos, não necessariamente recebido</small>
     </div>
   </section>
 
   <section class="card">
-    <div class="section-heading">
-      <h2>Orçamentos recebidos</h2>
-      <span id="visibleCount" class="count-label"></span>
+    <h2>Valores por período</h2>
+    <p class="muted">Soma dos valores dos projetos pela data de cadastro. Não representa pagamentos recebidos.</p>
+    <div class="grid2">
+      <div><label>Esta semana</label><h3 id="weekValue">R$ 0,00</h3></div>
+      <div><label>Este mês</label><h3 id="monthValue">R$ 0,00</h3></div>
+      <div><label>Este ano</label><h3 id="yearValue">R$ 0,00</h3></div>
+      <div><label>Valor de propostas aprovadas</label><h3 id="approvedValue">R$ 0,00</h3></div>
     </div>
+  </section>
 
-    <p id="status" class="muted" role="status" aria-live="polite">
-      Carregando informações...
-    </p>
+  <div class="tabs">
+    <button class="active" data-tab="quotesPanel">Orçamentos</button>
+    <button data-tab="projectsPanel">Projetos / Sites</button>
+    <button data-tab="clientsPanel">Clientes</button>
+  </div>
 
+  <section id="quotesPanel" class="card">
+    <h2>Orçamentos recebidos</h2>
+    <p class="muted">Altere o status e salve para registrar a mudança no Supabase.</p>
     <div class="toolbar">
       <div>
-        <label for="search">Buscar orçamento</label>
-        <input id="search" type="search"
-          placeholder="Nome, contato ou serviço">
+        <label for="quoteSearch">Buscar</label>
+        <input id="quoteSearch" type="search" placeholder="Nome, contato ou serviço">
       </div>
       <div>
-        <label for="filterStatus">Filtrar por status</label>
-        <select id="filterStatus">
-          <option value="">Todos os status</option>
+        <label for="quoteFilter">Filtrar status</label>
+        <select id="quoteFilter">
+          <option value="">Todos</option>
           <option value="recebido">Recebido</option>
           <option value="em_analise">Em negociação</option>
           <option value="enviado">Enviado</option>
@@ -291,534 +193,633 @@ button:hover:not(:disabled){transform:translateY(-1px)}
         </select>
       </div>
     </div>
-
     <div id="quotesList"></div>
-    <p id="actionStatus" role="status" aria-live="polite"></p>
   </section>
+
+  <section id="projectsPanel" class="card hidden">
+    <h2>Cadastrar projeto ou site</h2>
+    <p class="muted">O cadastro será salvo na tabela projetos. Campos de cliente e orçamento são opcionais.</p>
+    <form id="projectForm">
+      <label for="projectName">Nome do projeto *</label>
+      <input id="projectName" required maxlength="150" placeholder="Ex.: Site institucional">
+      <label for="projectClient">Cliente cadastrado (opcional)</label>
+      <select id="projectClient"><option value="">Sem cliente vinculado</option></select>
+      <label for="projectQuote">Orçamento relacionado (opcional)</label>
+      <select id="projectQuote"><option value="">Sem orçamento vinculado</option></select>
+      <label for="projectDescription">Descrição</label>
+      <textarea id="projectDescription" placeholder="Detalhes do projeto"></textarea>
+      <div class="grid2">
+        <div><label for="projectPrice">Valor combinado (R$)</label><input id="projectPrice" type="number" min="0" step="0.01" placeholder="0,00"></div>
+        <div><label for="projectStart">Data de início</label><input id="projectStart" type="date"></div>
+      </div>
+      <label for="projectDeadline">Prazo de entrega</label>
+      <input id="projectDeadline" type="date">
+      <label for="projectStatus">Etapa inicial</label>
+      <select id="projectStatus">
+        <option>Não iniciado</option>
+        <option>Em análise</option>
+        <option>Em andamento</option>
+        <option>Em preparação</option>
+        <option>Em revisão</option>
+        <option>Finalizado</option>
+        <option>Entregue</option>
+        <option>Cancelado</option>
+      </select>
+      <button id="createProjectButton">Cadastrar projeto</button>
+    </form>
+    <p id="projectMessage" class="notice" role="status"></p>
+
+    <hr style="border-color:#30213e;margin:25px 0">
+    <h2>Projetos cadastrados</h2>
+    <div class="toolbar">
+      <div><label for="projectSearch">Buscar projeto</label><input id="projectSearch" type="search" placeholder="Nome ou descrição"></div>
+      <div>
+        <label for="projectFilter">Filtrar etapa</label>
+        <select id="projectFilter">
+          <option value="">Todas as etapas</option>
+          <option>Não iniciado</option><option>Em análise</option>
+          <option>Em andamento</option><option>Em preparação</option>
+          <option>Em revisão</option><option>Finalizado</option>
+          <option>Entregue</option><option>Cancelado</option>
+        </select>
+      </div>
+    </div>
+    <div id="projectsList"></div>
+  </section>
+
+  <section id="clientsPanel" class="card hidden">
+    <h2>Clientes cadastrados</h2>
+    <p class="muted">Lista de registros existentes na tabela clientes.</p>
+    <div id="clientsList"></div>
+  </section>
+
+  <p id="globalMessage" class="notice" role="status" aria-live="polite"></p>
 </main>
 
 <script>
 "use strict";
 
-const SUPABASE_URL =
-  "https://swgrurgztdcyhtrjpotc.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
-
-const db = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
-
+const SUPABASE_URL = "https://swgrurgztdcyhtrjpotc.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_Lia6ra-n7B3VZwZt5GgQBA_mbhm7gg6";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 const $ = id => document.getElementById(id);
 
-// Valores compatíveis com a restrição da tabela no Supabase.
-const STATUS_OPTIONS = [
-  { value: "recebido", label: "Recebido" },
-  { value: "em_analise", label: "Em negociação" },
-  { value: "enviado", label: "Enviado" },
-  { value: "aprovado", label: "Aprovado" },
-  { value: "recusado", label: "Recusado" },
-  { value: "cancelado", label: "Cancelado" }
+const QUOTE_STATUSES = [
+  {value:"recebido",label:"Recebido"},
+  {value:"em_analise",label:"Em negociação"},
+  {value:"enviado",label:"Enviado"},
+  {value:"aprovado",label:"Aprovado"},
+  {value:"recusado",label:"Recusado"},
+  {value:"cancelado",label:"Cancelado"}
 ];
 
-const VALID_STATUSES = STATUS_OPTIONS.map(item => item.value);
+const PROJECT_STATUSES = [
+  "Não iniciado","Em análise","Em andamento","Em preparação",
+  "Em revisão","Finalizado","Entregue","Cancelado"
+];
 
-const STATUS_LABELS = Object.fromEntries(
-  STATUS_OPTIONS.map(item => [item.value, item.label])
-);
-
-function statusLabel(status) {
-  return STATUS_LABELS[status] || status || "Recebido";
-}
-
-let allQuotes = [];
-let loadingQuotes = false;
+let quotes = [];
+let projects = [];
+let clients = [];
+let busy = false;
 let sessionVersion = 0;
 
-function setMessage(id, message) {
-  $(id).textContent = message || "";
+function message(id, text) {
+  $(id).textContent = text || "";
+}
+
+function money(value) {
+  const number = Number(value);
+  return Number.isFinite(number)
+    ? number.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})
+    : "R$ 0,00";
+}
+
+function parseMoney(value) {
+  if (typeof value === "number") return Number.isFinite(value) ? value : 0;
+  if (value == null || value === "") return 0;
+  let s = String(value).trim().replace(/[R$\s]/g,"");
+  if (s.includes(",")) s = s.replace(/\./g,"").replace(",",".");
+  const n = Number(s);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function escapeText(value) {
+  return String(value ?? "");
+}
+
+function appendLine(parent, label, value) {
+  const p = document.createElement("p");
+  const b = document.createElement("strong");
+  b.textContent = label + ": ";
+  p.append(b, document.createTextNode(
+    value === null || value === undefined || value === ""
+      ? "Não informado" : String(value)
+  ));
+  parent.appendChild(p);
+}
+
+function statusLabel(status) {
+  const found = QUOTE_STATUSES.find(s => s.value === status);
+  return found ? found.label : (status || "Recebido");
+}
+
+function contactOf(q) {
+  return q.contato || q.telefone || "";
+}
+
+function nameOfQuote(q) {
+  return q.nome_cliente || q.nome || "Cliente";
+}
+
+function isFinished(p) {
+  return ["finalizado","entregue"].includes(
+    String(p.status || "").toLowerCase()
+  );
+}
+
+function isCancelled(p) {
+  return String(p.status || "").toLowerCase() === "cancelado";
+}
+
+function dateInRange(dateString, start, end) {
+  if (!dateString) return false;
+  const date = new Date(dateString);
+  return !Number.isNaN(date.getTime()) && date >= start && date < end;
+}
+
+function updateStats() {
+  $("totalQuotes").textContent = quotes.length;
+  $("totalClients").textContent = clients.length;
+
+  $("activeProjects").textContent =
+    projects.filter(p => !isFinished(p) && !isCancelled(p)).length;
+  $("finishedProjects").textContent =
+    projects.filter(isFinished).length;
+
+  $("pendingQuotes").textContent = quotes.filter(q =>
+    ["recebido","em_analise","enviado"].includes(q.status || "recebido")
+  ).length;
+
+  const total = projects.reduce((sum,p) => sum + Number(p.valor || 0), 0);
+  $("projectValue").textContent = money(total);
+
+  const now = new Date();
+  const startWeek = new Date(now);
+  const day = (now.getDay() + 6) % 7;
+  startWeek.setDate(now.getDate() - day);
+  startWeek.setHours(0,0,0,0);
+
+  const startMonth = new Date(now.getFullYear(),now.getMonth(),1);
+  const startYear = new Date(now.getFullYear(),0,1);
+  const nextWeek = new Date(startWeek);
+  nextWeek.setDate(nextWeek.getDate()+7);
+
+  const sumRange = (start,end) => projects
+    .filter(p => dateInRange(p.created_at,start,end))
+    .reduce((sum,p) => sum + Number(p.valor || 0),0);
+
+  $("weekValue").textContent = money(sumRange(startWeek,nextWeek));
+  $("monthValue").textContent = money(sumRange(startMonth,new Date(now.getFullYear(),now.getMonth()+1,1)));
+  $("yearValue").textContent = money(sumRange(startYear,new Date(now.getFullYear()+1,0,1)));
+
+  $("approvedValue").textContent = money(
+    quotes.filter(q => q.status === "aprovado")
+      .reduce((sum,q) => sum + parseMoney(q.valor),0)
+  );
+}
+
+async function checkSession() {
+  try {
+    const {data,error} = await db.auth.getSession();
+    if (error) throw error;
+    if (data.session) showDashboard(data.session.user);
+    else showLogin();
+  } catch (e) {
+    message("loginStatus","Erro ao verificar sessão: " + e.message);
+  }
 }
 
 function showLogin() {
   sessionVersion++;
-  allQuotes = [];
-
   $("loginArea").classList.remove("hidden");
   $("dashboard").classList.add("hidden");
-  $("quotesList").replaceChildren();
-
-  $("totalQuotes").textContent = "0";
-  $("totalClients").textContent = "0";
-  $("totalServices").textContent = "0";
-  $("visibleCount").textContent = "";
-  setMessage("actionStatus", "");
 }
 
 function showDashboard(user) {
   $("loginArea").classList.add("hidden");
   $("dashboard").classList.remove("hidden");
   $("userEmail").textContent = user.email || "";
-  loadQuotes();
+  loadAll();
 }
 
-async function checkSession() {
-  try {
-    const { data, error } = await db.auth.getSession();
-    if (error) throw error;
-
-    if (data.session) {
-      showDashboard(data.session.user);
-    } else {
-      showLogin();
-    }
-  } catch (error) {
-    setMessage("loginStatus",
-      "Erro ao verificar sessão: " + error.message);
-  }
-}
-
-$("loginForm").addEventListener("submit", async event => {
-  event.preventDefault();
-
+$("loginForm").addEventListener("submit",async e => {
+  e.preventDefault();
   const button = $("loginButton");
   button.disabled = true;
   button.textContent = "Entrando...";
-  setMessage("loginStatus", "");
-
+  message("loginStatus","");
   try {
-    const { data, error } = await db.auth.signInWithPassword({
-      email: $("email").value.trim(),
-      password: $("password").value
+    const {data,error} = await db.auth.signInWithPassword({
+      email:$("email").value.trim(),
+      password:$("password").value
     });
-
     if (error) throw error;
     showDashboard(data.user);
-  } catch (error) {
-    setMessage("loginStatus",
-      "Não foi possível entrar: " + error.message);
+  } catch (e) {
+    message("loginStatus","Não foi possível entrar: " + e.message);
   } finally {
     button.disabled = false;
     button.textContent = "Entrar no painel";
   }
 });
 
-async function loadQuotes() {
-  if (loadingQuotes) return;
-
-  loadingQuotes = true;
-  const currentVersion = sessionVersion;
-
+async function loadAll() {
+  if (busy) return;
+  busy = true;
+  const version = sessionVersion;
+  message("globalMessage","Carregando dados...");
   $("refreshButton").disabled = true;
-  setMessage("status", "Buscando orçamentos...");
-  setMessage("actionStatus", "");
-  $("quotesList").replaceChildren();
 
   try {
-    const { data, error } = await db
-      .from("orcamentos")
-      .select("*")
-      .order("created_at", { ascending: false });
+    const results = await Promise.all([
+      db.from("orcamentos").select("*").order("created_at",{ascending:false}),
+      db.from("clientes").select("*").order("created_at",{ascending:false}),
+      db.from("projetos").select("*").order("created_at",{ascending:false})
+    ]);
 
-    if (error) throw error;
-    if (currentVersion !== sessionVersion) return;
+    for (const result of results) {
+      if (result.error) throw result.error;
+    }
+    if (version !== sessionVersion) return;
 
-    allQuotes = data || [];
+    quotes = results[0].data || [];
+    clients = results[1].data || [];
+    projects = results[2].data || [];
 
-    $("totalQuotes").textContent = allQuotes.length;
-
-    $("totalClients").textContent = new Set(
-      allQuotes.map(getContact).filter(Boolean)
-    ).size;
-
-    $("totalServices").textContent = new Set(
-      allQuotes.map(q => q.servico).filter(Boolean)
-    ).size;
-
-    setMessage(
-      "status",
-      allQuotes.length
-        ? allQuotes.length + " orçamento(s) encontrado(s)."
-        : "Nenhum orçamento recebido ainda."
-    );
-
+    updateStats();
     renderQuotes();
-  } catch (error) {
-    if (currentVersion !== sessionVersion) return;
-
-    allQuotes = [];
-    $("quotesList").replaceChildren();
-    setMessage("status", "Erro ao carregar: " + error.message);
-    $("visibleCount").textContent = "";
+    renderProjects();
+    renderClients();
+    fillProjectLinks();
+    message("globalMessage","Dados atualizados.");
+  } catch (e) {
+    message("globalMessage","Erro ao carregar os dados: " + e.message);
   } finally {
-    loadingQuotes = false;
+    busy = false;
     $("refreshButton").disabled = false;
   }
-}
-
-function getContact(quote) {
-  return quote.contato || quote.telefone || quote.whatsapp || "";
-}
-
-function getClientName(quote) {
-  return quote.nome || quote.nome_cliente || "Cliente";
-}
-
-function addLine(parent, label, value) {
-  const line = document.createElement("p");
-  const strong = document.createElement("strong");
-
-  strong.textContent = label + ": ";
-
-  line.append(
-    strong,
-    document.createTextNode(
-      value === null || value === undefined || value === ""
-        ? "Não informado"
-        : String(value)
-    )
-  );
-
-  parent.appendChild(line);
 }
 
 function renderQuotes() {
   const list = $("quotesList");
   list.replaceChildren();
 
-  const term = $("search").value.trim().toLocaleLowerCase("pt-BR");
-  const wantedStatus = $("filterStatus").value;
+  const term = $("quoteSearch").value.trim().toLocaleLowerCase("pt-BR");
+  const wanted = $("quoteFilter").value;
 
-  const filtered = allQuotes.filter(quote => {
-    const searchable = [
-      getClientName(quote),
-      getContact(quote),
-      quote.servico,
-      quote.descricao,
-      quote.prazo,
-      quote.valor
-    ]
-      .filter(value => value !== null && value !== undefined)
-      .join(" ")
-      .toLocaleLowerCase("pt-BR");
-
-    const status = quote.status || "recebido";
-
-    return searchable.includes(term) &&
-      (!wantedStatus || status === wantedStatus);
+  const filtered = quotes.filter(q => {
+    const text = [
+      nameOfQuote(q),contactOf(q),q.servico,q.descricao,q.valor
+    ].filter(Boolean).join(" ").toLocaleLowerCase("pt-BR");
+    return text.includes(term) && (!wanted || (q.status || "recebido") === wanted);
   });
-
-  $("visibleCount").textContent =
-    filtered.length + " de " + allQuotes.length;
 
   if (!filtered.length) {
     const empty = document.createElement("div");
     empty.className = "empty";
-    empty.textContent = allQuotes.length
-      ? "Nenhum orçamento corresponde à sua busca."
-      : "Os novos pedidos aparecerão aqui.";
-
+    empty.textContent = "Nenhum orçamento encontrado.";
     list.appendChild(empty);
     return;
   }
 
-  filtered.forEach(quote => {
-    const article = document.createElement("article");
-    article.className = "quote";
-
+  filtered.forEach(q => {
+    const card = document.createElement("article");
+    card.className = "item";
     const top = document.createElement("div");
-    top.className = "quote-top";
-
+    top.className = "item-top";
     const title = document.createElement("h3");
-    title.textContent = getClientName(quote);
-
-    const currentStatus = quote.status || "recebido";
-
+    title.textContent = nameOfQuote(q);
     const badge = document.createElement("span");
     badge.className = "pill";
-    badge.dataset.status = statusLabel(currentStatus);
-    badge.textContent = statusLabel(currentStatus);
+    badge.dataset.status = statusLabel(q.status);
+    badge.textContent = statusLabel(q.status);
+    top.append(title,badge);
+    card.appendChild(top);
 
-    top.append(title, badge);
-    article.appendChild(top);
+    appendLine(card,"Contato",contactOf(q));
+    appendLine(card,"E-mail",q.email);
+    appendLine(card,"Serviço",q.servico);
+    appendLine(card,"Descrição",q.descricao);
+    appendLine(card,"Prazo",q.prazo);
+    appendLine(card,"Faixa informada",q.faixa_orcamento);
+    appendLine(card,"Valor da proposta",q.valor);
+    if (q.created_at) appendLine(card,"Recebido em",new Date(q.created_at).toLocaleString("pt-BR"));
 
-    const details = document.createElement("div");
-    details.className = "quote-details";
+    const controls = document.createElement("div");
+    controls.className = "grid2";
+    const label = document.createElement("label");
+    label.textContent = "Status do orçamento";
+    const select = document.createElement("select");
+    QUOTE_STATUSES.forEach(s => {
+      const opt = document.createElement("option");
+      opt.value = s.value;
+      opt.textContent = s.label;
+      select.appendChild(opt);
+    });
+    select.value = QUOTE_STATUSES.some(s=>s.value===q.status) ? q.status : "recebido";
+    label.appendChild(select);
+    controls.appendChild(label);
 
-    addLine(details, "WhatsApp", getContact(quote));
-    addLine(details, "Serviço", quote.servico);
-    addLine(details, "Descrição", quote.descricao);
-    addLine(details, "Prazo", quote.prazo);
-    addLine(details, "Orçamento previsto", quote.valor);
-
-    if (quote.created_at) {
-      const date = new Date(quote.created_at);
-      if (!Number.isNaN(date.getTime())) {
-        addLine(details, "Recebido em", date.toLocaleString("pt-BR"));
-      }
-    }
-
-    article.appendChild(details);
+    const save = document.createElement("button");
+    save.textContent = "Salvar status";
+    save.style.alignSelf = "end";
+    save.style.marginBottom = "9px";
+    save.addEventListener("click",()=>saveQuoteStatus(q,select.value,save));
+    controls.appendChild(save);
+    card.appendChild(controls);
 
     const actions = document.createElement("div");
-    actions.className = "quote-actions";
-
-    const statusControl = document.createElement("div");
-    statusControl.className = "status-control";
-
-    const statusLabelElement = document.createElement("label");
-    statusLabelElement.textContent = "Alterar status";
-    statusLabelElement.htmlFor = "status-" + String(quote.id || "");
-
-    const select = document.createElement("select");
-    select.id = statusLabelElement.htmlFor;
-    select.setAttribute(
-      "aria-label",
-      "Status do orçamento de " + getClientName(quote)
-    );
-
-    STATUS_OPTIONS.forEach(status => {
-      const option = document.createElement("option");
-      option.value = status.value;
-      option.textContent = status.label;
-      select.appendChild(option);
+    actions.className = "actions";
+    const chat = document.createElement("button");
+    chat.className = "green";
+    chat.textContent = "Conversar pelo WhatsApp";
+    chat.addEventListener("click",()=>openWhatsApp(contactOf(q)));
+    const notify = document.createElement("button");
+    notify.className = "secondary";
+    notify.textContent = "Avisar status pelo WhatsApp";
+    notify.addEventListener("click",()=>{
+      if ((q.status || "recebido") !== select.value) {
+        alert("Salve o status antes de preparar o aviso.");
+        return;
+      }
+      const number = normalizeNumber(contactOf(q));
+      if (!number) { alert("Telefone inválido ou não informado."); return; }
+      const msg = "Olá, " + nameOfQuote(q) + "! Temos uma atualização sobre sua solicitação na VELTRONIX. Serviço: " +
+        (q.servico || "não informado") + ". Status: " + statusLabel(q.status) +
+        ". Obrigado pelo contato! VELTRONIX — Tecnologia que impulsiona negócios.";
+      if (confirm("Abrir WhatsApp com a mensagem pronta? Você precisará tocar em Enviar no WhatsApp.")) {
+        window.open("https://wa.me/"+number+"?text="+encodeURIComponent(msg),"_blank");
+      }
     });
-
-    select.value = VALID_STATUSES.includes(currentStatus)
-      ? currentStatus
-      : "recebido";
-
-    statusControl.append(statusLabelElement, select);
-
-    const saveButton = document.createElement("button");
-    saveButton.textContent = "Salvar status";
-    saveButton.addEventListener("click", () => {
-      updateStatus(quote, select.value, saveButton);
-    });
-
-    const noticeButton = document.createElement("button");
-    noticeButton.className = "whatsapp-button";
-    noticeButton.textContent = "Avisar cliente pelo WhatsApp";
-    noticeButton.addEventListener("click", () => {
-      prepareStatusNotice(quote, select.value);
-    });
-
-    const chatButton = document.createElement("button");
-    chatButton.className = "secondary";
-    chatButton.textContent = "Conversar pelo WhatsApp";
-    chatButton.addEventListener("click", () => {
-      openWhatsApp(getContact(quote));
-    });
-
-    actions.append(statusControl, saveButton, noticeButton, chatButton);
-    article.appendChild(actions);
-    list.appendChild(article);
+    actions.append(chat,notify);
+    card.appendChild(actions);
+    list.appendChild(card);
   });
 }
 
-function normalizeWhatsAppNumber(contact) {
-  let number = String(contact || "").replace(/\D/g, "");
-
-  if (number.startsWith("00")) {
-    number = number.slice(2);
-  }
-
-  if (number.length === 10 || number.length === 11) {
-    number = "55" + number;
-  }
-
-  if (!number.startsWith("55") ||
-      (number.length !== 12 && number.length !== 13)) {
-    return null;
-  }
-
-  return number;
-}
-
-function openWhatsApp(contact, message = "") {
-  const number = normalizeWhatsAppNumber(contact);
-
-  if (!number) {
-    alert(
-      "Não foi possível validar o telefone. Confira o número cadastrado no orçamento."
-    );
-    return;
-  }
-
-  const url = "https://wa.me/" + number +
-    (message ? "?text=" + encodeURIComponent(message) : "");
-
-  const opened = window.open(url, "_blank");
-
-  if (!opened) {
-    alert(
-      "O navegador bloqueou a nova aba. Vamos abrir o WhatsApp nesta mesma página."
-    );
-    window.location.href = url;
-  }
-}
-
-function buildStatusMessage(quote, status) {
-  const name = getClientName(quote);
-  const service = quote.servico || "serviço solicitado";
-
-  const messages = {
-    recebido:
-      "Recebemos sua solicitação e ela está aguardando análise.",
-    em_analise:
-      "Sua solicitação está em negociação. Em breve, entraremos em contato para alinhar os próximos detalhes.",
-    enviado:
-      "Sua proposta foi enviada. Confira as informações e entre em contato se tiver dúvidas.",
-    aprovado:
-      "Sua solicitação foi aprovada! Vamos alinhar os próximos passos do projeto.",
-    recusado:
-      "No momento, sua solicitação foi recusada. Se precisar, entre em contato conosco para conversar sobre outras possibilidades.",
-    cancelado:
-      "Sua solicitação foi cancelada. Se precisar, entre em contato conosco para conversar."
-  };
-
-  return [
-    "Olá, " + name + "! Tudo bem? 👋",
-    "",
-    "Temos uma atualização sobre sua solicitação na VELTRONIX.",
-    "",
-    "🛠️ Serviço: " + service,
-    "📌 Novo status: " + statusLabel(status).toUpperCase(),
-    "",
-    messages[status],
-    "",
-    "Obrigado pelo contato!",
-    "",
-    "VELTRONIX",
-    "Tecnologia que impulsiona negócios."
-  ].join("\n");
-}
-
-function prepareStatusNotice(quote, selectedStatus) {
-  const savedStatus = quote.status || "recebido";
-
-  if (selectedStatus !== savedStatus) {
-    alert(
-      'Primeiro clique em "Salvar status" e aguarde a confirmação.'
-    );
-    return;
-  }
-
-  const contact = getContact(quote);
-  const number = normalizeWhatsAppNumber(contact);
-
-  if (!number) {
-    alert(
-      "Não consegui validar o telefone. Confira o número cadastrado no orçamento."
-    );
-    return;
-  }
-
-  const message = buildStatusMessage(quote, savedStatus);
-
-  const confirmed = window.confirm(
-    "Confirmar aviso pelo WhatsApp?\n\n" +
-    "Cliente: " + getClientName(quote) + "\n" +
-    "Status: " + statusLabel(savedStatus) + "\n\n" +
-    "Ao confirmar, o WhatsApp será aberto com a mensagem pronta. " +
-    "Você ainda precisará tocar em Enviar no WhatsApp."
-  );
-
-  if (!confirmed) return;
-
-  const url = "https://wa.me/" + number +
-    "?text=" + encodeURIComponent(message);
-
-  const opened = window.open(url, "_blank");
-
-  if (!opened) {
-    window.location.href = url;
-  }
-}
-
-async function updateStatus(quote, newStatus, button) {
-  if (!VALID_STATUSES.includes(newStatus)) {
-    alert("Status inválido.");
-    return;
-  }
-
-  if ((quote.status || "recebido") === newStatus) {
+async function saveQuoteStatus(q,newStatus,button) {
+  if (q.status === newStatus || (!q.status && newStatus === "recebido")) {
     alert("Esse orçamento já está com esse status.");
     return;
   }
-
-  if (!quote.id) {
-    alert(
-      "Este orçamento não possui um campo id disponível. Confira a estrutura da tabela."
-    );
-    return;
-  }
-
   button.disabled = true;
-  setMessage("actionStatus", "Salvando status...");
-
   try {
-    const { data, error } = await db
-      .from("orcamentos")
-      .update({ status: newStatus })
-      .eq("id", quote.id)
-      .select();
-
+    const {data,error} = await db.from("orcamentos")
+      .update({status:newStatus,updated_at:new Date().toISOString()})
+      .eq("id",q.id).select();
     if (error) throw error;
-
-    if (!Array.isArray(data) || data.length === 0) {
-      throw new Error(
-        "O Supabase não atualizou nenhuma linha. Verifique se o ID existe e se as políticas de segurança permitem a atualização."
-      );
-    }
-
-    const updatedQuote = data[0];
-    quote.status = updatedQuote.status || newStatus;
-
-    setMessage(
-      "actionStatus",
-      "Status salvo: " + statusLabel(quote.status) +
-      ". Você já pode preparar o aviso pelo WhatsApp."
-    );
-
+    if (!data || !data.length) throw new Error("Nenhum registro foi atualizado. Confira as permissões RLS.");
+    q.status = data[0].status;
+    q.updated_at = data[0].updated_at;
+    updateStats();
     renderQuotes();
-  } catch (error) {
-    alert(
-      "Não foi possível salvar o status.\n\n" + error.message
-    );
-
-    setMessage(
-      "actionStatus",
-      "Erro ao salvar status: " + error.message
-    );
+    message("globalMessage","Status do orçamento atualizado.");
+  } catch(e) {
+    alert("Não foi possível salvar o status: " + e.message);
   } finally {
     button.disabled = false;
   }
 }
 
-$("search").addEventListener("input", renderQuotes);
-$("filterStatus").addEventListener("change", renderQuotes);
-$("refreshButton").addEventListener("click", loadQuotes);
+function normalizeNumber(contact) {
+  let n = String(contact || "").replace(/\D/g,"");
+  if (n.startsWith("00")) n = n.slice(2);
+  if (n.length === 10 || n.length === 11) n = "55" + n;
+  return n.startsWith("55") && (n.length===12 || n.length===13) ? n : null;
+}
 
-$("logoutButton").addEventListener("click", async () => {
-  $("logoutButton").disabled = true;
+function openWhatsApp(contact) {
+  const n = normalizeNumber(contact);
+  if (!n) { alert("Confira o telefone cadastrado."); return; }
+  window.open("https://wa.me/"+n,"_blank");
+}
+
+function fillProjectLinks() {
+  const clientSelect = $("projectClient");
+  const quoteSelect = $("projectQuote");
+  clientSelect.replaceChildren(new Option("Sem cliente vinculado",""));
+  quoteSelect.replaceChildren(new Option("Sem orçamento vinculado",""));
+
+  clients.forEach(c => clientSelect.add(new Option(
+    (c.empresa ? c.empresa+" — " : "") + c.nome, c.id
+  )));
+  quotes.forEach(q => quoteSelect.add(new Option(
+    nameOfQuote(q) + " — " + (q.servico || "Serviço não informado"), q.id
+  )));
+}
+
+$("projectForm").addEventListener("submit",async e => {
+  e.preventDefault();
+  const button = $("createProjectButton");
+  button.disabled = true;
+  message("projectMessage","Cadastrando projeto...");
+
+  const priceText = $("projectPrice").value;
+  const price = priceText === "" ? 0 : Number(priceText);
+  if (!Number.isFinite(price) || price < 0) {
+    message("projectMessage","Informe um valor válido.");
+    button.disabled = false;
+    return;
+  }
+
+  const payload = {
+    nome:$("projectName").value.trim(),
+    cliente_id:$("projectClient").value || null,
+    orcamento_id:$("projectQuote").value || null,
+    descricao:$("projectDescription").value.trim() || null,
+    status:$("projectStatus").value,
+    valor:price,
+    data_inicio:$("projectStart").value || null,
+    prazo_entrega:$("projectDeadline").value || null
+  };
 
   try {
-    const { error } = await db.auth.signOut();
+    const {data,error} = await db.from("projetos").insert(payload).select();
+    if (error) throw error;
+    if (!data || !data.length) throw new Error("O banco não retornou o projeto criado.");
+    const created = data[0];
+
+    // Registra uma primeira atualização do projeto.
+    const {error:historyError} = await db.from("atualizacoes_projetos").insert({
+      projeto_id:created.id,
+      mensagem:"Projeto cadastrado. Etapa inicial: " + created.status
+    });
+    if (historyError) {
+      message("projectMessage","Projeto criado, mas não foi possível salvar o histórico: "+historyError.message);
+    } else {
+      message("projectMessage","Projeto cadastrado com sucesso!");
+    }
+
+    $("projectForm").reset();
+    await loadAll();
+  } catch(e) {
+    message("projectMessage","Erro ao cadastrar: "+e.message+
+      ". Verifique as políticas RLS e as permissões de INSERT.");
+  } finally {
+    button.disabled = false;
+  }
+});
+
+function renderProjects() {
+  const list = $("projectsList");
+  list.replaceChildren();
+  const term = $("projectSearch").value.trim().toLocaleLowerCase("pt-BR");
+  const wanted = $("projectFilter").value;
+  const filtered = projects.filter(p =>
+    [p.nome,p.descricao,p.status].filter(Boolean).join(" ").toLocaleLowerCase("pt-BR").includes(term) &&
+    (!wanted || p.status === wanted)
+  );
+
+  if (!filtered.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "Nenhum projeto encontrado. Você pode cadastrar o primeiro acima.";
+    list.appendChild(empty);
+    return;
+  }
+
+  filtered.forEach(p => {
+    const card = document.createElement("article");
+    card.className = "item";
+    const top = document.createElement("div");
+    top.className = "item-top";
+    const title = document.createElement("h3");
+    title.textContent = p.nome || "Projeto sem nome";
+    const badge = document.createElement("span");
+    badge.className = "pill";
+    badge.dataset.status = p.status || "";
+    badge.textContent = p.status || "Sem status";
+    top.append(title,badge);
+    card.appendChild(top);
+
+    appendLine(card,"Descrição",p.descricao);
+    appendLine(card,"Valor combinado",money(p.valor));
+    appendLine(card,"Data de início",p.data_inicio ? new Date(p.data_inicio+"T12:00:00").toLocaleDateString("pt-BR") : "");
+    appendLine(card,"Prazo de entrega",p.prazo_entrega ? new Date(p.prazo_entrega+"T12:00:00").toLocaleDateString("pt-BR") : "");
+    const client = clients.find(c=>c.id===p.cliente_id);
+    appendLine(card,"Cliente",client ? (client.empresa || client.nome) : "");
+    if (p.created_at) appendLine(card,"Cadastrado em",new Date(p.created_at).toLocaleDateString("pt-BR"));
+
+    const label = document.createElement("label");
+    label.textContent = "Atualizar etapa do projeto";
+    const select = document.createElement("select");
+    PROJECT_STATUSES.forEach(status => select.add(new Option(status,status)));
+    if (!PROJECT_STATUSES.includes(p.status)) select.add(new Option(p.status,p.status));
+    select.value = p.status || "Não iniciado";
+    label.appendChild(select);
+    card.appendChild(label);
+
+    const save = document.createElement("button");
+    save.textContent = "Salvar etapa";
+    save.addEventListener("click",()=>updateProjectStatus(p,select.value,save));
+    card.appendChild(save);
+    list.appendChild(card);
+  });
+}
+
+async function updateProjectStatus(project,newStatus,button) {
+  if (project.status === newStatus) {
+    alert("O projeto já está nessa etapa.");
+    return;
+  }
+  button.disabled = true;
+  try {
+    const {data,error} = await db.from("projetos")
+      .update({status:newStatus,updated_at:new Date().toISOString()})
+      .eq("id",project.id).select();
+    if (error) throw error;
+    if (!data || !data.length) throw new Error("Nenhum projeto foi atualizado. Confira as permissões RLS.");
+
+    const {error:historyError} = await db.from("atualizacoes_projetos").insert({
+      projeto_id:project.id,
+      mensagem:"Etapa alterada de \""+(project.status || "Sem status")+"\" para \""+newStatus+"\"."
+    });
+    project.status = data[0].status;
+    project.updated_at = data[0].updated_at;
+    updateStats();
+    renderProjects();
+
+    message("globalMessage",historyError
+      ? "Etapa atualizada, mas o histórico não foi salvo: "+historyError.message
+      : "Etapa do projeto atualizada e registrada no histórico.");
+  } catch(e) {
+    alert("Erro ao atualizar projeto: "+e.message);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+function renderClients() {
+  const list = $("clientsList");
+  list.replaceChildren();
+  if (!clients.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "Nenhum cliente cadastrado na tabela clientes.";
+    list.appendChild(empty);
+    return;
+  }
+  clients.forEach(c => {
+    const card = document.createElement("article");
+    card.className = "item";
+    const h = document.createElement("h3");
+    h.textContent = c.empresa || c.nome || "Cliente";
+    card.appendChild(h);
+    appendLine(card,"Nome",c.nome);
+    appendLine(card,"Empresa",c.empresa);
+    appendLine(card,"E-mail",c.email);
+    appendLine(card,"Telefone",c.telefone);
+    appendLine(card,"Observações",c.observacoes);
+    list.appendChild(card);
+  });
+}
+
+document.querySelectorAll("[data-tab]").forEach(button => {
+  button.addEventListener("click",()=>{
+    document.querySelectorAll("[data-tab]").forEach(b=>b.classList.remove("active"));
+    button.classList.add("active");
+    ["quotesPanel","projectsPanel","clientsPanel"].forEach(id=>{
+      $(id).classList.toggle("hidden",id!==button.dataset.tab);
+    });
+  });
+});
+
+$("quoteSearch").addEventListener("input",renderQuotes);
+$("quoteFilter").addEventListener("change",renderQuotes);
+$("projectSearch").addEventListener("input",renderProjects);
+$("projectFilter").addEventListener("change",renderProjects);
+$("refreshButton").addEventListener("click",loadAll);
+
+$("logoutButton").addEventListener("click",async()=>{
+  $("logoutButton").disabled = true;
+  try {
+    const {error} = await db.auth.signOut();
     if (error) throw error;
     showLogin();
-  } catch (error) {
-    setMessage("status", "Erro ao sair da conta: " + error.message);
+  } catch(e) {
+    message("globalMessage","Erro ao sair: "+e.message);
   } finally {
     $("logoutButton").disabled = false;
   }
 });
 
-db.auth.onAuthStateChange((_event, session) => {
+db.auth.onAuthStateChange((_event,session)=>{
   if (session) {
-    showDashboard(session.user);
-  } else {
+    // Evita recarregar repetidamente a cada atualização do token.
+    $("userEmail").textContent = session.user.email || "";
+    if ($("dashboard").classList.contains("hidden")) showDashboard(session.user);
+  } else if (!$("loginArea").classList.contains("hidden") === false) {
     showLogin();
   }
 });
@@ -827,4 +828,3 @@ checkSession();
 </script>
 </body>
 </html>
-```
