@@ -968,6 +968,11 @@
       margin-top: 20px;
     }
 
+    .form-card .btn:disabled {
+      opacity: .65;
+      cursor: wait;
+    }
+
     .form-message {
       margin-top: 14px;
       font-size: .88rem;
@@ -1492,7 +1497,6 @@
       </div>
     </section>
 
-    <!-- PROMOÇÃO DE PRIMEIRA COMPRA -->
     <section class="promo-banner" id="promocao">
       <div class="promo-inner">
         <div class="promo-content">
@@ -2064,13 +2068,20 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    /* FORMULÁRIO DE ORÇAMENTO */
+    /* FORMULÁRIO DE ORÇAMENTO — SUPABASE */
     const budgetForm = document.getElementById("budgetForm");
     const formMessage = document.getElementById("formMessage");
     const submitBudget = document.getElementById("submitBudget");
 
+    function showFormMessage(message, color) {
+      formMessage.textContent = message;
+      formMessage.style.color = color;
+    }
+
     budgetForm.addEventListener("submit", async event => {
       event.preventDefault();
+
+      if (submitBudget.disabled) return;
 
       const nome = document.getElementById("nome").value.trim();
       const contato = document.getElementById("contato").value.trim();
@@ -2079,18 +2090,26 @@
       const detalhes = document.getElementById("detalhes").value.trim();
 
       if (!nome || !contato || !tipo || !detalhes) {
-        formMessage.textContent = "Preencha todos os campos obrigatórios.";
+        showFormMessage(
+          "Preencha todos os campos obrigatórios antes de enviar.",
+          "#fca5a5"
+        );
         return;
       }
 
       const originalText = submitBudget.textContent;
+
       submitBudget.disabled = true;
       submitBudget.textContent = "Enviando...";
-      formMessage.textContent = "";
+      showFormMessage("Enviando sua solicitação...", "#c084fc");
 
+      /*
+       * Os nomes das colunas abaixo precisam existir na tabela
+       * public.orcamentos do seu projeto Supabase.
+       */
       const payload = {
-        nome,
-        contato,
+        nome: nome,
+        contato: contato,
         servico: plano ? `${tipo} — ${plano}` : tipo,
         descricao: detalhes,
         prazo: "A combinar",
@@ -2099,32 +2118,70 @@
       };
 
       try {
-        const response = await fetch(`${CONFIG.supabaseUrl}/rest/v1/orcamentos`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "apikey": CONFIG.publishableKey,
-            "Authorization": `Bearer ${CONFIG.publishableKey}`,
-            "Prefer": "return=minimal"
-          },
-          body: JSON.stringify(payload)
-        });
+        const response = await fetch(
+          `${CONFIG.supabaseUrl}/rest/v1/orcamentos`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "apikey": CONFIG.publishableKey,
+              "Prefer": "return=minimal"
+            },
+            body: JSON.stringify(payload)
+          }
+        );
 
         if (!response.ok) {
           const detail = await response.text();
-          console.error("Erro ao enviar orçamento:", response.status, detail);
-          throw new Error("Não foi possível registrar o orçamento.");
+
+          console.error(
+            "Erro ao salvar orçamento no Supabase:",
+            response.status,
+            detail
+          );
+
+          if (response.status === 401 || response.status === 403) {
+            throw new Error(
+              "O banco recusou o acesso. É necessário conferir as permissões da tabela orcamentos no Supabase."
+            );
+          }
+
+          if (response.status === 404) {
+            throw new Error(
+              "A tabela orcamentos não foi encontrada. Confira o nome da tabela no Supabase."
+            );
+          }
+
+          if (response.status === 400 || response.status === 422) {
+            throw new Error(
+              "Os dados foram recusados pelo banco. Confira os nomes das colunas e os valores permitidos na tabela orcamentos."
+            );
+          }
+
+          throw new Error(
+            `O Supabase recusou a solicitação (HTTP ${response.status}). Tente novamente.`
+          );
         }
 
-        formMessage.textContent = "Solicitação enviada! Obrigado por entrar em contato com a VELTRONIX.";
-        formMessage.style.color = "#86efac";
+        /*
+         * Só mostra sucesso quando o Supabase responde com sucesso.
+         */
+        showFormMessage(
+          "Solicitação enviada com sucesso! Obrigado por entrar em contato com a VELTRONIX.",
+          "#86efac"
+        );
+
         budgetForm.reset();
 
       } catch (error) {
-        console.error(error);
-        formMessage.textContent =
-          "Não foi possível enviar agora. Verifique a conexão e tente novamente. Se persistir, será necessário conferir as permissões do Supabase.";
-        formMessage.style.color = "#fca5a5";
+        console.error("Falha no envio do orçamento:", error);
+
+        showFormMessage(
+          error.message ||
+          "Não foi possível enviar agora. Verifique a conexão e tente novamente.",
+          "#fca5a5"
+        );
+
       } finally {
         submitBudget.disabled = false;
         submitBudget.textContent = originalText;
@@ -2287,7 +2344,9 @@
 
         if (!response.ok) {
           console.error("Erro do assistente:", response.status, data);
-          throw new Error(data.error || data.message || "Falha ao consultar o assistente.");
+          throw new Error(
+            data.error || data.message || "Falha ao consultar o assistente."
+          );
         }
 
         const answer = cleanAssistantText(
@@ -2305,9 +2364,11 @@
 
       } catch (error) {
         console.error("Falha no chatbot:", error);
-        const errorMessage =
-          "Não consegui obter uma resposta agora. Tente novamente em instantes.";
-        addMessage("assistant", errorMessage);
+
+        addMessage(
+          "assistant",
+          "Não consegui obter uma resposta agora. Tente novamente em instantes."
+        );
 
       } finally {
         requestInProgress = false;
