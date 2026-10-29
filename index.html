@@ -1713,10 +1713,31 @@
                 </select>
               </div>
 
+              <div class="field">
+                <label for="manutencao">Deseja manutenção após o primeiro mês grátis? *</label>
+                <select id="manutencao" name="manutencao" required>
+                  <option value="">Selecione</option>
+                  <option value="Sim, quero continuar com a manutenção após o primeiro mês grátis">Sim, quero continuar após o primeiro mês grátis</option>
+                  <option value="Não, por enquanto não quero manutenção após o primeiro mês grátis">Não, obrigado</option>
+                  <option value="Quero conversar sobre a manutenção">Quero conversar sobre isso</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="pagamento">Forma de pagamento *</label>
+                <select id="pagamento" name="pagamento" required>
+                  <option value="">Selecione</option>
+                  <option value="PIX">PIX</option>
+                  <option value="Cartão">Cartão</option>
+                  <option value="Transferência bancária">Transferência bancária</option>
+                  <option value="Quero combinar a forma de pagamento pelo WhatsApp">Quero combinar pelo WhatsApp</option>
+                </select>
+              </div>
+
               <div class="field full">
-                <label for="detalhes">Conte sobre seu projeto *</label>
+                <label for="detalhes">Conte sobre seu projeto / observações *</label>
                 <textarea id="detalhes" name="detalhes" required maxlength="4000"
-                          placeholder="Qual é o seu negócio? O que você gostaria de apresentar no site?"></textarea>
+                          placeholder="Qual é o seu negócio? O que você gostaria de apresentar no site? Conte também suas observações."></textarea>
               </div>
             </div>
 
@@ -1811,7 +1832,7 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    /* FORMULÁRIO DE ORÇAMENTO — WHATSAPP PRIORITÁRIO + SALVAMENTO OPCIONAL */
+    /* FORMULÁRIO DE ORÇAMENTO — FINALIZAÇÃO DIRETA PELO WHATSAPP */
     const budgetForm = document.getElementById("budgetForm");
     const formMessage = document.getElementById("formMessage");
     const submitBudget = document.getElementById("submitBudget");
@@ -1822,118 +1843,55 @@
       formMessage.style.color = color;
     }
 
-    budgetForm.addEventListener("submit", event => {
+    budgetForm.addEventListener("submit", function (event) {
       event.preventDefault();
-
-      if (submitBudget.disabled) return;
 
       const nome = document.getElementById("nome").value.trim();
       const contato = document.getElementById("contato").value.trim();
       const tipo = document.getElementById("tipo").value;
       const plano = document.getElementById("plano").value;
+      const manutencao = document.getElementById("manutencao").value;
+      const pagamento = document.getElementById("pagamento").value;
       const detalhes = document.getElementById("detalhes").value.trim();
 
-      if (!nome || !contato || !tipo || !detalhes) {
-        showFormMessage(
-          "Preencha todos os campos obrigatórios antes de enviar.",
-          "#fca5a5"
-        );
+      if (!nome || !contato || !tipo || !manutencao || !pagamento || !detalhes) {
+        showFormMessage("Preencha todos os campos obrigatórios para continuar.", "#fca5a5");
         return;
       }
 
       const mensagemWhatsApp = [
         "Olá! Vim pelo site da VELTRONIX e quero finalizar meu orçamento.",
         "",
+        "*DADOS DO CLIENTE*",
         `Nome: ${nome}`,
         `Contato: ${contato}`,
-        `Tipo de projeto: ${tipo}`,
-        `Plano: ${plano || "Ainda não definido"}`,
         "",
-        "Detalhes do projeto:",
-        detalhes
+        "*ORÇAMENTO DO SITE*",
+        `Tipo de site: ${tipo}`,
+        `Plano escolhido: ${plano || "Ainda não escolhi um plano"}`,
+        "",
+        "*MANUTENÇÃO*",
+        "Primeiro mês: GRÁTIS.",
+        `Após o primeiro mês: ${manutencao}`,
+        "",
+        "*FORMA DE PAGAMENTO*",
+        pagamento,
+        "",
+        "*OBSERVAÇÕES DO PROJETO*",
+        detalhes,
+        "",
+        "Aguardo o atendimento para combinar os próximos passos."
       ].join("\n");
 
-      const linkWhatsApp =
-        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagemWhatsApp)}`;
+      const linkWhatsApp = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagemWhatsApp)}`;
 
-      const originalText = submitBudget.textContent;
+      showFormMessage("Abrindo seu WhatsApp com todos os dados do orçamento...", "#86efac");
       submitBudget.disabled = true;
       submitBudget.textContent = "Abrindo WhatsApp...";
-      showFormMessage(
-        "Preparando sua conversa no WhatsApp...",
-        "#c084fc"
-      );
 
-      /*
-       * O WhatsApp é aberto imediatamente durante o clique do cliente.
-       * Assim, uma falha no Supabase não impede a finalização do orçamento.
-       */
-      const whatsappWindow = window.open(linkWhatsApp, "_blank");
-
-      if (!whatsappWindow) {
-        /*
-         * Alguns navegadores bloqueiam novas abas. Nesse caso, abre o
-         * WhatsApp na própria aba para o cliente não ficar sem atendimento.
-         */
-        window.location.href = linkWhatsApp;
-      }
-
-      /*
-       * O cadastro no Supabase continua sendo tentado em segundo plano.
-       * Ele é opcional para o atendimento: erro no banco não bloqueia o WhatsApp.
-       */
-      const payload = {
-        nome,
-        contato,
-        servico: plano ? `${tipo} — ${plano}` : tipo,
-        descricao: detalhes,
-        prazo: "A combinar",
-        valor: null,
-        status: "recebido"
-      };
-
-      fetch(`${CONFIG.supabaseUrl}/rest/v1/orcamentos`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": CONFIG.publishableKey,
-          "Authorization": `Bearer ${CONFIG.publishableKey}`,
-          "Prefer": "return=minimal"
-        },
-        body: JSON.stringify(payload),
-        keepalive: true
-      })
-        .then(async response => {
-          if (!response.ok) {
-            const detail = await response.text();
-            console.warn(
-              "O WhatsApp foi aberto, mas o Supabase não salvou o orçamento:",
-              response.status,
-              detail
-            );
-            return false;
-          }
-
-          return true;
-        })
-        .catch(error => {
-          console.warn(
-            "O WhatsApp foi aberto. O salvamento opcional no Supabase falhou:",
-            error
-          );
-          return false;
-        })
-        .finally(() => {
-          submitBudget.disabled = false;
-          submitBudget.textContent = originalText;
-        });
-
-      showFormMessage(
-        "WhatsApp aberto! Envie a mensagem que já está preparada para finalizar seu orçamento.",
-        "#86efac"
-      );
-
-      budgetForm.reset();
+      // Redireciona imediatamente no mesmo separador; não depende do Supabase,
+      // de uma nova janela ou de uma resposta de servidor.
+      window.location.assign(linkWhatsApp);
     });
 
     /* BOTÕES DOS PLANOS */
