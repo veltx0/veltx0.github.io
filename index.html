@@ -2068,10 +2068,11 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    /* FORMULÁRIO DE ORÇAMENTO — SUPABASE */
+    /* FORMULÁRIO DE ORÇAMENTO — SUPABASE + WHATSAPP */
     const budgetForm = document.getElementById("budgetForm");
     const formMessage = document.getElementById("formMessage");
     const submitBudget = document.getElementById("submitBudget");
+    const WHATSAPP_NUMBER = "5521974994201";
 
     function showFormMessage(message, color) {
       formMessage.textContent = message;
@@ -2098,18 +2099,15 @@
       }
 
       const originalText = submitBudget.textContent;
+      let whatsappWindow = null;
 
       submitBudget.disabled = true;
-      submitBudget.textContent = "Enviando...";
-      showFormMessage("Enviando sua solicitação...", "#c084fc");
+      submitBudget.textContent = "Salvando orçamento...";
+      showFormMessage("Salvando sua solicitação no sistema...", "#c084fc");
 
-      /*
-       * Os nomes das colunas abaixo precisam existir na tabela
-       * public.orcamentos do seu projeto Supabase.
-       */
       const payload = {
-        nome: nome,
-        contato: contato,
+        nome,
+        contato,
         servico: plano ? `${tipo} — ${plano}` : tipo,
         descricao: detalhes,
         prazo: "A combinar",
@@ -2118,6 +2116,12 @@
       };
 
       try {
+        /*
+         * Preabre a aba durante o clique do usuário para reduzir a chance
+         * de o navegador bloquear o WhatsApp após a resposta do Supabase.
+         */
+        whatsappWindow = window.open("about:blank", "_blank");
+
         const response = await fetch(
           `${CONFIG.supabaseUrl}/rest/v1/orcamentos`,
           {
@@ -2125,6 +2129,7 @@
             headers: {
               "Content-Type": "application/json",
               "apikey": CONFIG.publishableKey,
+              "Authorization": `Bearer ${CONFIG.publishableKey}`,
               "Prefer": "return=minimal"
             },
             body: JSON.stringify(payload)
@@ -2133,7 +2138,6 @@
 
         if (!response.ok) {
           const detail = await response.text();
-
           console.error(
             "Erro ao salvar orçamento no Supabase:",
             response.status,
@@ -2142,7 +2146,7 @@
 
           if (response.status === 401 || response.status === 403) {
             throw new Error(
-              "O banco recusou o acesso. É necessário conferir as permissões da tabela orcamentos no Supabase."
+              "O banco recusou o acesso. Confira as permissões de inserção da tabela orcamentos no Supabase."
             );
           }
 
@@ -2154,31 +2158,56 @@
 
           if (response.status === 400 || response.status === 422) {
             throw new Error(
-              "Os dados foram recusados pelo banco. Confira os nomes das colunas e os valores permitidos na tabela orcamentos."
+              "O banco recusou os dados. Confira as colunas e os valores permitidos na tabela orcamentos."
             );
           }
 
           throw new Error(
-            `O Supabase recusou a solicitação (HTTP ${response.status}). Tente novamente.`
+            `Não foi possível salvar o orçamento (HTTP ${response.status}). Tente novamente.`
           );
         }
 
-        /*
-         * Só mostra sucesso quando o Supabase responde com sucesso.
-         */
+        /* Só prepara a finalização depois da confirmação do Supabase. */
+        const mensagemWhatsApp = [
+          "Olá! Vim pelo site da VELTRONIX e quero finalizar meu orçamento.",
+          "",
+          `Nome: ${nome}`,
+          `Contato: ${contato}`,
+          `Tipo de projeto: ${tipo}`,
+          `Plano: ${plano || "Ainda não definido"}`,
+          "",
+          "Detalhes do projeto:",
+          detalhes
+        ].join("\n");
+
+        const linkWhatsApp =
+          `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagemWhatsApp)}`;
+
         showFormMessage(
-          "Solicitação enviada com sucesso! Obrigado por entrar em contato com a VELTRONIX.",
+          "Orçamento salvo! Abrindo o WhatsApp para finalizar...",
           "#86efac"
         );
+
+        if (whatsappWindow && !whatsappWindow.closed) {
+          whatsappWindow.location.href = linkWhatsApp;
+        } else {
+          /* Fallback caso o navegador bloqueie a nova aba. */
+          window.location.href = linkWhatsApp;
+          return;
+        }
 
         budgetForm.reset();
 
       } catch (error) {
         console.error("Falha no envio do orçamento:", error);
 
+        if (whatsappWindow && !whatsappWindow.closed) {
+          whatsappWindow.close();
+        }
+
         showFormMessage(
           error.message ||
-          "Não foi possível enviar agora. Verifique a conexão e tente novamente.",
+            "Não foi possível salvar agora. Verifique a conexão e tente novamente.",
           "#fca5a5"
         );
 
