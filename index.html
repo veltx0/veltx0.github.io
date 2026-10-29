@@ -1684,8 +1684,8 @@
               </div>
 
               <div class="field">
-                <label for="contato">E-mail ou telefone *</label>
-                <input id="contato" name="contato" required maxlength="180"
+                <label for="contatoCliente">E-mail ou telefone *</label>
+                <input id="contatoCliente" name="contato" required maxlength="180"
                        autocomplete="email" placeholder="Como podemos responder?">
               </div>
 
@@ -1777,6 +1777,85 @@
   <script>
     "use strict";
 
+    /* FORMULÁRIO DE ORÇAMENTO — WHATSAPP
+       Registrado primeiro para não depender do menu, relógio ou outras funções. */
+    const budgetForm = document.getElementById("budgetForm");
+    const formMessage = document.getElementById("formMessage");
+    const submitBudget = document.getElementById("submitBudget");
+    const WHATSAPP_NUMBER = "5521974994201";
+    let isSendingBudget = false;
+
+    if (budgetForm) {
+      budgetForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        if (isSendingBudget) return;
+
+        // Confere os campos obrigatórios antes de montar a mensagem.
+        if (!budgetForm.checkValidity()) {
+          budgetForm.reportValidity();
+          return;
+        }
+
+        const nome = document.getElementById("nome").value.trim();
+        const contato = document.getElementById("contatoCliente").value.trim();
+        const tipo = document.getElementById("tipo").value;
+        const plano = document.getElementById("plano").value;
+        const manutencao = document.getElementById("manutencao").value;
+        const pagamento = document.getElementById("pagamento").value;
+        const detalhes = document.getElementById("detalhes").value.trim();
+
+        if (!nome || !contato || !tipo || !manutencao || !pagamento || !detalhes) {
+          if (formMessage) {
+            formMessage.textContent = "Preencha todos os campos obrigatórios para continuar.";
+            formMessage.style.color = "#fca5a5";
+          }
+          return;
+        }
+
+        const mensagemWhatsApp = [
+          "Olá! Vim pelo site da VELTRONIX e quero finalizar meu orçamento.",
+          "",
+          "*DADOS DO CLIENTE*",
+          `Nome: ${nome}`,
+          `Contato: ${contato}`,
+          "",
+          "*ORÇAMENTO DO SITE*",
+          `Tipo de site: ${tipo}`,
+          `Plano escolhido: ${plano || "Ainda não escolhi um plano"}`,
+          "",
+          "*MANUTENÇÃO*",
+          "Primeiro mês: GRÁTIS.",
+          `Após o primeiro mês: ${manutencao}`,
+          "",
+          "*FORMA DE PAGAMENTO*",
+          pagamento,
+          "",
+          "*OBSERVAÇÕES DO PROJETO*",
+          detalhes,
+          "",
+          "Aguardo o atendimento para combinar os próximos passos."
+        ].join("\\n");
+
+        const linkWhatsApp =
+          "https://wa.me/" + WHATSAPP_NUMBER + "?text=" +
+          encodeURIComponent(mensagemWhatsApp);
+
+        isSendingBudget = true;
+        if (formMessage) {
+          formMessage.textContent = "Redirecionando para o WhatsApp...";
+          formMessage.style.color = "#86efac";
+        }
+        if (submitBudget) {
+          submitBudget.disabled = true;
+          submitBudget.textContent = "Abrindo WhatsApp...";
+        }
+
+        // Abre o link diretamente a partir do toque do usuário.
+        window.location.href = linkWhatsApp;
+      });
+    }
+
     /* CONFIGURAÇÕES */
     const CONFIG = {
       supabaseUrl: "https://swgrurgztdcyhtrjpotc.supabase.co",
@@ -1831,68 +1910,6 @@
     setInterval(updateBusinessStatus, 30000);
 
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    /* FORMULÁRIO DE ORÇAMENTO — FINALIZAÇÃO DIRETA PELO WHATSAPP */
-    const budgetForm = document.getElementById("budgetForm");
-    const formMessage = document.getElementById("formMessage");
-    const submitBudget = document.getElementById("submitBudget");
-    const WHATSAPP_NUMBER = "5521974994201";
-
-    function showFormMessage(message, color) {
-      formMessage.textContent = message;
-      formMessage.style.color = color;
-    }
-
-    budgetForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      const nome = document.getElementById("nome").value.trim();
-      const contato = document.getElementById("contato").value.trim();
-      const tipo = document.getElementById("tipo").value;
-      const plano = document.getElementById("plano").value;
-      const manutencao = document.getElementById("manutencao").value;
-      const pagamento = document.getElementById("pagamento").value;
-      const detalhes = document.getElementById("detalhes").value.trim();
-
-      if (!nome || !contato || !tipo || !manutencao || !pagamento || !detalhes) {
-        showFormMessage("Preencha todos os campos obrigatórios para continuar.", "#fca5a5");
-        return;
-      }
-
-      const mensagemWhatsApp = [
-        "Olá! Vim pelo site da VELTRONIX e quero finalizar meu orçamento.",
-        "",
-        "*DADOS DO CLIENTE*",
-        `Nome: ${nome}`,
-        `Contato: ${contato}`,
-        "",
-        "*ORÇAMENTO DO SITE*",
-        `Tipo de site: ${tipo}`,
-        `Plano escolhido: ${plano || "Ainda não escolhi um plano"}`,
-        "",
-        "*MANUTENÇÃO*",
-        "Primeiro mês: GRÁTIS.",
-        `Após o primeiro mês: ${manutencao}`,
-        "",
-        "*FORMA DE PAGAMENTO*",
-        pagamento,
-        "",
-        "*OBSERVAÇÕES DO PROJETO*",
-        detalhes,
-        "",
-        "Aguardo o atendimento para combinar os próximos passos."
-      ].join("\n");
-
-      const linkWhatsApp = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagemWhatsApp)}`;
-
-      showFormMessage("Abrindo seu WhatsApp com todos os dados do orçamento...", "#86efac");
-      submitBudget.disabled = true;
-      submitBudget.textContent = "Abrindo WhatsApp...";
-
-      // Redireciona imediatamente no mesmo separador; não depende do Supabase,
-      // de uma nova janela ou de uma resposta de servidor.
-      window.location.assign(linkWhatsApp);
-    });
 
     /* BOTÕES DOS PLANOS */
     document.querySelectorAll(".choose-plan").forEach(button => {
