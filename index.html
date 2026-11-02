@@ -1814,28 +1814,39 @@
         }
 
         const mensagemWhatsApp = [
-          "Olá! Vim pelo site da VELTRONIX e quero finalizar meu orçamento.",
+          "🚀 *NOVA SOLICITAÇÃO DE ORÇAMENTO — VELTRONIX*",
           "",
-          "*DADOS DO CLIENTE*",
-          `Nome: ${nome}`,
-          `Contato: ${contato}`,
+          "Olá! Vim pelo site oficial da VELTRONIX e gostaria de finalizar meu orçamento.",
           "",
-          "*ORÇAMENTO DO SITE*",
-          `Tipo de site: ${tipo}`,
-          `Plano escolhido: ${plano || "Ainda não escolhi um plano"}`,
+          "━━━━━━━━━━━━━━━━━━",
+          "👤 *DADOS DO CLIENTE*",
+          `• Nome: ${nome}`,
+          `• Contato: ${contato}`,
           "",
-          "*MANUTENÇÃO*",
-          "Primeiro mês: GRÁTIS.",
-          `Após o primeiro mês: ${manutencao}`,
+          "━━━━━━━━━━━━━━━━━━",
+          "💻 *DETALHES DO PROJETO*",
+          `• Tipo de site: ${tipo}`,
+          `• Plano escolhido: ${plano || "Ainda não escolhi um plano"}`,
           "",
-          "*FORMA DE PAGAMENTO*",
-          pagamento,
+          "━━━━━━━━━━━━━━━━━━",
+          "🛠️ *MANUTENÇÃO DO SITE*",
+          "• Primeiro mês: GRATUITO",
+          `• Após o primeiro mês: ${manutencao}`,
           "",
-          "*OBSERVAÇÕES DO PROJETO*",
+          "━━━━━━━━━━━━━━━━━━",
+          "💳 *FORMA DE PAGAMENTO*",
+          `• ${pagamento}`,
+          "",
+          "━━━━━━━━━━━━━━━━━━",
+          "📝 *OBSERVAÇÕES DO PROJETO*",
           detalhes,
           "",
-          "Aguardo o atendimento para combinar os próximos passos."
-        ].join("\\n");
+          "━━━━━━━━━━━━━━━━━━",
+          "📲 *PRÓXIMOS PASSOS*",
+          "Aguardo o atendimento da equipe VELTRONIX para esclarecer possíveis dúvidas, combinar os detalhes e dar continuidade ao projeto.",
+          "",
+          "💜 *VELTRONIX — Tecnologia que impulsiona negócios.*"
+        ].join("\n");
 
         const linkWhatsApp =
           "https://wa.me/" + WHATSAPP_NUMBER + "?text=" +
