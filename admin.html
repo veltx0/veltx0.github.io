@@ -4,84 +4,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#08060d">
+<meta name="theme-color" content="#08090b">
 <meta name="description" content="Painel administrativo da VELTRONIX">
 <title>Painel Administrativo | VELTRONIX</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root {
-  --bg:#08060d; --panel:#110d19; --purple:#b65cff;
-  --purple-dark:#7624bd; --border:#30213e; --text:#fff;
-  --muted:#aaa2b5; --success:#5ee6a8; --warning:#ffd166;
+ :root {
+  --bg:#08090b;
+  --panel:#111317;
+  --panel2:#191d22;
+  --orange:#ff6a00;
+  --orange2:#ff8a24;
+  --silver:#c5ccd3;
+  --border:#30363d;
+  --text:#f5f6f7;
+  --muted:#a2a9b1;
+  --success:#5ee6a8;
+  --warning:#ffd166;
   --danger:#ff758f;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 body{
-  background:radial-gradient(ellipse at top,#171026 0%,var(--bg) 55%);
+  background:radial-gradient(ellipse at top,#21150d 0%,#0d0e10 42%,var(--bg) 78%);
   color:var(--text);font-family:Arial,sans-serif;min-height:100vh
 }
 button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-button:disabled{opacity:.5;cursor:wait}
+button{cursor:pointer;transition:filter .2s,transform .2s,border-color .2s}
+button:disabled{opacity:.5;cursor:wait;transform:none}
 header{
-  padding:20px 4%;border-bottom:1px solid #282033;
-  display:flex;justify-content:space-between;align-items:center;
-  gap:15px;background:#08060dee;flex-wrap:wrap
+  position:sticky;top:0;z-index:20;padding:18px 4%;
+  border-bottom:1px solid #292d32;display:flex;justify-content:space-between;
+  align-items:center;gap:15px;background:#08090bf2;backdrop-filter:blur(14px);flex-wrap:wrap
 }
 .brand{font-size:25px;font-weight:900;letter-spacing:-1px}
-.brand span{color:var(--purple)}
-.header-label{font-size:12px;letter-spacing:2px;color:var(--muted)}
+.brand span{color:var(--orange)}
+.header-label{font-size:11px;letter-spacing:2px;color:var(--silver);font-weight:700}
 .container{width:min(1200px,94%);margin:30px auto}
-h1{font-size:28px;margin-bottom:9px}
+h1{font-size:28px;margin-bottom:9px;letter-spacing:-.7px}
 h2{font-size:20px;margin-bottom:14px}
 h3{font-size:17px}
 p{overflow-wrap:anywhere}
 .muted{color:var(--muted);line-height:1.6}
 .card{
-  background:linear-gradient(145deg,#191124f7,#0d0913fa);
-  border:1px solid var(--border);border-radius:15px;
-  padding:21px;margin:18px 0
+  background:linear-gradient(145deg,#171a1ef7,#101215fa);
+  border:1px solid var(--border);border-radius:16px;
+  padding:21px;margin:18px 0;box-shadow:0 12px 34px #00000024
 }
-label{display:block;color:#d6c8e2;font-size:13px;margin:10px 0 6px}
+label{display:block;color:var(--silver);font-size:13px;margin:10px 0 6px;font-weight:600}
 input,select,textarea{
-  width:100%;padding:12px;border:1px solid #42304f;
-  border-radius:9px;background:#09070e;color:white;margin-bottom:9px
+  width:100%;padding:12px 13px;border:1px solid #3a4149;
+  border-radius:9px;background:#0b0d10;color:white;margin-bottom:9px;outline:none
 }
+input:focus,select:focus,textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px #ff6a0022}
 textarea{min-height:90px;resize:vertical}
 button{
   border:1px solid transparent;padding:11px 15px;border-radius:9px;
-  color:white;font-weight:bold;background:linear-gradient(100deg,var(--purple-dark),var(--purple))
+  color:#fff;font-weight:bold;background:linear-gradient(100deg,var(--orange),var(--orange2))
 }
-button:hover{filter:brightness(1.12)}
-.secondary{background:#30213d;border-color:#493258}
+button:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.secondary{background:#252a30;border-color:#414850;color:var(--silver)}
 .green{background:#123d30;border-color:#1d664c;color:#8af0bb}
 .red{background:#451d2b;border-color:#6e2b40}
 .login{width:min(430px,92%);margin:65px auto}
+.login .card{border-top:3px solid var(--orange)}
 .hidden{display:none!important}
 .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.stat{margin:0}
-.stat strong{display:block;font-size:32px;color:#bd73ff;margin:12px 0 5px}
+.stat{margin:0;position:relative;overflow:hidden}
+.stat:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange)}
+.stat strong{display:block;font-size:32px;color:var(--orange2);margin:12px 0 5px}
 .stat small{color:var(--muted);line-height:1.5}
 .toolbar{display:grid;grid-template-columns:2fr 1fr;gap:12px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .actions button{flex:1}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}
-.tabs button.active{outline:2px solid #d6a7ff}
+.tabs button{background:#1b1f24;border:1px solid #343b43;color:var(--silver)}
+.tabs button.active{background:linear-gradient(100deg,var(--orange),var(--orange2));color:#fff;border-color:var(--orange);box-shadow:0 5px 18px #ff6a002c}
 .item{
-  background:#0c0911;border:1px solid #352443;border-radius:12px;
+  background:#0d1013;border:1px solid #343b42;border-radius:12px;
   padding:17px;margin-top:13px;overflow-wrap:anywhere
 }
 .item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
-.item h3{color:#d1a1ff;margin-bottom:8px}
-.item p{line-height:1.75;color:#d5d0dc}
-.pill{display:inline-block;padding:6px 9px;border-radius:20px;background:#352443;color:#e5c8ff;font-size:12px}
+.item h3{color:var(--orange2);margin-bottom:8px}
+.item p{line-height:1.75;color:#d5d9dd}
+.pill{display:inline-block;padding:6px 9px;border-radius:20px;background:#392312;color:#ffd0a8;font-size:12px;font-weight:700}
 .pill[data-status="Finalizado"],.pill[data-status="Entregue"],.pill[data-status="Aprovado"]{background:#123d30;color:var(--success)}
 .pill[data-status="Cancelado"],.pill[data-status="Recusado"]{background:#451d2b;color:#ff9caf}
 .pill[data-status="Em negociação"],.pill[data-status="Em análise"]{background:#44351a;color:var(--warning)}
-.empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed #42304f;border-radius:10px;margin-top:12px}
-.notice{margin-top:12px;color:#d1a1ff;line-height:1.6;overflow-wrap:anywhere}
-#loginStatus{margin-top:12px;color:#d1a1ff;line-height:1.6}
+.empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed #454c54;border-radius:10px;margin-top:12px}
+.notice{margin-top:12px;color:var(--orange2);line-height:1.6;overflow-wrap:anywhere}
+#loginStatus{margin-top:12px;color:var(--orange2);line-height:1.6}
+#userEmail{color:var(--silver);font-weight:700}
+hr{opacity:.55}
 @media(max-width:700px){
  .container{margin:20px auto}h1{font-size:24px}
  .stats{grid-template-columns:1fr 1fr}
@@ -89,6 +104,7 @@ button:hover{filter:brightness(1.12)}
  .toolbar,.grid2{grid-template-columns:1fr}
  .card{padding:16px}.stat strong{font-size:27px}
  .actions{flex-direction:column}.actions button{width:100%}
+ header{padding:16px 4%}.header-label{font-size:10px}
 }
 </style>
 </head>
@@ -118,7 +134,7 @@ button:hover{filter:brightness(1.12)}
   <p class="muted">Conectado como <span id="userEmail"></span></p>
 
   <div class="actions">
-    <button id="refreshButton">Atualizar dados</button>
+    <button id="refreshButton">Atualizar painel</button>
     <button id="logoutButton" class="secondary">Sair da conta</button>
   </div>
 
@@ -229,7 +245,7 @@ button:hover{filter:brightness(1.12)}
     </form>
     <p id="projectMessage" class="notice" role="status"></p>
 
-    <hr style="border-color:#30213e;margin:25px 0">
+    <hr style="border-color:#30363d;margin:25px 0">
     <h2>Projetos cadastrados</h2>
     <div class="toolbar">
       <div><label for="projectSearch">Buscar projeto</label><input id="projectSearch" type="search" placeholder="Nome ou descrição"></div>
