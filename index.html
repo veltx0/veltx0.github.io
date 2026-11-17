@@ -105,7 +105,9 @@ h1,h2,h3,.brand-name{font-family:"Space Grotesk",sans-serif;line-height:1.12;let
 .alt-section{background:#0c0f12;border-block:1px solid rgba(197,204,211,.07)}
 .portfolio-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:38px}
 .project-card{overflow:hidden;background:#12161a;border:1px solid var(--border);border-radius:20px}
-.project-preview{min-height:230px;padding:23px;display:flex;flex-direction:column;justify-content:space-between;background:radial-gradient(ellipse at 80% 20%,rgba(255,106,0,.2),transparent 55%),linear-gradient(140deg,#20252a,#0b0d10);border-bottom:1px solid var(--border)}
+.project-preview{position:relative;min-height:230px;height:260px;padding:0;display:flex;flex-direction:column;justify-content:flex-start;overflow:hidden;background:radial-gradient(ellipse at 80% 20%,rgba(255,106,0,.2),transparent 55%),linear-gradient(140deg,#20252a,#0b0d10);border-bottom:1px solid var(--border)}
+.project-preview img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+.project-preview .project-type{position:absolute;top:16px;left:16px;z-index:1;box-shadow:0 5px 18px rgba(0,0,0,.35)}
 .project-type{width:fit-content;padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:#101317;color:#ffc08e;font-size:.73rem}
 .preview-window{border:1px solid rgba(197,204,211,.2);background:rgba(8,9,11,.8);border-radius:12px;overflow:hidden}
 .window-bar{padding:9px 12px;display:flex;gap:5px;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -346,14 +348,7 @@ footer{padding:35px 22px;background:#07090b;border-top:1px solid rgba(197,204,21
 <article class="project-card">
 <div class="project-preview">
 <span class="project-type">Site para negócio</span>
-<div class="preview-window">
-<div class="window-bar"><i></i><i></i><i></i></div>
-<div class="window-content">
-<div class="window-brand">VF FILHOS LANCHES</div>
-<div class="window-title">Seu pedido, do seu jeito.</div>
-<div class="window-line"></div><div class="window-line short"></div>
-</div>
-</div>
+<img src="portofolio_vf_filhos.jpeg" alt="Captura de tela do site VF FILHOS LANCHES" loading="lazy">
 </div>
 <div class="project-info">
 <h3>VF FILHOS LANCHES</h3>
@@ -364,14 +359,7 @@ footer{padding:35px 22px;background:#07090b;border-top:1px solid rgba(197,204,21
 <article class="project-card">
 <div class="project-preview">
 <span class="project-type">Gestão digital</span>
-<div class="preview-window">
-<div class="window-bar"><i></i><i></i><i></i></div>
-<div class="window-content">
-<div class="window-brand">VELTRONIX FLOW</div>
-<div class="window-title">Organização inteligente.</div>
-<div class="window-line"></div><div class="window-line short"></div>
-</div>
-</div>
+<img src="portofolio-veltronix_flow.jpeg" alt="Captura de tela do VELTRONIX FLOW" loading="lazy">
 </div>
 <div class="project-info">
 <h3>VELTRONIX FLOW</h3>
